@@ -910,7 +910,7 @@ this.CounterWidget = function(_HandlerFn_) {
         {
           Main_$this.pushAttribute(10, UI_$this.v10);
           Main_$this.pushAttribute$_(11, UI_$this.v11);
-          Main_$this.roundRect(((pos0 << 16) | pos1), ((size0 << 16) | size1));
+          Main_$this.oval(((pos0 << 16) | pos1), ((size0 << 16) | size1));
           Main_$this.saveContext();
           {
             Main_$this.pushAttribute(10, UI_$this.v8);
@@ -1015,7 +1015,7 @@ this.CounterWidget = function(_HandlerFn_) {
     this.v6 = [120, 90];
     this.v7 = CounterWidget$this.incButton;
     this.v8 = Main_$this.COLOR_BLACK;
-    this.v9 = Main_$this.roundRect;
+    this.v9 = Main_$this.oval;
     this.v10 = 16777215;
     this.v11 = ((80) / 100);
     this.v1.setUI_();
