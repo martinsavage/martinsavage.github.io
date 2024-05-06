@@ -5965,6 +5965,21 @@ this.ui_ = null;
 this.setUI_ = function() {
   Main_$this.ui_ = new Main_$this.UI_();
 }
+if (!String.prototype.padStart) {
+    String.prototype.padStart = function padStart(targetLength, padString) {
+    targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+    padString = String(padString || ' ');
+    if (this.length > targetLength) {
+        return String(this);
+    } else {
+        targetLength = targetLength - this.length;
+        if (targetLength > padString.length) {
+            padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+        }
+        return padString.slice(0, targetLength) + String(this);
+    }
+}
+};
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -6026,12 +6041,12 @@ this.application = new this.Application((function Lambda_() {
 }));
 this.blocking__Call = null;
 Main_$this.executeEvents_();
-canvas.addEventListener("mousedown", function(ev) {
+canvas.addEventListener("pointerdown", function(ev) {
   var rect = canvas.getBoundingClientRect();
   _onEvent(Main_$this.ui_.layout_, 0, ev.clientX - rect.left, ev.clientY - rect.top, Main_$this.ui_.layout_.size0, Main_$this.ui_.layout_.size1);
   Main_$this.executeEvents_();
   });
-canvas.addEventListener("mouseup", function(ev) {
+canvas.addEventListener("pointerup", function(ev) {
   var rect = canvas.getBoundingClientRect();
   _onEvent(Main_$this.ui_.layout_, 1, ev.clientX - rect.left, ev.clientY - rect.top, Main_$this.ui_.layout_.size0, Main_$this.ui_.layout_.size1);
   Main_$this.executeEvents_();
