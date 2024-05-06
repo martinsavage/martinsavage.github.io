@@ -4448,19 +4448,19 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
     this.v1 = Main_$this.rect;
     this.v2 = ((100) / 100);
     this.v3 = 9925231;
-    this.v4 = "Number of tacos: ";
-    this.v5 = "Guest: ";
-    this.v6 = "Room: ";
+    this.v4 = "Guest: ";
+    this.v5 = "Room: ";
+    this.v6 = "Number of tacos: ";
     this.v7 = "Taco price: ";
     this.v8 = "Total Price: ";
     this.v9 = Main_$this.rect;
     this.v10 = ((100) / 100);
     this.v11 = 11305855;
-    this.v12 = SummaryWidget$this.entry.numTacos;
+    this.v12 = SummaryWidget$this.entry.guestName;
     this.v13 = ((100) / 100);
-    this.v14 = SummaryWidget$this.entry.guestName;
+    this.v14 = SummaryWidget$this.entry.roomNumber;
     this.v15 = ((100) / 100);
-    this.v16 = SummaryWidget$this.entry.roomNumber;
+    this.v16 = SummaryWidget$this.entry.numTacos;
     this.v17 = ((100) / 100);
     this.v18 = SummaryWidget$this.entry.getPrice();
     this.v19 = ((100) / 100);
@@ -5586,7 +5586,7 @@ this.MainScreen = function(_HandlerFn_) {
       return;
     }
   }));
-  this.moreTowelsButton = new Main_$this.ObjectBeforeTextButton(Main_$this.displaySlider, "More towels", (function Lambda_() {
+  this.moreTowelsButton = new Main_$this.ObjectBeforeTextButton(Main_$this.displaySlider, "Late checkout", (function Lambda_() {
     {
       Main_$this.post_((function lambda_() {
         _HandlerFn_(3);
