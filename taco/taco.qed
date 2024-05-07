@@ -158,7 +158,7 @@ String AlphaKeyboardWidget() {
 
 void SpinnerWidget() {
   float angle = 0
-  int numCircles = 11
+  int numCircles = 7
   bool stopped = false
 
   void Circle(int index) {
@@ -171,7 +171,7 @@ void SpinnerWidget() {
   Sprite *sprite = new Sprite()
 
   while (!stopped)
-    angle = sprite.Animate() / 1000 * 2 * 3.14159265
+    angle = sprite.Animate() / 2000 * 2 * 3.14159265
 
   <size: 100; align: 50%
     <out: circles[0];>
@@ -181,10 +181,6 @@ void SpinnerWidget() {
     <out: circles[4];>
     <out: circles[5];>
     <out: circles[6];>
-    <out: circles[7];>
-    <out: circles[8];>
-    <out: circles[9];>
-    <out: circles[10];>
   >
 }
 
@@ -319,7 +315,6 @@ bool GetTransactionEntry(TransactionEntry *entry) {
   int oldIndex = 0
   int paneIndex = 0
   int maxIndex = paneIndex;
-  int paneOpacity = 1
   int[] bounds = [0, 0, 0, 0]
   Yield *triggerExit = new Yield() -> {exitHandler--; return false}
 
@@ -358,32 +353,9 @@ bool GetTransactionEntry(TransactionEntry *entry) {
 
   // switch to new pane using animation on both sliders and panes
   void SetPane(int index) {
-    int[] newBounds = getBounds(["application", "titles"], [index])
-
-    if (paneIndex == index) {
-      bounds = newBounds
-      return
-    }
-
-    paneOpacity = 0;
+    bounds = getBounds(["application", "titles"], [index])
     paneIndex = index
-    int elapsedTime = 0
-    int[] oldBounds = /$[...GetTransactionEntry$this.bounds]$/
-    Sprite *sprite = new Sprite()
-
-    int calcPos(int a, int b, int progress) {return a + (b - a) * progress;}
-
-    sprite.setLimit(150)
-
-    while (paneOpacity < 1) {
-      paneOpacity = sprite.Move();
-      bounds[0] = calcPos(oldBounds[0], newBounds[0], paneOpacity)
-      bounds[2] = calcPos(oldBounds[2], newBounds[2], paneOpacity)
-      bounds[3] = newBounds[3]
-    }
-
     maxIndex = max(maxIndex, paneIndex)
-    oldIndex = paneIndex
     return
   }
 
@@ -391,10 +363,7 @@ bool GetTransactionEntry(TransactionEntry *entry) {
   <out:displaySlider; pos:[bounds[0], -1]; size:[bounds[2], bounds[3] + 1]; color:0xbeb8b0; align:0;>
   <|
     <_ out: titles; expand:[100%, 0]; color: 0x77736e; fontSize:20; tag:"titles";>
-    <
-      <out: oldIndex != paneIndex ? panes[oldIndex] : emptyWidget; opacity: 1 - paneOpacity; expand: 100%;>
-      <out: panes[paneIndex]; opacity: paneOpacity; expand: 100%;>
-    >
+    <out: panes[paneIndex]; expand: 100%;>
   >
 }
 

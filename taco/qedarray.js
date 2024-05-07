@@ -2900,11 +2900,11 @@ this.SpinnerWidget = function(_HandlerFn_) {
       const Layout_$this = this;
       this.paint = function(pos0, pos1, size0$, size1$) {
         {
-          let childSize0 = Layout_$this.u24;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v13;
+          let childSize0 = Layout_$this.u16;
+          let posDiff0 = (size0$ - childSize0) * UI_$this.v9;
           let size0$$ = childSize0;
-          let childSize1 = Layout_$this.u36;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v13;
+          let childSize1 = Layout_$this.u24;
+          let posDiff1 = (size1$ - childSize1) * UI_$this.v9;
           let size1$$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
@@ -2915,10 +2915,6 @@ this.SpinnerWidget = function(_HandlerFn_) {
           _paint(Layout_$this.a5, pos0$, pos1$, size0$$, size1$$);
           _paint(Layout_$this.a6, pos0$, pos1$, size0$$, size1$$);
           _paint(Layout_$this.a7, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a8, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a9, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a10, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a11, pos0$, pos1$, size0$$, size1$$);
         }
       }
       this.onEvent = function(event, pos0, pos1, size0$, size1$) {
@@ -2926,14 +2922,6 @@ this.SpinnerWidget = function(_HandlerFn_) {
         return (flag);
       }
       this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        {
-        }
-        {
-        }
-        {
-        }
-        {
-        }
         {
         }
         {
@@ -2957,57 +2945,37 @@ this.SpinnerWidget = function(_HandlerFn_) {
       this.a5 = _layout(UI_$this.v5);
       this.a6 = _layout(UI_$this.v6);
       this.a7 = _layout(UI_$this.v7);
-      this.a8 = _layout(UI_$this.v8);
-      this.a9 = _layout(UI_$this.v9);
-      this.a10 = _layout(UI_$this.v10);
-      this.a11 = _layout(UI_$this.v11);
-      this.a12 = new QEDExplicitArray(UI_$this.v12, UI_$this.v12);
-      this.u13 = this.a1.size0;
-      this.u14 = this.a2.size0;
-      this.l14 = Main_$this.max(this.u13, this.u14);
-      this.u15 = this.a3.size0;
+      this.a8 = new QEDExplicitArray(UI_$this.v8, UI_$this.v8);
+      this.u9 = this.a1.size0;
+      this.u10 = this.a2.size0;
+      this.l10 = Main_$this.max(this.u9, this.u10);
+      this.u11 = this.a3.size0;
+      this.l11 = Main_$this.max(this.l10, this.u11);
+      this.u12 = this.a4.size0;
+      this.l12 = Main_$this.max(this.l11, this.u12);
+      this.u13 = this.a5.size0;
+      this.l13 = Main_$this.max(this.l12, this.u13);
+      this.u14 = this.a6.size0;
+      this.l14 = Main_$this.max(this.l13, this.u14);
+      this.u15 = this.a7.size0;
       this.l15 = Main_$this.max(this.l14, this.u15);
-      this.u16 = this.a4.size0;
-      this.l16 = Main_$this.max(this.l15, this.u16);
-      this.u17 = this.a5.size0;
-      this.l17 = Main_$this.max(this.l16, this.u17);
-      this.u18 = this.a6.size0;
-      this.l18 = Main_$this.max(this.l17, this.u18);
-      this.u19 = this.a7.size0;
+      this.u16 = this.a8[0];
+      this.u17 = this.a1.size1;
+      this.u18 = this.a2.size1;
+      this.l18 = Main_$this.max(this.u17, this.u18);
+      this.u19 = this.a3.size1;
       this.l19 = Main_$this.max(this.l18, this.u19);
-      this.u20 = this.a8.size0;
+      this.u20 = this.a4.size1;
       this.l20 = Main_$this.max(this.l19, this.u20);
-      this.u21 = this.a9.size0;
+      this.u21 = this.a5.size1;
       this.l21 = Main_$this.max(this.l20, this.u21);
-      this.u22 = this.a10.size0;
+      this.u22 = this.a6.size1;
       this.l22 = Main_$this.max(this.l21, this.u22);
-      this.u23 = this.a11.size0;
+      this.u23 = this.a7.size1;
       this.l23 = Main_$this.max(this.l22, this.u23);
-      this.u24 = this.a12[0];
-      this.u25 = this.a1.size1;
-      this.u26 = this.a2.size1;
-      this.l26 = Main_$this.max(this.u25, this.u26);
-      this.u27 = this.a3.size1;
-      this.l27 = Main_$this.max(this.l26, this.u27);
-      this.u28 = this.a4.size1;
-      this.l28 = Main_$this.max(this.l27, this.u28);
-      this.u29 = this.a5.size1;
-      this.l29 = Main_$this.max(this.l28, this.u29);
-      this.u30 = this.a6.size1;
-      this.l30 = Main_$this.max(this.l29, this.u30);
-      this.u31 = this.a7.size1;
-      this.l31 = Main_$this.max(this.l30, this.u31);
-      this.u32 = this.a8.size1;
-      this.l32 = Main_$this.max(this.l31, this.u32);
-      this.u33 = this.a9.size1;
-      this.l33 = Main_$this.max(this.l32, this.u33);
-      this.u34 = this.a10.size1;
-      this.l34 = Main_$this.max(this.l33, this.u34);
-      this.u35 = this.a11.size1;
-      this.l35 = Main_$this.max(this.l34, this.u35);
-      this.u36 = this.a12[1];
-      this.size0 = this.u24;
-      this.size1 = this.u36;
+      this.u24 = this.a8[1];
+      this.size0 = this.u16;
+      this.size1 = this.u24;
     }
     this.v1 = SpinnerWidget$this.circles[0];
     _setUI(this.v1);
@@ -3023,16 +2991,8 @@ this.SpinnerWidget = function(_HandlerFn_) {
     _setUI(this.v6);
     this.v7 = SpinnerWidget$this.circles[6];
     _setUI(this.v7);
-    this.v8 = SpinnerWidget$this.circles[7];
-    _setUI(this.v8);
-    this.v9 = SpinnerWidget$this.circles[8];
-    _setUI(this.v9);
-    this.v10 = SpinnerWidget$this.circles[9];
-    _setUI(this.v10);
-    this.v11 = SpinnerWidget$this.circles[10];
-    _setUI(this.v11);
-    this.v12 = 100;
-    this.v13 = ((50) / 100);
+    this.v8 = 100;
+    this.v9 = ((50) / 100);
   }
   this.ui_ = null;
   this.setUI_ = function() {
@@ -3040,7 +3000,7 @@ this.SpinnerWidget = function(_HandlerFn_) {
   }
   this.blocking__Call = null;
   this.angle = 0;
-  this.numCircles = 11;
+  this.numCircles = 7;
   this.stopped = false;
   {
     let _d0 = this.numCircles;
@@ -3055,7 +3015,7 @@ this.SpinnerWidget = function(_HandlerFn_) {
       if (!SpinnerWidget$this.stopped) {
         SpinnerWidget$this.blocking__Call = new SpinnerWidget$this.sprite.Animate((function Lambda_(_ret) {
           SpinnerWidget$this.blocking__Call = null;
-          SpinnerWidget$this.angle = _ret / 1000 * 2 * 3.141593;
+          SpinnerWidget$this.angle = _ret / 2000 * 2 * 3.141593;
           while179$_();
         }));
       }
@@ -4662,46 +4622,14 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
   }
   this.SetPane = function(index, _HandlerFn_) {
     this.index = index;
-    const SetPane$this = this;
-    this.calcPos = function(a, b, progress) {
-      return (a + (b - a) * progress);
-    }
     this.blocking__Call$ = null;
-    this.newBounds = Main_$this.getBounds(new QEDExplicitArray("application", "titles"), new QEDExplicitArray(this.index));
-    if (GetTransactionEntry$this.paneIndex === this.index) {
-      GetTransactionEntry$this.bounds = this.newBounds;
-      {
-        Main_$this.post_(_HandlerFn_);
-        return;
-      }
-    }
-    GetTransactionEntry$this.paneOpacity = 0;
+    GetTransactionEntry$this.bounds = Main_$this.getBounds(new QEDExplicitArray("application", "titles"), new QEDExplicitArray(this.index));
     GetTransactionEntry$this.paneIndex = this.index;
-    this.elapsedTime = 0;
-    this.oldBounds = [...GetTransactionEntry$this.bounds];
-    this.sprite = new Main_$this.Sprite((function Lambda_() {
-    }));
-    this.sprite.setLimit(150);
-    (function while281$_() {
-      if (GetTransactionEntry$this.paneOpacity < 1) {
-        SetPane$this.blocking__Call$ = new SetPane$this.sprite.Move((function Lambda_(_ret) {
-          SetPane$this.blocking__Call$ = null;
-          GetTransactionEntry$this.paneOpacity = _ret;
-          GetTransactionEntry$this.bounds[0] = SetPane$this.calcPos(SetPane$this.oldBounds[0], SetPane$this.newBounds[0], GetTransactionEntry$this.paneOpacity);
-          GetTransactionEntry$this.bounds[2] = SetPane$this.calcPos(SetPane$this.oldBounds[2], SetPane$this.newBounds[2], GetTransactionEntry$this.paneOpacity);
-          GetTransactionEntry$this.bounds[3] = SetPane$this.newBounds[3];
-          while281$_();
-        }));
-      }
-      else {
-        GetTransactionEntry$this.maxIndex = Main_$this.max(GetTransactionEntry$this.maxIndex, GetTransactionEntry$this.paneIndex);
-        GetTransactionEntry$this.oldIndex = GetTransactionEntry$this.paneIndex;
-        {
-          Main_$this.post_(_HandlerFn_);
-          return;
-        }
-      }
-    })();
+    GetTransactionEntry$this.maxIndex = Main_$this.max(GetTransactionEntry$this.maxIndex, GetTransactionEntry$this.paneIndex);
+    {
+      Main_$this.post_(_HandlerFn_);
+      return;
+    }
   }
   this.UI_ = function() {
     const UI_$this = this;
@@ -4710,11 +4638,11 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       this.paint = function(pos0, pos1, size0$, size1$) {
         {
           Main_$this.pushAttribute(12, UI_$this.v4);
-          let childSize0 = Layout_$this.u5;
+          let childSize0 = Layout_$this.u4;
           let posDiff0 = (size0$ - childSize0) * UI_$this.v5;
           let size0$$ = childSize0;
           posDiff0 += UI_$this.v2[0];
-          let childSize1 = Layout_$this.u11;
+          let childSize1 = Layout_$this.u8;
           let posDiff1 = (size1$ - childSize1) * UI_$this.v5;
           let size1$$ = childSize1;
           posDiff1 += UI_$this.v2[1];
@@ -4724,34 +4652,27 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
           Main_$this.popAttribute(12);
         }
         {
-          let exp1 = new QEDExplicitArray(UI_$this.v7[1]);
-          let extraSpace1 = size1$ - Layout_$this.l15;
-          if (exp1[0] > 1)
-            extraSpace1 = extraSpace1 / exp1[0];
+          let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
+          exp1[1] = exp1[1] + exp1[0];
+          let extraSpace1 = size1$ - Layout_$this.l10;
+          if (exp1[1] > 1)
+            extraSpace1 = extraSpace1 / exp1[1];
           {
             Main_$this.pushAttribute(12, UI_$this.v8);
             Main_$this.pushAttribute(5, UI_$this.v9);
-            let size1$$ = Layout_$this.u12;
+            let size1$$ = Layout_$this.u9;
             size1$$ = size1$$ + extraSpace1 * UI_$this.v7[1];
             _paint(Layout_$this.a2, pos0, pos1, size0$, size1$$);
             Main_$this.popAttribute(5);
             Main_$this.popAttribute(12);
           }
           {
-            let size1$$ = Layout_$this.l15 - Layout_$this.u12;
-            let posDiff1 = Layout_$this.u12;
+            let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+            let posDiff1 = Layout_$this.u9;
+            size1$$ = size1$$ + extraSpace1 * UI_$this.v12;
             posDiff1 += exp1[0] * extraSpace1;
             let pos1$ = pos1 + posDiff1;
-            {
-              Main_$this.pushAttribute(13, UI_$this.v12);
-              _paint(Layout_$this.a3, pos0, pos1$, size0$, size1$$);
-              Main_$this.popAttribute(13);
-            }
-            {
-              Main_$this.pushAttribute(13, UI_$this.v15);
-              _paint(Layout_$this.a4, pos0, pos1$, size0$, size1$$);
-              Main_$this.popAttribute(13);
-            }
+            _paint(Layout_$this.a3, pos0, pos1$, size0$, size1$$);
           }
         }
       }
@@ -4761,40 +4682,27 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
           flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
           if (flag) {
             {
-              let exp1 = new QEDExplicitArray(UI_$this.v7[1]);
-              let extraSpace1 = size1$ - Layout_$this.l15;
-              if (exp1[0] > 1)
-                extraSpace1 = extraSpace1 / exp1[0];
+              let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
+              exp1[1] = exp1[1] + exp1[0];
+              let extraSpace1 = size1$ - Layout_$this.l10;
+              if (exp1[1] > 1)
+                extraSpace1 = extraSpace1 / exp1[1];
               if ((3 & (1 << event)) !== 0) {
-                let size1$$ = Layout_$this.l15 - Layout_$this.u12;
-                let posDiff1 = Layout_$this.u12;
+                let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+                let posDiff1 = Layout_$this.u9;
+                size1$$ = size1$$ + extraSpace1 * UI_$this.v12;
                 posDiff1 += exp1[0] * extraSpace1;
                 flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
                 if (flag) {
                   pos1 = pos1 - posDiff1;
-                  if ((3 & (1 << event)) !== 0) {
-                    flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
-                    if (flag) {
-                      flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$, size1$$);
-                      if (!flag) {
-                      }
-                    }
-                  }
+                  flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$$);
                   if (!flag) {
-                    if ((3 & (1 << event)) !== 0) {
-                      flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
-                      if (flag) {
-                        flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$$);
-                        if (!flag) {
-                        }
-                      }
-                    }
                   }
                 }
               }
               if (!flag) {
                 if ((3 & (1 << event)) !== 0) {
-                  let size1$$ = Layout_$this.u12;
+                  let size1$$ = Layout_$this.u9;
                   size1$$ = size1$$ + extraSpace1 * UI_$this.v7[1];
                   flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
                   if (flag) {
@@ -4813,12 +4721,13 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       }
       this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
         {
-          let exp1 = new QEDExplicitArray(UI_$this.v7[1]);
-          let extraSpace1 = size1$ - Layout_$this.l15;
-          if (exp1[0] > 1)
-            extraSpace1 = extraSpace1 / exp1[0];
+          let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
+          exp1[1] = exp1[1] + exp1[0];
+          let extraSpace1 = size1$ - Layout_$this.l10;
+          if (exp1[1] > 1)
+            extraSpace1 = extraSpace1 / exp1[1];
           {
-            let size1$$ = Layout_$this.u12;
+            let size1$$ = Layout_$this.u9;
             size1$$ = size1$$ + extraSpace1 * UI_$this.v7[1];
             if (path[level] === UI_$this.v10) {
               level++;
@@ -4829,14 +4738,11 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
             }
           }
           {
-            let size1$$ = Layout_$this.l15 - Layout_$this.u12;
-            let posDiff1 = Layout_$this.u12;
+            let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+            let posDiff1 = Layout_$this.u9;
+            size1$$ = size1$$ + extraSpace1 * UI_$this.v12;
             posDiff1 += exp1[0] * extraSpace1;
             let pos1$ = pos1 + posDiff1;
-            {
-            }
-            {
-            }
           }
         }
         return (new QEDExplicitArray(0, 0, 0, 0));
@@ -4846,23 +4752,18 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       this.a2 = new Main_$this.LayoutArray_(UI_$this.v6, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
       Main_$this.popAttribute(5);
       this.a3 = _layout(UI_$this.v11);
-      this.a4 = _layout(UI_$this.v14);
-      this.u5 = this.a1[0];
-      this.u6 = this.a2.size0;
-      this.u7 = this.a3.size0;
-      this.u8 = this.a4.size0;
-      this.l8 = Main_$this.max(this.u7, this.u8);
-      this.l9 = Main_$this.max(this.u6, this.l8);
-      this.l10 = Main_$this.max(this.u5, this.l9);
-      this.u11 = this.a1[1];
-      this.u12 = this.a2.size1;
-      this.u13 = this.a3.size1;
-      this.u14 = this.a4.size1;
-      this.l14 = Main_$this.max(this.u13, this.u14);
-      this.l15 = this.u12 + this.l14;
-      this.l16 = Main_$this.max(this.u11, this.l15);
-      this.size0 = this.l10;
-      this.size1 = this.l16;
+      this.u4 = this.a1[0];
+      this.u5 = this.a2.size0;
+      this.u6 = this.a3.size0;
+      this.l6 = Main_$this.max(this.u5, this.u6);
+      this.l7 = Main_$this.max(this.u4, this.l6);
+      this.u8 = this.a1[1];
+      this.u9 = this.a2.size1;
+      this.u10 = this.a3.size1;
+      this.l10 = this.u9 + this.u10;
+      this.l11 = Main_$this.max(this.u8, this.l10);
+      this.size0 = this.l7;
+      this.size1 = this.l11;
     }
     this.v1 = Main_$this.displaySlider;
     this.v2 = new QEDExplicitArray(GetTransactionEntry$this.bounds[0], -1);
@@ -4877,14 +4778,9 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
     Main_$this.pushAttribute(5, this.v9);
     Main_$this.uiArray_(this.v6);
     Main_$this.popAttribute(5);
-    this.v11 = GetTransactionEntry$this.oldIndex !== GetTransactionEntry$this.paneIndex ? GetTransactionEntry$this.panes[GetTransactionEntry$this.oldIndex] : Main_$this.emptyWidget;
-    this.v12 = 1 - GetTransactionEntry$this.paneOpacity;
-    this.v13 = ((100) / 100);
+    this.v11 = GetTransactionEntry$this.panes[GetTransactionEntry$this.paneIndex];
+    this.v12 = ((100) / 100);
     _setUI(this.v11);
-    this.v14 = GetTransactionEntry$this.panes[GetTransactionEntry$this.paneIndex];
-    this.v15 = GetTransactionEntry$this.paneOpacity;
-    this.v16 = ((100) / 100);
-    _setUI(this.v14);
   }
   this.ui_ = null;
   this.setUI_ = function() {
@@ -4894,7 +4790,6 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
   this.oldIndex = 0;
   this.paneIndex = 0;
   this.maxIndex = this.paneIndex;
-  this.paneOpacity = 1;
   this.bounds = new QEDExplicitArray(0, 0, 0, 0);
   this.triggerExit = new Main_$this.Yield((function Lambda_(_ret) {
     {
@@ -5643,44 +5538,44 @@ this.Application = function(_HandlerFn_) {
     Application$this.ui_ = new Application$this.UI_();
   }
   this.blocking__Call = null;
-  (function while375$_() {
+  (function while360$_() {
     if (true) {
       Application$this.blocking__Call = new Main_$this.MainScreen((function Lambda_(_ret) {
         Application$this.blocking__Call = null;
         let choice = _ret;
-        new (function W385$_(i376$_) {
-          this.i376$_ = i376$_;
+        new (function W370$_(i361$_) {
+          this.i361$_ = i361$_;
           if (choice === 1) {
             let entry = new Main_$this.TransactionEntry((function Lambda_$() {
             }));
             Application$this.blocking__Call = new Main_$this.GetTransactionEntry(entry, (function Lambda_$(_ret$) {
               Application$this.blocking__Call = null;
-              new (function W382$_(i377$_) {
-                this.i377$_ = i377$_;
+              new (function W367$_(i362$_) {
+                this.i362$_ = i362$_;
                 if (_ret$) {
                   Application$this.blocking__Call = new Main_$this.OrderTacos(entry, (function Lambda_$$(_ret$$) {
                     Application$this.blocking__Call = null;
-                    new (function W380$_(i378$_) {
-                      this.i378$_ = i378$_;
+                    new (function W365$_(i363$_) {
+                      this.i363$_ = i363$_;
                       if (_ret$$)
                         Application$this.blocking__Call = new Main_$this.DisplaySuccess(entry.getTotal(), (function Lambda_$$$() {
                           Application$this.blocking__Call = null;
-                          i378$_();
+                          i363$_();
                         }));
                       else {
                         {
                         }
-                        i378$_();
+                        i363$_();
                       }
-                    })((function c379$_() {
-                      i377$_();
+                    })((function c364$_() {
+                      i362$_();
                     }));
                   }));
                 }
                 else
-                  i377$_();
-              })((function c381$_() {
-                i376$_();
+                  i362$_();
+              })((function c366$_() {
+                i361$_();
               }));
             }));
           }
@@ -5689,10 +5584,10 @@ this.Application = function(_HandlerFn_) {
             }
             else {
             }
-            i376$_();
+            i361$_();
           }
-        })((function c384$_() {
-          while375$_();
+        })((function c369$_() {
+          while360$_();
         }));
       }));
     }
