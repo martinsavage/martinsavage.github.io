@@ -3980,12 +3980,12 @@ this.GuestNameWidget = function(_HandlerFn_) {
       this.size1 = this.l18;
     }
     this.v1 = 25;
-    this.v2 = GuestNameWidget$this.zipCode.length ? GuestNameWidget$this.zipCode : "Enter the family guest name";
+    this.v2 = GuestNameWidget$this.zipCode.length ? GuestNameWidget$this.zipCode : "Enter the guest's family name";
     this.v3 = 30;
     this.v4 = 8229039;
     this.v5 = ((50) / 100);
     this.v6 = Main_$this.roundRect;
-    this.v7 = new QEDExplicitArray(400, 40);
+    this.v7 = new QEDExplicitArray(430, 40);
     this.v8 = 11849722;
     this.v9 = 20;
     this.v10 = ((50) / 100);
