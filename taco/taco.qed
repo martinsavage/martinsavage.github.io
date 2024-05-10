@@ -108,7 +108,7 @@ String NumericKeyboardWidget() {
 
     <out: buttons; align: 50%;>
   }
-  var rows = i::numKeyboardRows.size() new Row(i) ->  {typedText += /$_ret._ret$/; return typedText}
+  var rows = i:|numKeyboardRows.size() new Row(i) ->  {typedText += /$_ret._ret$/; return typedText}
   var lastRow = [
     new KeyButton("Clear") -> {typedText = ""; return typedText},
     new KeyButton("0") -> {typedText += "0"; return typedText},
@@ -116,13 +116,9 @@ String NumericKeyboardWidget() {
   ]
 
   <|
-    <out: rows[0];>
+    <out: rows;>
     <size: 15;>
-    <out: rows[1];>
-    <size: 15;>
-    <out: rows[2];>
-    <size: 15;>
-    <out: lastRow; align: 50%;>
+    <_ out: lastRow; align: 50%;>
   >
 }
 
@@ -135,7 +131,7 @@ String AlphaKeyboardWidget() {
 
     <out: buttons; align: 50%;>
   }
-  var rows = i::alphaKeyboardRows.size() new Row(i) ->  {typedText += /$_ret._ret$/; return typedText}
+  var rows = i:|alphaKeyboardRows.size() new Row(i) ->  {typedText += /$_ret._ret$/; return typedText}
   void SpaceFunc() {<size: [200, 1];>}
   var lastRow = [
     new KeyButton("Clear") -> {typedText = ""; return typedText},
@@ -144,15 +140,9 @@ String AlphaKeyboardWidget() {
   ]
 
   <|
-    <out: rows[0];>
+    <out: rows;>
     <size: 10;>
-    <out: rows[1];>
-    <size: 10;>
-    <out: rows[2];>
-    <size: 10;>
-    <out: rows[3];>
-    <size: 10;>
-    <out: lastRow; align: 50%;>
+    <_ out: lastRow; align: 50%;>
   >
 }
 
@@ -168,19 +158,12 @@ void SpinnerWidget() {
   }
 
   Circle *[]circles = index::numCircles new Circle(index)
-  Sprite *sprite = new Sprite()
 
   while (!stopped)
-    angle = sprite.Animate() / 2000 * 2 * 3.14159265
+    angle = Animation() / 2000 * 2 * 3.14159265
 
   <size: 100; align: 50%
-    <out: circles[0];>
-    <out: circles[1];>
-    <out: circles[2];>
-    <out: circles[3];>
-    <out: circles[4];>
-    <out: circles[5];>
-    <out: circles[6];>
+    <out: circles;>
   >
 }
 
@@ -259,8 +242,8 @@ String GuestNameWidget() {
 
   <|
     <size: 25;>
-    <out: roundRect; size: [400, 40]; color: 0xb4cffa; radius: 20; align: 50%;
-      <out: /$GuestNameWidget$this.zipCode.length$/ ? zipCode : "Enter the family guest name"; fontSize: 30; color: 0x7D90AF; align: 50%;>
+    <out: roundRect; size: [430, 40]; color: 0xb4cffa; radius: 20; align: 50%;
+      <out: /$GuestNameWidget$this.zipCode.length$/ ? zipCode : "Enter the guest's family name"; fontSize: 30; color: 0x7D90AF; align: 50%;>
     >
     <size: 25;>
     <out: alphaKeyboard; fontSize: 30; spacing: 10; radius: 6; color: 0x7d90af;>
@@ -362,7 +345,7 @@ bool GetTransactionEntry(TransactionEntry *entry) {
   // Transaction UI
   <out:displaySlider; pos:[bounds[0], -1]; size:[bounds[2], bounds[3] + 1]; color:0xbeb8b0; align:0;>
   <|
-    <_ out: titles; expand:[100%, 0]; color: 0x77736e; fontSize:20; tag:"titles";>
+    <out: titles; expand:[100%, 0]; color: 0x77736e; fontSize:20; tag:"titles";>
     <out: panes[paneIndex]; expand: 100%;>
   >
 }

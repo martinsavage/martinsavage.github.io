@@ -13,21 +13,20 @@ this.VoidHandler_ = function() {
   this.UI_ = function() {
     const UI_$this = this;
     this.Layout_ = function() {
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = Main_$this.getTextSize(UI_$this.v1);
       this.u2 = this.a1[0];
       this.u3 = this.a1[1];
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = "";
   }
@@ -82,8 +81,7 @@ this.Sizer = function(_HandlerFn_) {
   this.getBoundsRect = function(path, index, x, y, width, height, level, dlevel) {
   }
   this.blocking__Call = null;
-  this.size0 = 0;
-  this.size1 = 0;
+  this.size = new QEDExplicitArray(0, 0);
 }
 this._refresh = function(obj, x, y, width, height) {
   _setUI(obj);
@@ -105,15 +103,15 @@ this._layout = function(obj) {
     lay.blockingCallLayout = blockingCallLayout;
 
     if (blockingCallLayout) {
-      let size0 = lay.size0;
-      let size1 = lay.size1;
-      let blockingCallSize0 = blockingCallLayout.size0;
-      let blockingCallSize1 = blockingCallLayout.size1;
+      let size0 = lay.size[0];
+      let size1 = lay.size[1];
+      let blockingCallSize0 = blockingCallLayout.size[0];
+      let blockingCallSize1 = blockingCallLayout.size[1];
 
       size0 = Math.max(size0, blockingCallSize0);
       size1 = Math.max(size1, blockingCallSize1);
-      lay.size0 = size0;
-      lay.size1 = size1;
+      lay.size[0] = size0;
+      lay.size[1] = size1;
     }
   }
   else
@@ -144,7 +142,7 @@ this._getBoundsRect = function(layout, path, index, x, y, width, height, level, 
       return layout.getBoundsRect(path, index, x, y, width, height, level, dlevel);
 }
 this.getBounds = function(path, index) {
-  return Main_$this.ui_.layout_ ? _getBoundsRect(Main_$this.ui_.layout_, path, index, 0, 0, Main_$this.ui_.layout_.size0, Main_$this.ui_.layout_.size1, 0, 0) : [0, 0, 0, 0];
+  return Main_$this.ui_.layout_ ? _getBoundsRect(Main_$this.ui_.layout_, path, index, 0, 0, Main_$this.ui_.layout_.size[0], Main_$this.ui_.layout_.size[1], 0, 0) : [0, 0, 0, 0];
 }
 this.executeEvents_ = function() {
   while (postHandler != null) {
@@ -335,21 +333,20 @@ this.ButtonContent = function(pressed, _HandlerFn_) {
   this.UI_ = function() {
     const UI_$this = this;
     this.Layout_ = function() {
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = Main_$this.getTextSize(UI_$this.v1);
       this.u2 = this.a1[0];
       this.u3 = this.a1[1];
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = "";
   }
@@ -366,15 +363,15 @@ this.GenericButton = function(ContentFn, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        _paint(Layout_$this.a1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
               if (event === 0) {
                 flag = true;
@@ -389,14 +386,13 @@ this.GenericButton = function(ContentFn, _HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = _layout(UI_$this.v1);
-      this.u2 = this.a1.size0;
-      this.u3 = this.a1.size1;
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.u2 = this.a1.size[0];
+      this.u3 = this.a1.size[1];
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = GenericButton$this.content;
     this.v2 = (function W1$_() {
@@ -429,29 +425,28 @@ this.LinkButton = function(text, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        _paint(Layout_$this.a1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = _layout(UI_$this.v1);
-      this.u2 = this.a1.size0;
-      this.u3 = this.a1.size1;
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.u2 = this.a1.size[0];
+      this.u3 = this.a1.size[1];
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = LinkButton$this.button;
     _setUI(this.v1);
@@ -467,25 +462,24 @@ this.LinkButton = function(text, _HandlerFn_) {
     this.UI_ = function() {
       const UI_$this = this;
       this.Layout_ = function() {
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
             Main_$this.pushAttribute$_(13, UI_$this.v2);
-            Main_$this.displayText(UI_$this.v1, pos0, pos1, size0$, size1$);
+            Main_$this.displayText(UI_$this.v1, pos0, pos1, size0, size1);
             Main_$this.popAttribute(13);
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
         this.a1 = Main_$this.getTextSize(UI_$this.v1);
         this.u2 = this.a1[0];
         this.u3 = this.a1[1];
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = LinkButton$this.text;
       this.v2 = L_$this.pressed[0] ? ((35) / 100) : ((100) / 100);
@@ -510,29 +504,28 @@ this.RectButton = function(ContentFn, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        _paint(Layout_$this.a1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = _layout(UI_$this.v1);
-      this.u2 = this.a1.size0;
-      this.u3 = this.a1.size1;
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.u2 = this.a1.size[0];
+      this.u3 = this.a1.size[1];
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = RectButton$this.button;
     _setUI(this.v1);
@@ -550,26 +543,26 @@ this.RectButton = function(ContentFn, _HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
-            UI_$this.v5(pos0, pos1, size0$, size1$);
+            UI_$this.v5(pos0, pos1, size0, size1);
             Main_$this.saveContext();
             {
               Main_$this.pushAttribute$_(13, UI_$this.v2);
               Main_$this.pushAttribute(12, UI_$this.v3);
-              UI_$this.v1(pos0, pos1, size0$, size1$);
+              UI_$this.v1(pos0, pos1, size0, size1);
               Main_$this.popAttribute(12);
               Main_$this.popAttribute(13);
             }
-            _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+            _paint(Layout_$this.a1, pos0, pos1, size0, size1);
             Main_$this.restoreContext();
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           {
           }
           {
@@ -577,10 +570,9 @@ this.RectButton = function(ContentFn, _HandlerFn_) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
         this.a1 = _layout(UI_$this.v4);
-        this.u2 = this.a1.size0;
-        this.u3 = this.a1.size1;
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.u2 = this.a1.size[0];
+        this.u3 = this.a1.size[1];
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = Main_$this.rect;
       this.v2 = L_$this.pressed[0] ? ((35) / 100) : ((0) / 100);
@@ -607,29 +599,28 @@ this.TextButton = function(text, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        _paint(Layout_$this.a1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = _layout(UI_$this.v1);
-      this.u2 = this.a1.size0;
-      this.u3 = this.a1.size1;
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.u2 = this.a1.size[0];
+      this.u3 = this.a1.size[1];
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = TextButton$this.button;
     _setUI(this.v1);
@@ -645,103 +636,103 @@ this.TextButton = function(text, _HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
             let exp0 = new QEDExplicitArray(UI_$this.v2, UI_$this.v7);
             exp0[1] = exp0[1] + exp0[0];
-            let extraSpace0 = size0$ - Layout_$this.l6;
+            let extraSpace0 = size0 - Layout_$this.l6;
             if (exp0[1] > 1)
               extraSpace0 = extraSpace0 / exp0[1];
             let exp1 = new QEDExplicitArray(UI_$this.v2, UI_$this.v7);
             exp1[1] = exp1[1] + exp1[0];
-            let extraSpace1 = size1$ - Layout_$this.l9;
+            let extraSpace1 = size1 - Layout_$this.l9;
             if (exp1[1] > 1)
               extraSpace1 = extraSpace1 / exp1[1];
             {
-              let size0$$ = Layout_$this.u4;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v2;
-              let size1$$ = Layout_$this.u7;
-              size1$$ = size1$$ + extraSpace1 * UI_$this.v2;
+              let size0$ = Layout_$this.u4;
+              size0$ = size0$ + extraSpace0 * UI_$this.v2;
+              let size1$ = Layout_$this.u7;
+              size1$ = size1$ + extraSpace1 * UI_$this.v2;
             }
             {
               Main_$this.pushAttribute(12, UI_$this.v4);
-              let size0$$ = Layout_$this.l5 - Layout_$this.u4;
+              let size0$ = Layout_$this.l5 - Layout_$this.u4;
               let posDiff0 = Layout_$this.u4;
               let childSize0 = Layout_$this.u5;
-              posDiff0 += (size0$$ - childSize0) * UI_$this.v5;
-              size0$$ = childSize0;
+              posDiff0 += (size0$ - childSize0) * UI_$this.v5;
+              size0$ = childSize0;
               posDiff0 += exp0[0] * extraSpace0;
-              let size1$$ = Layout_$this.l8 - Layout_$this.u7;
+              let size1$ = Layout_$this.l8 - Layout_$this.u7;
               let posDiff1 = Layout_$this.u7;
               let childSize1 = Layout_$this.u8;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v5;
-              size1$$ = childSize1;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v5;
+              size1$ = childSize1;
               posDiff1 += exp1[0] * extraSpace1;
               let pos0$ = pos0 + posDiff0;
               let pos1$ = pos1 + posDiff1;
-              Main_$this.displayText(UI_$this.v3, pos0$, pos1$, size0$$, size1$$);
+              Main_$this.displayText(UI_$this.v3, pos0$, pos1$, size0$, size1$);
               Main_$this.popAttribute(12);
             }
             {
-              let size0$$ = Layout_$this.l6 - Layout_$this.l5;
+              let size0$ = Layout_$this.l6 - Layout_$this.l5;
               let posDiff0 = Layout_$this.l5;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v7;
+              size0$ = size0$ + extraSpace0 * UI_$this.v7;
               posDiff0 += exp0[0] * extraSpace0;
-              let size1$$ = Layout_$this.l9 - Layout_$this.l8;
+              let size1$ = Layout_$this.l9 - Layout_$this.l8;
               let posDiff1 = Layout_$this.l8;
-              size1$$ = size1$$ + extraSpace1 * UI_$this.v7;
+              size1$ = size1$ + extraSpace1 * UI_$this.v7;
               posDiff1 += exp1[0] * extraSpace1;
               let pos0$ = pos0 + posDiff0;
               let pos1$ = pos1 + posDiff1;
             }
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           {
             let exp0 = new QEDExplicitArray(UI_$this.v2, UI_$this.v7);
             exp0[1] = exp0[1] + exp0[0];
-            let extraSpace0 = size0$ - Layout_$this.l6;
+            let extraSpace0 = size0 - Layout_$this.l6;
             if (exp0[1] > 1)
               extraSpace0 = extraSpace0 / exp0[1];
             let exp1 = new QEDExplicitArray(UI_$this.v2, UI_$this.v7);
             exp1[1] = exp1[1] + exp1[0];
-            let extraSpace1 = size1$ - Layout_$this.l9;
+            let extraSpace1 = size1 - Layout_$this.l9;
             if (exp1[1] > 1)
               extraSpace1 = extraSpace1 / exp1[1];
             {
-              let size0$$ = Layout_$this.u4;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v2;
-              let size1$$ = Layout_$this.u7;
-              size1$$ = size1$$ + extraSpace1 * UI_$this.v2;
+              let size0$ = Layout_$this.u4;
+              size0$ = size0$ + extraSpace0 * UI_$this.v2;
+              let size1$ = Layout_$this.u7;
+              size1$ = size1$ + extraSpace1 * UI_$this.v2;
             }
             {
-              let size0$$ = Layout_$this.l5 - Layout_$this.u4;
+              let size0$ = Layout_$this.l5 - Layout_$this.u4;
               let posDiff0 = Layout_$this.u4;
               let childSize0 = Layout_$this.u5;
-              posDiff0 += (size0$$ - childSize0) * UI_$this.v5;
-              size0$$ = childSize0;
+              posDiff0 += (size0$ - childSize0) * UI_$this.v5;
+              size0$ = childSize0;
               posDiff0 += exp0[0] * extraSpace0;
-              let size1$$ = Layout_$this.l8 - Layout_$this.u7;
+              let size1$ = Layout_$this.l8 - Layout_$this.u7;
               let posDiff1 = Layout_$this.u7;
               let childSize1 = Layout_$this.u8;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v5;
-              size1$$ = childSize1;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v5;
+              size1$ = childSize1;
               posDiff1 += exp1[0] * extraSpace1;
               let pos0$ = pos0 + posDiff0;
               let pos1$ = pos1 + posDiff1;
             }
             {
-              let size0$$ = Layout_$this.l6 - Layout_$this.l5;
+              let size0$ = Layout_$this.l6 - Layout_$this.l5;
               let posDiff0 = Layout_$this.l5;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v7;
+              size0$ = size0$ + extraSpace0 * UI_$this.v7;
               posDiff0 += exp0[0] * extraSpace0;
-              let size1$$ = Layout_$this.l9 - Layout_$this.l8;
+              let size1$ = Layout_$this.l9 - Layout_$this.l8;
               let posDiff1 = Layout_$this.l8;
-              size1$$ = size1$$ + extraSpace1 * UI_$this.v7;
+              size1$ = size1$ + extraSpace1 * UI_$this.v7;
               posDiff1 += exp1[0] * extraSpace1;
               let pos0$ = pos0 + posDiff0;
               let pos1$ = pos1 + posDiff1;
@@ -762,8 +753,7 @@ this.TextButton = function(text, _HandlerFn_) {
         this.l8 = this.u7 + this.u8;
         this.u9 = this.a3[1];
         this.l9 = this.l8 + this.u9;
-        this.size0 = this.l6;
-        this.size1 = this.l9;
+        this.size = new QEDExplicitArray(this.l6, this.l9);
       }
       this.v1 = Main_$this.getAttribute(5) * 0.200000;
       this.v2 = ((100) / 100);
@@ -788,6 +778,12 @@ this.TextButton = function(text, _HandlerFn_) {
 }
 this.QEDBaseArray_ = function() {
   const QEDBaseArray_$this = this;
+  this.getNumDirs = function() {
+    return (0);
+  }
+  this.getDirs = function(childDir) {
+    return (new QEDExplicitArray(0, 0));
+  }
   this.size = function() {
     return (0);
   }
@@ -817,8 +813,7 @@ this.QEDBaseArray_ = function() {
       }
       this.onEvent = function(event, pos0, pos1, size0, size1) {
       }
-      this.size0 = 0;
-      this.size1 = 0;
+      this.size$ = new QEDExplicitArray(0, 0);
     }
   }
   this.setUI_ = function() {
@@ -1177,11 +1172,18 @@ this.Qui_ = function(array, dims) {
   this.array = array;
   this.dims = dims;
 }
-this.QEDArray = function(limits, init, Ui_, _HandlerFn_) {
+this.QEDArray = function(limits, init, dirs, Ui_, _HandlerFn_) {
   this.limits = limits;
   this.init = init;
+  this.dirs = dirs;
   this.Ui_ = Ui_;
   const QEDArray$this = this;
+  this.getNumDirs = function() {
+    return (this.limits.length);
+  }
+  this.getDirs = function(childDir) {
+    return (QEDArray$this.dirs);
+  }
   this.size = function() {
     let s = 1;
     {
@@ -1431,8 +1433,9 @@ this.onLayoutEvent = function(layout, event, posx, posy, sizex, sizey) {
 }
 this.getElementRect = function(layout, path, index, posx, posy, sizex, sizey, level, dLevel) {
 }
-this.LayoutArray_ = function(array, calcLayoutFn, getSizeFn, paintLayoutFn, onLayoutEventFn, getElementRectFn) {
+this.LayoutArray_ = function(array, dirs, calcLayoutFn, getSizeFn, paintLayoutFn, onLayoutEventFn, getElementRectFn) {
   this.array = array;
+  this.dirs = dirs;
   this.calcLayoutFn = calcLayoutFn;
   this.getSizeFn = getSizeFn;
   this.paintLayoutFn = paintLayoutFn;
@@ -1440,31 +1443,48 @@ this.LayoutArray_ = function(array, calcLayoutFn, getSizeFn, paintLayoutFn, onLa
   this.getElementRectFn = getElementRectFn;
   const LayoutArray_$this = this;
   this.paint = function(pos0, pos1, size0, size1) {
+    let newPos = new QEDExplicitArray(pos0, pos1);
+    let pos = new QEDExplicitArray(pos0, pos1);
+    let size$ = new QEDExplicitArray(size0, size1);
     {
       let index = 0;
       while(index < LayoutArray_$this.length) {
-        let relPos = index ? LayoutArray_$this.posSet[index - 1][0] + LayoutArray_$this.space : 0;
-        let posx = pos0 + relPos;
-        let posy = pos1;
-        let sizex = LayoutArray_$this.posSet[index][0] - relPos;
-        let sizey = size1;
-        LayoutArray_$this.paintLayoutFn(LayoutArray_$this.array[index], LayoutArray_$this.layouts[index], posx, posy, sizex, sizey);
+        {
+          let dir = 0;
+          while(dir < 2) {
+            if (LayoutArray_$this.dirs[dir]) {
+              let relPos = index ? LayoutArray_$this.posSet[index - 1][dir] + LayoutArray_$this.space : 0;
+              pos[dir] = newPos[dir] + relPos;
+              size$[dir] = LayoutArray_$this.posSet[index][dir] - relPos;
+            }
+            dir++;
+          }
+        }
+        LayoutArray_$this.paintLayoutFn(LayoutArray_$this.array[index], LayoutArray_$this.layouts[index], pos[0], pos[1], size$[0], size$[1]);
         index++;
       }
     }
   }
   this.onEvent = function(event, pos0, pos1, size0, size1) {
+    let pos = new QEDExplicitArray(0, 0);
+    let size$ = new QEDExplicitArray(size0, size1);
     {
       let index = LayoutArray_$this.length - 1;
       while(index >= 0) {
-        let posx = index ? LayoutArray_$this.posSet[index - 1][0] + LayoutArray_$this.space : 0;
-        let posy = 0;
-        let sizex = LayoutArray_$this.posSet[index][0] - posx;
-        let sizey = size1;
-        if (pos0 >= posx && pos1 >= posy && pos0 < posx + sizex && pos1 < posy + sizey) {
-          pos0 = pos0 - posx;
-          pos1 = pos1 - posy;
-          return (LayoutArray_$this.onLayoutEventFn(LayoutArray_$this.layouts[index], event, pos0, pos1, sizex, sizey));
+        {
+          let dir = 0;
+          while(dir < 2) {
+            if (LayoutArray_$this.dirs[dir]) {
+              pos[dir] = index ? LayoutArray_$this.posSet[index - 1][dir] + LayoutArray_$this.space : 0;
+              size$[dir] = LayoutArray_$this.posSet[index][dir] - pos[dir];
+            }
+            dir++;
+          }
+        }
+        if (pos0 >= pos[0] && pos0 < pos[0] + size$[0] && pos1 >= pos[1] && pos1 < pos[1] + size$[1]) {
+          pos0 -= pos[0];
+          pos1 -= pos[1];
+          return (LayoutArray_$this.onLayoutEventFn(LayoutArray_$this.layouts[index], event, pos0, pos1, size$[0], size$[1]));
         }
         index--;
       }
@@ -1488,16 +1508,21 @@ this.LayoutArray_ = function(array, calcLayoutFn, getSizeFn, paintLayoutFn, onLa
   this.length = this.array.size();
   this.layouts = [];
   this.posSet = [];
-  this.size0 = 0;
-  this.size1 = 0;
+  this.size = new QEDExplicitArray(0, 0);
   {
     let index = 0;
     while(index < this.length) {
       this.layouts[index] = this.calcLayoutFn(this.array[index]);
+      this.posSet[index] = new QEDExplicitArray(0, 0);
       let elementSize = this.getSizeFn(this.layouts[index]);
-      this.posSet[index] = new QEDExplicitArray(this.size0 + (index ? this.space : 0) + elementSize[0], Main_$this.max(this.size1, elementSize[1]));
-      this.size0 = this.posSet[index][0];
-      this.size1 = this.posSet[index][1];
+      {
+        let dir = 0;
+        while(dir < 2) {
+          this.posSet[index][dir] = this.dirs[dir] ? (index ? this.size[dir] + this.space : 0) + elementSize[dir] : Main_$this.max(this.size[dir], elementSize[dir]);
+          this.size[dir] = this.posSet[index][dir];
+          dir++;
+        }
+      }
       index++;
     }
   }
@@ -1508,7 +1533,7 @@ this.calcLayoutObj = function(unit) {
 }
 this.getSizeObj = function(layout) {
   let lay = layout;
-  return (new QEDExplicitArray(lay.size0, lay.size1));
+  return (lay.size);
 }
 this.paintLayoutObj = function(unit, layout, posx, posy, sizex, sizey) {
   let lay = layout;
@@ -1526,8 +1551,7 @@ this.calcLayoutString = function(unit) {
   return (Main_$this.getTextSize(unit));
 }
 this.getSizeString = function(layout) {
-  let size = layout;
-  return (new QEDExplicitArray(size, size & 65535));
+  return (layout);
 }
 this.paintLayoutString = function(unit, layout, posx, posy, sizex, sizey) {
   let size = layout;
@@ -1603,29 +1627,28 @@ this.ObjectOverTextButton = function(drawObject, text, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        _paint(Layout_$this.a1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = _layout(UI_$this.v1);
-      this.u2 = this.a1.size0;
-      this.u3 = this.a1.size1;
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.u2 = this.a1.size[0];
+      this.u3 = this.a1.size[1];
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = ObjectOverTextButton$this.button;
     _setUI(this.v1);
@@ -1641,91 +1664,91 @@ this.ObjectOverTextButton = function(drawObject, text, _HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
             let childSize0 = Layout_$this.l8;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v11;
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v11;
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.l12;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v11;
-            let size1$$ = childSize1;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v11;
+            let size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
             {
               Main_$this.pushAttribute(12, UI_$this.v4);
               let childSize0$ = Layout_$this.u5;
-              let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v3;
-              let size0$$$ = childSize0$;
+              let posDiff0$ = (size0$ - childSize0$) * UI_$this.v3;
+              let size0$$ = childSize0$;
               posDiff0$ += UI_$this.v5[0];
-              let size1$$$ = Layout_$this.u9;
+              let size1$$ = Layout_$this.u9;
               let childSize1$ = Layout_$this.u9;
-              let posDiff1$ = (size1$$$ - childSize1$) * UI_$this.v3;
-              size1$$$ = childSize1$;
+              let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v3;
+              size1$$ = childSize1$;
               posDiff1$ += UI_$this.v5[1];
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$$ = pos1$ + posDiff1$;
-              UI_$this.v1(pos0$$, pos1$$, size0$$$, size1$$$);
+              UI_$this.v1(pos0$$, pos1$$, size0$$, size1$$);
               Main_$this.popAttribute(12);
             }
             {
-              let size1$$$ = Layout_$this.l10 - Layout_$this.u9;
+              let size1$$ = Layout_$this.l10 - Layout_$this.u9;
               let posDiff1$ = Layout_$this.u9;
               let pos1$$ = pos1$ + posDiff1$;
             }
             {
-              let size1$$$ = Layout_$this.l12 - Layout_$this.l10;
+              let size1$$ = Layout_$this.l12 - Layout_$this.l10;
               let posDiff1$ = Layout_$this.l10;
               let pos1$$ = pos1$ + posDiff1$;
               {
                 Main_$this.pushAttribute(12, UI_$this.v9);
                 let childSize0$ = Layout_$this.u7;
-                let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v8;
-                let size0$$$ = childSize0$;
+                let posDiff0$ = (size0$ - childSize0$) * UI_$this.v8;
+                let size0$$ = childSize0$;
                 let childSize1$ = Layout_$this.u11;
-                let posDiff1$$ = (size1$$$ - childSize1$) * UI_$this.v8;
-                let size1$$$$ = childSize1$;
+                let posDiff1$$ = (size1$$ - childSize1$) * UI_$this.v8;
+                let size1$$$ = childSize1$;
                 let pos0$$ = pos0$ + posDiff0$;
                 let pos1$$$ = pos1$$ + posDiff1$$;
-                Main_$this.displayText(UI_$this.v7, pos0$$, pos1$$$, size0$$$, size1$$$$);
+                Main_$this.displayText(UI_$this.v7, pos0$$, pos1$$$, size0$$, size1$$$);
                 Main_$this.popAttribute(12);
               }
             }
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           {
             let childSize0 = Layout_$this.u5;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v3;
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v3;
+            let size0$ = childSize0;
             posDiff0 += UI_$this.v5[0];
-            let size1$$ = Layout_$this.u9;
+            let size1$ = Layout_$this.u9;
             let childSize1 = Layout_$this.u9;
-            let posDiff1 = (size1$$ - childSize1) * UI_$this.v3;
-            size1$$ = childSize1;
+            let posDiff1 = (size1$ - childSize1) * UI_$this.v3;
+            size1$ = childSize1;
             posDiff1 += UI_$this.v5[1];
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
           }
           {
-            let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+            let size1$ = Layout_$this.l10 - Layout_$this.u9;
             let posDiff1 = Layout_$this.u9;
             let pos1$ = pos1 + posDiff1;
           }
           {
-            let size1$$ = Layout_$this.l12 - Layout_$this.l10;
+            let size1$ = Layout_$this.l12 - Layout_$this.l10;
             let posDiff1 = Layout_$this.l10;
             let pos1$ = pos1 + posDiff1;
             {
               let childSize0 = Layout_$this.u7;
-              let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-              let size0$$ = childSize0;
+              let posDiff0 = (size0 - childSize0) * UI_$this.v8;
+              let size0$ = childSize0;
               let childSize1 = Layout_$this.u11;
-              let posDiff1$ = (size1$$ - childSize1) * UI_$this.v8;
-              let size1$$$ = childSize1;
+              let posDiff1$ = (size1$ - childSize1) * UI_$this.v8;
+              let size1$$ = childSize1;
               let pos0$ = pos0 + posDiff0;
               let pos1$$ = pos1$ + posDiff1$;
             }
@@ -1748,8 +1771,7 @@ this.ObjectOverTextButton = function(drawObject, text, _HandlerFn_) {
         this.u11 = this.a3[1];
         this.u12 = this.a4[1];
         this.l12 = this.l10 + this.u12;
-        this.size0 = this.l8;
-        this.size1 = this.l12;
+        this.size = new QEDExplicitArray(this.l8, this.l12);
       }
       this.v1 = ObjectOverTextButton$this.drawObject;
       this.v2 = new QEDExplicitArray(240, 160);
@@ -1782,29 +1804,28 @@ this.ObjectBeforeTextButton = function(drawObject, text, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        _paint(Layout_$this.a1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = _layout(UI_$this.v1);
-      this.u2 = this.a1.size0;
-      this.u3 = this.a1.size1;
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.u2 = this.a1.size[0];
+      this.u3 = this.a1.size[1];
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = ObjectBeforeTextButton$this.button;
     _setUI(this.v1);
@@ -1820,89 +1841,89 @@ this.ObjectBeforeTextButton = function(drawObject, text, _HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
             Main_$this.pushAttribute(12, UI_$this.v10);
             let childSize0 = Layout_$this.l10;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v9[0];
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v9[0];
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.l15;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v9[1];
-            let size1$$ = childSize1;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v9[1];
+            let size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
-            let size0$$$ = Layout_$this.u6;
+            let size0$$ = Layout_$this.u6;
             {
-              let size0$$$ = Layout_$this.l7 - Layout_$this.u6;
+              let size0$$ = Layout_$this.l7 - Layout_$this.u6;
               let posDiff0$ = Layout_$this.u6;
               let childSize0$ = Layout_$this.u7;
-              posDiff0$ += (size0$$$ - childSize0$) * UI_$this.v4;
-              size0$$$ = childSize0$;
+              posDiff0$ += (size0$$ - childSize0$) * UI_$this.v4;
+              size0$$ = childSize0$;
               let childSize1$ = Layout_$this.u12;
-              let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v4;
-              let size1$$$ = childSize1$;
+              let posDiff1$ = (size1$ - childSize1$) * UI_$this.v4;
+              let size1$$ = childSize1$;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$$ = pos1$ + posDiff1$;
-              UI_$this.v2(pos0$$, pos1$$, size0$$$, size1$$$);
+              UI_$this.v2(pos0$$, pos1$$, size0$$, size1$$);
             }
             {
-              let size0$$$ = Layout_$this.l8 - Layout_$this.l7;
+              let size0$$ = Layout_$this.l8 - Layout_$this.l7;
               let posDiff0$ = Layout_$this.l7;
               let pos0$$ = pos0$ + posDiff0$;
             }
             {
-              let size0$$$ = Layout_$this.l10 - Layout_$this.l8;
+              let size0$$ = Layout_$this.l10 - Layout_$this.l8;
               let posDiff0$ = Layout_$this.l8;
               let pos0$$ = pos0$ + posDiff0$;
               {
                 let childSize0$ = Layout_$this.u9;
-                let posDiff0$$ = (size0$$$ - childSize0$) * UI_$this.v7[0];
-                let size0$$$$ = childSize0$;
+                let posDiff0$$ = (size0$$ - childSize0$) * UI_$this.v7[0];
+                let size0$$$ = childSize0$;
                 let childSize1$ = Layout_$this.u14;
-                let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v7[1];
-                let size1$$$ = childSize1$;
+                let posDiff1$ = (size1$ - childSize1$) * UI_$this.v7[1];
+                let size1$$ = childSize1$;
                 let pos0$$$ = pos0$$ + posDiff0$$;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v6, pos0$$$, pos1$$, size0$$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v6, pos0$$$, pos1$$, size0$$$, size1$$);
               }
             }
             Main_$this.popAttribute(12);
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-          let size0$$ = Layout_$this.u6;
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+          let size0$ = Layout_$this.u6;
           {
-            let size0$$ = Layout_$this.l7 - Layout_$this.u6;
+            let size0$ = Layout_$this.l7 - Layout_$this.u6;
             let posDiff0 = Layout_$this.u6;
             let childSize0 = Layout_$this.u7;
-            posDiff0 += (size0$$ - childSize0) * UI_$this.v4;
-            size0$$ = childSize0;
+            posDiff0 += (size0$ - childSize0) * UI_$this.v4;
+            size0$ = childSize0;
             let childSize1 = Layout_$this.u12;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v4;
-            let size1$$ = childSize1;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v4;
+            let size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
           }
           {
-            let size0$$ = Layout_$this.l8 - Layout_$this.l7;
+            let size0$ = Layout_$this.l8 - Layout_$this.l7;
             let posDiff0 = Layout_$this.l7;
             let pos0$ = pos0 + posDiff0;
           }
           {
-            let size0$$ = Layout_$this.l10 - Layout_$this.l8;
+            let size0$ = Layout_$this.l10 - Layout_$this.l8;
             let posDiff0 = Layout_$this.l8;
             let pos0$ = pos0 + posDiff0;
             {
               let childSize0 = Layout_$this.u9;
-              let posDiff0$ = (size0$$ - childSize0) * UI_$this.v7[0];
-              let size0$$$ = childSize0;
+              let posDiff0$ = (size0$ - childSize0) * UI_$this.v7[0];
+              let size0$$ = childSize0;
               let childSize1 = Layout_$this.u14;
-              let posDiff1 = (size1$ - childSize1) * UI_$this.v7[1];
-              let size1$$ = childSize1;
+              let posDiff1 = (size1 - childSize1) * UI_$this.v7[1];
+              let size1$ = childSize1;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$ = pos1 + posDiff1;
             }
@@ -1930,8 +1951,7 @@ this.ObjectBeforeTextButton = function(drawObject, text, _HandlerFn_) {
         this.u14 = this.a4[1];
         this.u15 = this.a5[1];
         this.l15 = Main_$this.max(this.l13, this.u15);
-        this.size0 = this.l10;
-        this.size1 = this.l15;
+        this.size = new QEDExplicitArray(this.l10, this.l15);
       }
       this.v1 = 30;
       this.v2 = ObjectBeforeTextButton$this.drawObject;
@@ -1962,21 +1982,21 @@ this.KeyButton = function(text, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
         }
         {
           Main_$this.pushAttribute(5, UI_$this.v3);
-          _paint(Layout_$this.a2, pos0, pos1, size0$, size1$);
+          _paint(Layout_$this.a2, pos0, pos1, size0, size1);
           Main_$this.popAttribute(5);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
@@ -1985,7 +2005,7 @@ this.KeyButton = function(text, _HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = new QEDExplicitArray(UI_$this.v1, UI_$this.v1);
@@ -1993,13 +2013,12 @@ this.KeyButton = function(text, _HandlerFn_) {
       this.a2 = _layout(UI_$this.v2);
       Main_$this.popAttribute(5);
       this.u3 = this.a1[0];
-      this.u4 = this.a2.size0;
+      this.u4 = this.a2.size[0];
       this.l4 = Main_$this.max(this.u3, this.u4);
       this.u5 = this.a1[1];
-      this.u6 = this.a2.size1;
+      this.u6 = this.a2.size[1];
       this.l6 = Main_$this.max(this.u5, this.u6);
-      this.size0 = this.l4;
-      this.size1 = this.l6;
+      this.size = new QEDExplicitArray(this.l4, this.l6);
     }
     this.v1 = Main_$this.getAttribute(5) * 1.500000;
     this.v2 = KeyButton$this.button;
@@ -2029,17 +2048,17 @@ this.LargerButton = function(text, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
         }
-        _paint(Layout_$this.a2, pos0, pos1, size0$, size1$);
+        _paint(Layout_$this.a2, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
-            flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$, size1$);
+            flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
           }
@@ -2048,19 +2067,18 @@ this.LargerButton = function(text, _HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = new QEDExplicitArray(UI_$this.v1[0], UI_$this.v1[1]);
       this.a2 = _layout(UI_$this.v3);
       this.u3 = this.a1[0];
-      this.u4 = this.a2.size0;
+      this.u4 = this.a2.size[0];
       this.l4 = Main_$this.max(this.u3, this.u4);
       this.u5 = this.a1[1];
-      this.u6 = this.a2.size1;
+      this.u6 = this.a2.size[1];
       this.l6 = Main_$this.max(this.u5, this.u6);
-      this.size0 = this.l4;
-      this.size1 = this.l6;
+      this.size = new QEDExplicitArray(this.l4, this.l6);
     }
     this.v1 = new QEDExplicitArray(0, Main_$this.getAttribute(5) * 2.500000);
     this.v2 = ((100) / 100);
@@ -2090,47 +2108,46 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
             let childSize0 = Layout_$this.u2;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v2;
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v2;
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.u3;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v2;
-            let size1$$ = childSize1;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v2;
+            let size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a1, pos0$, pos1$, size0$$, size1$$);
+            _paint(Layout_$this.a1, pos0$, pos1$, size0$, size1$);
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
             let childSize0 = Layout_$this.u2;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v2;
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v2;
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.u3;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v2;
-            let size1$$ = childSize1;
-            flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v2;
+            let size1$ = childSize1;
+            flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
             if (flag) {
               pos0 = pos0 - posDiff0;
               pos1 = pos1 - posDiff1;
-              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$$, size1$$);
+              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
               if (!flag) {
               }
             }
           }
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
-        this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
-        this.u2 = this.a1.size0;
-        this.u3 = this.a1.size1;
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, UI_$this.v1.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+        this.u2 = this.a1.size[0];
+        this.u3 = this.a1.size[1];
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = Row$this.buttons;
       this.v2 = ((50) / 100);
@@ -2146,7 +2163,7 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
       this.buttons = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
         let index = pos[0];
         return (new Main_$this.KeyButton(NumericKeyboardWidget$this.numKeyboardRows[Row$this.row].charAt(index), _HandlerFn_));
-      }), Main_$this.Qui_, (function Lambda_(_ret) {
+      }), new QEDExplicitArray(1, 0), Main_$this.Qui_, (function Lambda_(_ret) {
         {
           Main_$this.post_((function lambda_() {
             _HandlerFn_(_ret._ret);
@@ -2160,110 +2177,62 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           {
-            let size1$$ = Layout_$this.u15;
-            _paint(Layout_$this.a1, pos0, pos1, size0$, size1$$);
+            let size1$ = Layout_$this.u7;
+            _paint(Layout_$this.a1, pos0, pos1, size0, size1$);
           }
           {
-            let size1$$ = Layout_$this.l16 - Layout_$this.u15;
-            let posDiff1 = Layout_$this.u15;
+            let size1$ = Layout_$this.l8 - Layout_$this.u7;
+            let posDiff1 = Layout_$this.u7;
             let pos1$ = pos1 + posDiff1;
           }
           {
-            let size1$$ = Layout_$this.l17 - Layout_$this.l16;
-            let posDiff1 = Layout_$this.l16;
-            let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a3, pos0, pos1$, size0$, size1$$);
-          }
-          {
-            let size1$$ = Layout_$this.l18 - Layout_$this.l17;
-            let posDiff1 = Layout_$this.l17;
-            let pos1$ = pos1 + posDiff1;
-          }
-          {
-            let size1$$ = Layout_$this.l19 - Layout_$this.l18;
-            let posDiff1 = Layout_$this.l18;
-            let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a5, pos0, pos1$, size0$, size1$$);
-          }
-          {
-            let size1$$ = Layout_$this.l20 - Layout_$this.l19;
-            let posDiff1 = Layout_$this.l19;
-            let pos1$ = pos1 + posDiff1;
-          }
-          {
-            let childSize0 = Layout_$this.u14;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-            let size0$$ = childSize0;
-            let size1$$ = Layout_$this.l21 - Layout_$this.l20;
-            let posDiff1 = Layout_$this.l20;
-            let childSize1 = Layout_$this.u21;
-            posDiff1 += (size1$$ - childSize1) * UI_$this.v8;
-            size1$$ = childSize1;
+            let childSize0 = Layout_$this.u6;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v4;
+            let size0$ = childSize0;
+            let size1$ = Layout_$this.l9 - Layout_$this.l8;
+            let posDiff1 = Layout_$this.l8;
+            let childSize1 = Layout_$this.u9;
+            posDiff1 += (size1$ - childSize1) * UI_$this.v4;
+            size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a7, pos0$, pos1$, size0$$, size1$$);
+            _paint(Layout_$this.a3, pos0$, pos1$, size0$, size1$);
           }
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
             if ((3 & (1 << event)) !== 0) {
-              let childSize0 = Layout_$this.u14;
-              let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-              let size0$$ = childSize0;
-              let size1$$ = Layout_$this.l21 - Layout_$this.l20;
-              let posDiff1 = Layout_$this.l20;
-              let childSize1 = Layout_$this.u21;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v8;
-              size1$$ = childSize1;
-              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+              let childSize0 = Layout_$this.u6;
+              let posDiff0 = (size0 - childSize0) * UI_$this.v4;
+              let size0$ = childSize0;
+              let size1$ = Layout_$this.l9 - Layout_$this.l8;
+              let posDiff1 = Layout_$this.l8;
+              let childSize1 = Layout_$this.u9;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v4;
+              size1$ = childSize1;
+              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
               if (flag) {
                 pos0 = pos0 - posDiff0;
                 pos1 = pos1 - posDiff1;
-                flag = _onEvent(Layout_$this.a7, event, pos0, pos1, size0$$, size1$$);
+                flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$);
                 if (!flag) {
                 }
               }
             }
             if (!flag) {
               if ((3 & (1 << event)) !== 0) {
-                let size1$$ = Layout_$this.l19 - Layout_$this.l18;
-                let posDiff1 = Layout_$this.l18;
-                flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+                let size1$ = Layout_$this.u7;
+                flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
                 if (flag) {
-                  pos1 = pos1 - posDiff1;
-                  flag = _onEvent(Layout_$this.a5, event, pos0, pos1, size0$, size1$$);
+                  flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1$);
                   if (!flag) {
-                  }
-                }
-              }
-              if (!flag) {
-                if ((3 & (1 << event)) !== 0) {
-                  let size1$$ = Layout_$this.l17 - Layout_$this.l16;
-                  let posDiff1 = Layout_$this.l16;
-                  flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
-                  if (flag) {
-                    pos1 = pos1 - posDiff1;
-                    flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$$);
-                    if (!flag) {
-                    }
-                  }
-                }
-                if (!flag) {
-                  if ((3 & (1 << event)) !== 0) {
-                    let size1$$ = Layout_$this.u15;
-                    flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
-                    if (flag) {
-                      flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$$);
-                      if (!flag) {
-                      }
-                    }
                   }
                 }
               }
@@ -2272,95 +2241,48 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        let size1$$ = Layout_$this.u15;
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+        let size1$ = Layout_$this.u7;
         {
-          let size1$$ = Layout_$this.l16 - Layout_$this.u15;
-          let posDiff1 = Layout_$this.u15;
+          let size1$ = Layout_$this.l8 - Layout_$this.u7;
+          let posDiff1 = Layout_$this.u7;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l17 - Layout_$this.l16;
-          let posDiff1 = Layout_$this.l16;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l18 - Layout_$this.l17;
-          let posDiff1 = Layout_$this.l17;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l19 - Layout_$this.l18;
-          let posDiff1 = Layout_$this.l18;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l20 - Layout_$this.l19;
-          let posDiff1 = Layout_$this.l19;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let childSize0 = Layout_$this.u14;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.l21 - Layout_$this.l20;
-          let posDiff1 = Layout_$this.l20;
-          let childSize1 = Layout_$this.u21;
-          posDiff1 += (size1$$ - childSize1) * UI_$this.v8;
-          size1$$ = childSize1;
+          let childSize0 = Layout_$this.u6;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v4;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.l9 - Layout_$this.l8;
+          let posDiff1 = Layout_$this.l8;
+          let childSize1 = Layout_$this.u9;
+          posDiff1 += (size1$ - childSize1) * UI_$this.v4;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
-      this.a1 = _layout(UI_$this.v1);
+      this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, UI_$this.v1.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
       this.a2 = new QEDExplicitArray(UI_$this.v2, UI_$this.v2);
-      this.a3 = _layout(UI_$this.v3);
-      this.a4 = new QEDExplicitArray(UI_$this.v4, UI_$this.v4);
-      this.a5 = _layout(UI_$this.v5);
-      this.a6 = new QEDExplicitArray(UI_$this.v6, UI_$this.v6);
-      this.a7 = new Main_$this.LayoutArray_(UI_$this.v7, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
-      this.u8 = this.a1.size0;
-      this.u9 = this.a2[0];
-      this.l9 = Main_$this.max(this.u8, this.u9);
-      this.u10 = this.a3.size0;
-      this.l10 = Main_$this.max(this.l9, this.u10);
-      this.u11 = this.a4[0];
-      this.l11 = Main_$this.max(this.l10, this.u11);
-      this.u12 = this.a5.size0;
-      this.l12 = Main_$this.max(this.l11, this.u12);
-      this.u13 = this.a6[0];
-      this.l13 = Main_$this.max(this.l12, this.u13);
-      this.u14 = this.a7.size0;
-      this.l14 = Main_$this.max(this.l13, this.u14);
-      this.u15 = this.a1.size1;
-      this.u16 = this.a2[1];
-      this.l16 = this.u15 + this.u16;
-      this.u17 = this.a3.size1;
-      this.l17 = this.l16 + this.u17;
-      this.u18 = this.a4[1];
-      this.l18 = this.l17 + this.u18;
-      this.u19 = this.a5.size1;
-      this.l19 = this.l18 + this.u19;
-      this.u20 = this.a6[1];
-      this.l20 = this.l19 + this.u20;
-      this.u21 = this.a7.size1;
-      this.l21 = this.l20 + this.u21;
-      this.size0 = this.l14;
-      this.size1 = this.l21;
+      this.a3 = new Main_$this.LayoutArray_(UI_$this.v3, UI_$this.v3.getDirs(1), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+      this.u4 = this.a1.size[0];
+      this.u5 = this.a2[0];
+      this.l5 = Main_$this.max(this.u4, this.u5);
+      this.u6 = this.a3.size[0];
+      this.l6 = Main_$this.max(this.l5, this.u6);
+      this.u7 = this.a1.size[1];
+      this.u8 = this.a2[1];
+      this.l8 = this.u7 + this.u8;
+      this.u9 = this.a3.size[1];
+      this.l9 = this.l8 + this.u9;
+      this.size = new QEDExplicitArray(this.l6, this.l9);
     }
-    this.v1 = NumericKeyboardWidget$this.rows[0];
-    _setUI(this.v1);
+    this.v1 = NumericKeyboardWidget$this.rows;
+    Main_$this.uiArray_(this.v1);
     this.v2 = 15;
-    this.v3 = NumericKeyboardWidget$this.rows[1];
-    _setUI(this.v3);
-    this.v4 = 15;
-    this.v5 = NumericKeyboardWidget$this.rows[2];
-    _setUI(this.v5);
-    this.v6 = 15;
-    this.v7 = NumericKeyboardWidget$this.lastRow;
-    this.v8 = ((50) / 100);
-    Main_$this.uiArray_(this.v7);
+    this.v3 = NumericKeyboardWidget$this.lastRow;
+    this.v4 = ((50) / 100);
+    Main_$this.uiArray_(this.v3);
   }
   this.ui_ = null;
   this.setUI_ = function() {
@@ -2374,7 +2296,7 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
     this.rows = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
       let i = pos[0];
       return (new NumericKeyboardWidget$this.Row(i, _HandlerFn_));
-    }), Main_$this.Qui_, (function Lambda_(_ret) {
+    }), new QEDExplicitArray(0, 1), Main_$this.Qui_, (function Lambda_(_ret) {
       {
         NumericKeyboardWidget$this.typedText += _ret._ret;
         {
@@ -2427,47 +2349,46 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
             let childSize0 = Layout_$this.u2;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v2;
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v2;
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.u3;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v2;
-            let size1$$ = childSize1;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v2;
+            let size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a1, pos0$, pos1$, size0$$, size1$$);
+            _paint(Layout_$this.a1, pos0$, pos1$, size0$, size1$);
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
             let childSize0 = Layout_$this.u2;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v2;
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v2;
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.u3;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v2;
-            let size1$$ = childSize1;
-            flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v2;
+            let size1$ = childSize1;
+            flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
             if (flag) {
               pos0 = pos0 - posDiff0;
               pos1 = pos1 - posDiff1;
-              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$$, size1$$);
+              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
               if (!flag) {
               }
             }
           }
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
-        this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
-        this.u2 = this.a1.size0;
-        this.u3 = this.a1.size1;
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, UI_$this.v1.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+        this.u2 = this.a1.size[0];
+        this.u3 = this.a1.size[1];
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = Row$this.buttons;
       this.v2 = ((50) / 100);
@@ -2483,7 +2404,7 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
       this.buttons = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
         let index = pos[0];
         return (new Main_$this.KeyButton(AlphaKeyboardWidget$this.alphaKeyboardRows[Row$this.row].charAt(index), _HandlerFn_));
-      }), Main_$this.Qui_, (function Lambda_(_ret) {
+      }), new QEDExplicitArray(1, 0), Main_$this.Qui_, (function Lambda_(_ret) {
         {
           Main_$this.post_((function lambda_() {
             _HandlerFn_(_ret._ret);
@@ -2498,22 +2419,21 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
     this.UI_ = function() {
       const UI_$this = this;
       this.Layout_ = function() {
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
         this.a1 = new QEDExplicitArray(UI_$this.v1[0], UI_$this.v1[1]);
         this.u2 = this.a1[0];
         this.u3 = this.a1[1];
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = new QEDExplicitArray(200, 1);
     }
@@ -2527,134 +2447,62 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           {
-            let size1$$ = Layout_$this.u19;
-            _paint(Layout_$this.a1, pos0, pos1, size0$, size1$$);
+            let size1$ = Layout_$this.u7;
+            _paint(Layout_$this.a1, pos0, pos1, size0, size1$);
           }
           {
-            let size1$$ = Layout_$this.l20 - Layout_$this.u19;
-            let posDiff1 = Layout_$this.u19;
+            let size1$ = Layout_$this.l8 - Layout_$this.u7;
+            let posDiff1 = Layout_$this.u7;
             let pos1$ = pos1 + posDiff1;
           }
           {
-            let size1$$ = Layout_$this.l21 - Layout_$this.l20;
-            let posDiff1 = Layout_$this.l20;
-            let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a3, pos0, pos1$, size0$, size1$$);
-          }
-          {
-            let size1$$ = Layout_$this.l22 - Layout_$this.l21;
-            let posDiff1 = Layout_$this.l21;
-            let pos1$ = pos1 + posDiff1;
-          }
-          {
-            let size1$$ = Layout_$this.l23 - Layout_$this.l22;
-            let posDiff1 = Layout_$this.l22;
-            let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a5, pos0, pos1$, size0$, size1$$);
-          }
-          {
-            let size1$$ = Layout_$this.l24 - Layout_$this.l23;
-            let posDiff1 = Layout_$this.l23;
-            let pos1$ = pos1 + posDiff1;
-          }
-          {
-            let size1$$ = Layout_$this.l25 - Layout_$this.l24;
-            let posDiff1 = Layout_$this.l24;
-            let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a7, pos0, pos1$, size0$, size1$$);
-          }
-          {
-            let size1$$ = Layout_$this.l26 - Layout_$this.l25;
-            let posDiff1 = Layout_$this.l25;
-            let pos1$ = pos1 + posDiff1;
-          }
-          {
-            let childSize0 = Layout_$this.u18;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v10;
-            let size0$$ = childSize0;
-            let size1$$ = Layout_$this.l27 - Layout_$this.l26;
-            let posDiff1 = Layout_$this.l26;
-            let childSize1 = Layout_$this.u27;
-            posDiff1 += (size1$$ - childSize1) * UI_$this.v10;
-            size1$$ = childSize1;
+            let childSize0 = Layout_$this.u6;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v4;
+            let size0$ = childSize0;
+            let size1$ = Layout_$this.l9 - Layout_$this.l8;
+            let posDiff1 = Layout_$this.l8;
+            let childSize1 = Layout_$this.u9;
+            posDiff1 += (size1$ - childSize1) * UI_$this.v4;
+            size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a9, pos0$, pos1$, size0$$, size1$$);
+            _paint(Layout_$this.a3, pos0$, pos1$, size0$, size1$);
           }
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
             if ((3 & (1 << event)) !== 0) {
-              let childSize0 = Layout_$this.u18;
-              let posDiff0 = (size0$ - childSize0) * UI_$this.v10;
-              let size0$$ = childSize0;
-              let size1$$ = Layout_$this.l27 - Layout_$this.l26;
-              let posDiff1 = Layout_$this.l26;
-              let childSize1 = Layout_$this.u27;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v10;
-              size1$$ = childSize1;
-              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+              let childSize0 = Layout_$this.u6;
+              let posDiff0 = (size0 - childSize0) * UI_$this.v4;
+              let size0$ = childSize0;
+              let size1$ = Layout_$this.l9 - Layout_$this.l8;
+              let posDiff1 = Layout_$this.l8;
+              let childSize1 = Layout_$this.u9;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v4;
+              size1$ = childSize1;
+              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
               if (flag) {
                 pos0 = pos0 - posDiff0;
                 pos1 = pos1 - posDiff1;
-                flag = _onEvent(Layout_$this.a9, event, pos0, pos1, size0$$, size1$$);
+                flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$);
                 if (!flag) {
                 }
               }
             }
             if (!flag) {
               if ((3 & (1 << event)) !== 0) {
-                let size1$$ = Layout_$this.l25 - Layout_$this.l24;
-                let posDiff1 = Layout_$this.l24;
-                flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+                let size1$ = Layout_$this.u7;
+                flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
                 if (flag) {
-                  pos1 = pos1 - posDiff1;
-                  flag = _onEvent(Layout_$this.a7, event, pos0, pos1, size0$, size1$$);
+                  flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1$);
                   if (!flag) {
-                  }
-                }
-              }
-              if (!flag) {
-                if ((3 & (1 << event)) !== 0) {
-                  let size1$$ = Layout_$this.l23 - Layout_$this.l22;
-                  let posDiff1 = Layout_$this.l22;
-                  flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
-                  if (flag) {
-                    pos1 = pos1 - posDiff1;
-                    flag = _onEvent(Layout_$this.a5, event, pos0, pos1, size0$, size1$$);
-                    if (!flag) {
-                    }
-                  }
-                }
-                if (!flag) {
-                  if ((3 & (1 << event)) !== 0) {
-                    let size1$$ = Layout_$this.l21 - Layout_$this.l20;
-                    let posDiff1 = Layout_$this.l20;
-                    flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
-                    if (flag) {
-                      pos1 = pos1 - posDiff1;
-                      flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$$);
-                      if (!flag) {
-                      }
-                    }
-                  }
-                  if (!flag) {
-                    if ((3 & (1 << event)) !== 0) {
-                      let size1$$ = Layout_$this.u19;
-                      flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
-                      if (flag) {
-                        flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$$);
-                        if (!flag) {
-                        }
-                      }
-                    }
                   }
                 }
               }
@@ -2663,118 +2511,48 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        let size1$$ = Layout_$this.u19;
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+        let size1$ = Layout_$this.u7;
         {
-          let size1$$ = Layout_$this.l20 - Layout_$this.u19;
-          let posDiff1 = Layout_$this.u19;
+          let size1$ = Layout_$this.l8 - Layout_$this.u7;
+          let posDiff1 = Layout_$this.u7;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l21 - Layout_$this.l20;
-          let posDiff1 = Layout_$this.l20;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l22 - Layout_$this.l21;
-          let posDiff1 = Layout_$this.l21;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l23 - Layout_$this.l22;
-          let posDiff1 = Layout_$this.l22;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l24 - Layout_$this.l23;
-          let posDiff1 = Layout_$this.l23;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l25 - Layout_$this.l24;
-          let posDiff1 = Layout_$this.l24;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let size1$$ = Layout_$this.l26 - Layout_$this.l25;
-          let posDiff1 = Layout_$this.l25;
-          let pos1$ = pos1 + posDiff1;
-        }
-        {
-          let childSize0 = Layout_$this.u18;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v10;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.l27 - Layout_$this.l26;
-          let posDiff1 = Layout_$this.l26;
-          let childSize1 = Layout_$this.u27;
-          posDiff1 += (size1$$ - childSize1) * UI_$this.v10;
-          size1$$ = childSize1;
+          let childSize0 = Layout_$this.u6;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v4;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.l9 - Layout_$this.l8;
+          let posDiff1 = Layout_$this.l8;
+          let childSize1 = Layout_$this.u9;
+          posDiff1 += (size1$ - childSize1) * UI_$this.v4;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
-      this.a1 = _layout(UI_$this.v1);
+      this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, UI_$this.v1.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
       this.a2 = new QEDExplicitArray(UI_$this.v2, UI_$this.v2);
-      this.a3 = _layout(UI_$this.v3);
-      this.a4 = new QEDExplicitArray(UI_$this.v4, UI_$this.v4);
-      this.a5 = _layout(UI_$this.v5);
-      this.a6 = new QEDExplicitArray(UI_$this.v6, UI_$this.v6);
-      this.a7 = _layout(UI_$this.v7);
-      this.a8 = new QEDExplicitArray(UI_$this.v8, UI_$this.v8);
-      this.a9 = new Main_$this.LayoutArray_(UI_$this.v9, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
-      this.u10 = this.a1.size0;
-      this.u11 = this.a2[0];
-      this.l11 = Main_$this.max(this.u10, this.u11);
-      this.u12 = this.a3.size0;
-      this.l12 = Main_$this.max(this.l11, this.u12);
-      this.u13 = this.a4[0];
-      this.l13 = Main_$this.max(this.l12, this.u13);
-      this.u14 = this.a5.size0;
-      this.l14 = Main_$this.max(this.l13, this.u14);
-      this.u15 = this.a6[0];
-      this.l15 = Main_$this.max(this.l14, this.u15);
-      this.u16 = this.a7.size0;
-      this.l16 = Main_$this.max(this.l15, this.u16);
-      this.u17 = this.a8[0];
-      this.l17 = Main_$this.max(this.l16, this.u17);
-      this.u18 = this.a9.size0;
-      this.l18 = Main_$this.max(this.l17, this.u18);
-      this.u19 = this.a1.size1;
-      this.u20 = this.a2[1];
-      this.l20 = this.u19 + this.u20;
-      this.u21 = this.a3.size1;
-      this.l21 = this.l20 + this.u21;
-      this.u22 = this.a4[1];
-      this.l22 = this.l21 + this.u22;
-      this.u23 = this.a5.size1;
-      this.l23 = this.l22 + this.u23;
-      this.u24 = this.a6[1];
-      this.l24 = this.l23 + this.u24;
-      this.u25 = this.a7.size1;
-      this.l25 = this.l24 + this.u25;
-      this.u26 = this.a8[1];
-      this.l26 = this.l25 + this.u26;
-      this.u27 = this.a9.size1;
-      this.l27 = this.l26 + this.u27;
-      this.size0 = this.l18;
-      this.size1 = this.l27;
+      this.a3 = new Main_$this.LayoutArray_(UI_$this.v3, UI_$this.v3.getDirs(1), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+      this.u4 = this.a1.size[0];
+      this.u5 = this.a2[0];
+      this.l5 = Main_$this.max(this.u4, this.u5);
+      this.u6 = this.a3.size[0];
+      this.l6 = Main_$this.max(this.l5, this.u6);
+      this.u7 = this.a1.size[1];
+      this.u8 = this.a2[1];
+      this.l8 = this.u7 + this.u8;
+      this.u9 = this.a3.size[1];
+      this.l9 = this.l8 + this.u9;
+      this.size = new QEDExplicitArray(this.l6, this.l9);
     }
-    this.v1 = AlphaKeyboardWidget$this.rows[0];
-    _setUI(this.v1);
+    this.v1 = AlphaKeyboardWidget$this.rows;
+    Main_$this.uiArray_(this.v1);
     this.v2 = 10;
-    this.v3 = AlphaKeyboardWidget$this.rows[1];
-    _setUI(this.v3);
-    this.v4 = 10;
-    this.v5 = AlphaKeyboardWidget$this.rows[2];
-    _setUI(this.v5);
-    this.v6 = 10;
-    this.v7 = AlphaKeyboardWidget$this.rows[3];
-    _setUI(this.v7);
-    this.v8 = 10;
-    this.v9 = AlphaKeyboardWidget$this.lastRow;
-    this.v10 = ((50) / 100);
-    Main_$this.uiArray_(this.v9);
+    this.v3 = AlphaKeyboardWidget$this.lastRow;
+    this.v4 = ((50) / 100);
+    Main_$this.uiArray_(this.v3);
   }
   this.ui_ = null;
   this.setUI_ = function() {
@@ -2788,7 +2566,7 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
     this.rows = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
       let i = pos[0];
       return (new AlphaKeyboardWidget$this.Row(i, _HandlerFn_));
-    }), Main_$this.Qui_, (function Lambda_(_ret) {
+    }), new QEDExplicitArray(0, 1), Main_$this.Qui_, (function Lambda_(_ret) {
       {
         AlphaKeyboardWidget$this.typedText += _ret._ret;
         {
@@ -2841,37 +2619,37 @@ this.SpinnerWidget = function(_HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
-            Main_$this.rotate(pos0, pos1, size0$, size1$, UI_$this.v4);
-            pos0 = -size0$ / 2;
-            pos1 = -size1$ / 2;
+            Main_$this.rotate(pos0, pos1, size0, size1, UI_$this.v4);
+            pos0 = -size0 / 2;
+            pos1 = -size1 / 2;
             {
               let childSize0 = Layout_$this.u2;
-              let posDiff0 = (size0$ - childSize0) * UI_$this.v3[0];
-              let size0$$ = childSize0;
+              let posDiff0 = (size0 - childSize0) * UI_$this.v3[0];
+              let size0$ = childSize0;
               let childSize1 = Layout_$this.u3;
-              let posDiff1 = (size1$ - childSize1) * UI_$this.v3[1];
-              let size1$$ = childSize1;
+              let posDiff1 = (size1 - childSize1) * UI_$this.v3[1];
+              let size1$ = childSize1;
               let pos0$ = pos0 + posDiff0;
               let pos1$ = pos1 + posDiff1;
-              UI_$this.v1(pos0$, pos1$, size0$$, size1$$);
+              UI_$this.v1(pos0$, pos1$, size0$, size1$);
             }
             Main_$this.restoreContext();
           }
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           return (flag);
         }
-        this.getBoundsRect = function(path, index$, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index$, pos0, pos1, size0, size1, level, dLevel) {
           {
             let childSize0 = Layout_$this.u2;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v3[0];
-            let size0$$ = childSize0;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v3[0];
+            let size0$ = childSize0;
             let childSize1 = Layout_$this.u3;
-            let posDiff1 = (size1$ - childSize1) * UI_$this.v3[1];
-            let size1$$ = childSize1;
+            let posDiff1 = (size1 - childSize1) * UI_$this.v3[1];
+            let size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
           }
@@ -2880,8 +2658,7 @@ this.SpinnerWidget = function(_HandlerFn_) {
         this.a1 = new QEDExplicitArray(UI_$this.v2, UI_$this.v2);
         this.u2 = this.a1[0];
         this.u3 = this.a1[1];
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = Main_$this.oval;
       this.v2 = 15;
@@ -2898,101 +2675,61 @@ this.SpinnerWidget = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
-          let childSize0 = Layout_$this.u16;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v9;
-          let size0$$ = childSize0;
-          let childSize1 = Layout_$this.u24;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v9;
-          let size1$$ = childSize1;
+          let childSize0 = Layout_$this.u4;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v3;
+          let size0$ = childSize0;
+          let childSize1 = Layout_$this.u6;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v3;
+          let size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          _paint(Layout_$this.a1, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a2, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a3, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a4, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a5, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a6, pos0$, pos1$, size0$$, size1$$);
-          _paint(Layout_$this.a7, pos0$, pos1$, size0$$, size1$$);
+          _paint(Layout_$this.a1, pos0$, pos1$, size0$, size1$);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
+        if ((3 & (1 << event)) !== 0) {
+          let childSize0 = Layout_$this.u4;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v3;
+          let size0$ = childSize0;
+          let childSize1 = Layout_$this.u6;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v3;
+          let size1$ = childSize1;
+          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
+          if (flag) {
+            pos0 = pos0 - posDiff0;
+            pos1 = pos1 - posDiff1;
+            if ((3 & (1 << event)) !== 0) {
+              flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+              if (flag) {
+                flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+                if (!flag) {
+                }
+              }
+            }
+          }
+        }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        {
-        }
-        {
-        }
-        {
-        }
-        {
-        }
-        {
-        }
-        {
-        }
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         {
         }
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
-      this.a1 = _layout(UI_$this.v1);
-      this.a2 = _layout(UI_$this.v2);
-      this.a3 = _layout(UI_$this.v3);
-      this.a4 = _layout(UI_$this.v4);
-      this.a5 = _layout(UI_$this.v5);
-      this.a6 = _layout(UI_$this.v6);
-      this.a7 = _layout(UI_$this.v7);
-      this.a8 = new QEDExplicitArray(UI_$this.v8, UI_$this.v8);
-      this.u9 = this.a1.size0;
-      this.u10 = this.a2.size0;
-      this.l10 = Main_$this.max(this.u9, this.u10);
-      this.u11 = this.a3.size0;
-      this.l11 = Main_$this.max(this.l10, this.u11);
-      this.u12 = this.a4.size0;
-      this.l12 = Main_$this.max(this.l11, this.u12);
-      this.u13 = this.a5.size0;
-      this.l13 = Main_$this.max(this.l12, this.u13);
-      this.u14 = this.a6.size0;
-      this.l14 = Main_$this.max(this.l13, this.u14);
-      this.u15 = this.a7.size0;
-      this.l15 = Main_$this.max(this.l14, this.u15);
-      this.u16 = this.a8[0];
-      this.u17 = this.a1.size1;
-      this.u18 = this.a2.size1;
-      this.l18 = Main_$this.max(this.u17, this.u18);
-      this.u19 = this.a3.size1;
-      this.l19 = Main_$this.max(this.l18, this.u19);
-      this.u20 = this.a4.size1;
-      this.l20 = Main_$this.max(this.l19, this.u20);
-      this.u21 = this.a5.size1;
-      this.l21 = Main_$this.max(this.l20, this.u21);
-      this.u22 = this.a6.size1;
-      this.l22 = Main_$this.max(this.l21, this.u22);
-      this.u23 = this.a7.size1;
-      this.l23 = Main_$this.max(this.l22, this.u23);
-      this.u24 = this.a8[1];
-      this.size0 = this.u16;
-      this.size1 = this.u24;
+      this.a1 = new Main_$this.LayoutArray_(UI_$this.v1, UI_$this.v1.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+      this.a2 = new QEDExplicitArray(UI_$this.v2, UI_$this.v2);
+      this.u3 = this.a1.size[0];
+      this.u4 = this.a2[0];
+      this.u5 = this.a1.size[1];
+      this.u6 = this.a2[1];
+      this.size = new QEDExplicitArray(this.u4, this.u6);
     }
-    this.v1 = SpinnerWidget$this.circles[0];
-    _setUI(this.v1);
-    this.v2 = SpinnerWidget$this.circles[1];
-    _setUI(this.v2);
-    this.v3 = SpinnerWidget$this.circles[2];
-    _setUI(this.v3);
-    this.v4 = SpinnerWidget$this.circles[3];
-    _setUI(this.v4);
-    this.v5 = SpinnerWidget$this.circles[4];
-    _setUI(this.v5);
-    this.v6 = SpinnerWidget$this.circles[5];
-    _setUI(this.v6);
-    this.v7 = SpinnerWidget$this.circles[6];
-    _setUI(this.v7);
-    this.v8 = 100;
-    this.v9 = ((50) / 100);
+    this.v1 = SpinnerWidget$this.circles;
+    Main_$this.uiArray_(this.v1);
+    this.v2 = 100;
+    this.v3 = ((50) / 100);
   }
   this.ui_ = null;
   this.setUI_ = function() {
@@ -3007,16 +2744,14 @@ this.SpinnerWidget = function(_HandlerFn_) {
     this.circles = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
       let index = pos[0];
       return (new SpinnerWidget$this.Circle(index, _HandlerFn_));
-    }), Main_$this.Qui_, (function Lambda_(_ret) {
+    }), new QEDExplicitArray(0, 0), Main_$this.Qui_, (function Lambda_(_ret) {
     }));
-    this.sprite = new Main_$this.Sprite((function Lambda_() {
-    }));
-    (function while179$_() {
+    (function while155$_() {
       if (!SpinnerWidget$this.stopped) {
-        SpinnerWidget$this.blocking__Call = new SpinnerWidget$this.sprite.Animate((function Lambda_(_ret) {
+        SpinnerWidget$this.blocking__Call = new Main_$this.Animation((function Lambda_(_ret) {
           SpinnerWidget$this.blocking__Call = null;
           SpinnerWidget$this.angle = _ret / 2000 * 2 * 3.141593;
-          while179$_();
+          while155$_();
         }));
       }
     })();
@@ -3044,29 +2779,28 @@ this.NumTacosWidget = function(_HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
-          _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+        this.paint = function(pos0, pos1, size0, size1) {
+          _paint(Layout_$this.a1, pos0, pos1, size0, size1);
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
             if (flag) {
-              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
               if (!flag) {
               }
             }
           }
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
         this.a1 = _layout(UI_$this.v1);
-        this.u2 = this.a1.size0;
-        this.u3 = this.a1.size1;
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.u2 = this.a1.size[0];
+        this.u3 = this.a1.size[1];
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = NumButton$this.button;
       _setUI(this.v1);
@@ -3082,35 +2816,35 @@ this.NumTacosWidget = function(_HandlerFn_) {
         const UI_$this = this;
         this.Layout_ = function() {
           const Layout_$this = this;
-          this.paint = function(pos0, pos1, size0$, size1$) {
+          this.paint = function(pos0, pos1, size0, size1) {
             {
-              let size1$$ = Layout_$this.u12;
+              let size1$ = Layout_$this.u12;
               {
-                let size1$$ = Layout_$this.l16 - Layout_$this.u12;
+                let size1$ = Layout_$this.l16 - Layout_$this.u12;
                 let posDiff1 = Layout_$this.u12;
                 let pos1$ = pos1 + posDiff1;
                 {
                   let childSize0 = Layout_$this.u8;
-                  let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-                  let size0$$ = childSize0;
+                  let posDiff0 = (size0 - childSize0) * UI_$this.v8;
+                  let size0$ = childSize0;
                   let childSize1 = Layout_$this.u14;
-                  let posDiff1$ = (size1$$ - childSize1) * UI_$this.v8;
-                  let size1$$$ = childSize1;
+                  let posDiff1$ = (size1$ - childSize1) * UI_$this.v8;
+                  let size1$$ = childSize1;
                   let pos0$ = pos0 + posDiff0;
                   let pos1$$ = pos1$ + posDiff1$;
                   {
                     Main_$this.pushAttribute(12, UI_$this.v5);
                     let childSize0$ = Layout_$this.u7;
-                    let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v4;
-                    let size0$$$ = childSize0$;
+                    let posDiff0$ = (size0$ - childSize0$) * UI_$this.v4;
+                    let size0$$ = childSize0$;
                     posDiff0$ += UI_$this.v6[0];
                     let childSize1$ = Layout_$this.u13;
-                    let posDiff1$$ = (size1$$$ - childSize1$) * UI_$this.v4;
-                    let size1$$$$ = childSize1$;
+                    let posDiff1$$ = (size1$$ - childSize1$) * UI_$this.v4;
+                    let size1$$$ = childSize1$;
                     posDiff1$$ += UI_$this.v6[1];
                     let pos0$$ = pos0$ + posDiff0$;
                     let pos1$$$ = pos1$$ + posDiff1$$;
-                    UI_$this.v2(pos0$$, pos1$$$, size0$$$, size1$$$$);
+                    UI_$this.v2(pos0$$, pos1$$$, size0$$, size1$$$);
                     Main_$this.popAttribute(12);
                   }
                 }
@@ -3118,52 +2852,52 @@ this.NumTacosWidget = function(_HandlerFn_) {
                   Main_$this.pushAttribute(5, UI_$this.v10);
                   Main_$this.pushAttribute(12, UI_$this.v12);
                   let childSize0 = Layout_$this.u9;
-                  let posDiff0 = (size0$ - childSize0) * UI_$this.v11;
-                  let size0$$ = childSize0;
+                  let posDiff0 = (size0 - childSize0) * UI_$this.v11;
+                  let size0$ = childSize0;
                   let childSize1 = Layout_$this.u15;
-                  let posDiff1$ = (size1$$ - childSize1) * UI_$this.v11;
-                  let size1$$$ = childSize1;
+                  let posDiff1$ = (size1$ - childSize1) * UI_$this.v11;
+                  let size1$$ = childSize1;
                   let pos0$ = pos0 + posDiff0;
                   let pos1$$ = pos1$ + posDiff1$;
-                  Main_$this.displayText(UI_$this.v9, pos0$, pos1$$, size0$$, size1$$$);
+                  Main_$this.displayText(UI_$this.v9, pos0$, pos1$$, size0$, size1$$);
                   Main_$this.popAttribute(12);
                   Main_$this.popAttribute(5);
                 }
               }
               {
-                let size1$$ = Layout_$this.l17 - Layout_$this.l16;
+                let size1$ = Layout_$this.l17 - Layout_$this.l16;
                 let posDiff1 = Layout_$this.l16;
                 let pos1$ = pos1 + posDiff1;
               }
             }
           }
-          this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+          this.onEvent = function(event, pos0, pos1, size0, size1) {
             let flag = false;
             return (flag);
           }
-          this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-            let size1$$ = Layout_$this.u12;
+          this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+            let size1$ = Layout_$this.u12;
             {
-              let size1$$ = Layout_$this.l16 - Layout_$this.u12;
+              let size1$ = Layout_$this.l16 - Layout_$this.u12;
               let posDiff1 = Layout_$this.u12;
               let pos1$ = pos1 + posDiff1;
               {
                 let childSize0 = Layout_$this.u8;
-                let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-                let size0$$ = childSize0;
+                let posDiff0 = (size0 - childSize0) * UI_$this.v8;
+                let size0$ = childSize0;
                 let childSize1 = Layout_$this.u14;
-                let posDiff1$ = (size1$$ - childSize1) * UI_$this.v8;
-                let size1$$$ = childSize1;
+                let posDiff1$ = (size1$ - childSize1) * UI_$this.v8;
+                let size1$$ = childSize1;
                 let pos0$ = pos0 + posDiff0;
                 let pos1$$ = pos1$ + posDiff1$;
                 {
                   let childSize0$ = Layout_$this.u7;
-                  let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v4;
-                  let size0$$$ = childSize0$;
+                  let posDiff0$ = (size0$ - childSize0$) * UI_$this.v4;
+                  let size0$$ = childSize0$;
                   posDiff0$ += UI_$this.v6[0];
                   let childSize1$ = Layout_$this.u13;
-                  let posDiff1$$ = (size1$$$ - childSize1$) * UI_$this.v4;
-                  let size1$$$$ = childSize1$;
+                  let posDiff1$$ = (size1$$ - childSize1$) * UI_$this.v4;
+                  let size1$$$ = childSize1$;
                   posDiff1$$ += UI_$this.v6[1];
                   let pos0$$ = pos0$ + posDiff0$;
                   let pos1$$$ = pos1$$ + posDiff1$$;
@@ -3171,17 +2905,17 @@ this.NumTacosWidget = function(_HandlerFn_) {
               }
               {
                 let childSize0 = Layout_$this.u9;
-                let posDiff0 = (size0$ - childSize0) * UI_$this.v11;
-                let size0$$ = childSize0;
+                let posDiff0 = (size0 - childSize0) * UI_$this.v11;
+                let size0$ = childSize0;
                 let childSize1 = Layout_$this.u15;
-                let posDiff1$ = (size1$$ - childSize1) * UI_$this.v11;
-                let size1$$$ = childSize1;
+                let posDiff1$ = (size1$ - childSize1) * UI_$this.v11;
+                let size1$$ = childSize1;
                 let pos0$ = pos0 + posDiff0;
                 let pos1$$ = pos1$ + posDiff1$;
               }
             }
             {
-              let size1$$ = Layout_$this.l17 - Layout_$this.l16;
+              let size1$ = Layout_$this.l17 - Layout_$this.l16;
               let posDiff1 = Layout_$this.l16;
               let pos1$ = pos1 + posDiff1;
             }
@@ -3210,8 +2944,7 @@ this.NumTacosWidget = function(_HandlerFn_) {
           this.l16 = this.u12 + this.l15;
           this.u17 = this.a5[1];
           this.l17 = this.l16 + this.u17;
-          this.size0 = this.l11;
-          this.size1 = this.l17;
+          this.size = new QEDExplicitArray(this.l11, this.l17);
         }
         this.v1 = 15;
         this.v2 = NumButton$this.showTacos;
@@ -3245,32 +2978,32 @@ this.NumTacosWidget = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           let childSize0 = Layout_$this.l8;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v10[0];
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v10[0];
+          let size0$ = childSize0;
           let childSize1 = Layout_$this.l12;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v10[1];
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v10[1];
+          let size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          let size1$$$ = Layout_$this.u9;
+          let size1$$ = Layout_$this.u9;
           {
             let childSize0$ = Layout_$this.u6;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v3;
-            let size0$$$ = childSize0$;
-            let size1$$$ = Layout_$this.l10 - Layout_$this.u9;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v3;
+            let size0$$ = childSize0$;
+            let size1$$ = Layout_$this.l10 - Layout_$this.u9;
             let posDiff1$ = Layout_$this.u9;
             let childSize1$ = Layout_$this.u10;
-            posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v3;
-            size1$$$ = childSize1$;
+            posDiff1$ += (size1$$ - childSize1$) * UI_$this.v3;
+            size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            Main_$this.displayText(UI_$this.v2, pos0$$, pos1$$, size0$$$, size1$$$);
+            Main_$this.displayText(UI_$this.v2, pos0$$, pos1$$, size0$$, size1$$);
           }
           {
-            let size1$$$ = Layout_$this.l11 - Layout_$this.l10;
+            let size1$$ = Layout_$this.l11 - Layout_$this.l10;
             let posDiff1$ = Layout_$this.l10;
             let pos1$$ = pos1$ + posDiff1$;
           }
@@ -3279,10 +3012,10 @@ this.NumTacosWidget = function(_HandlerFn_) {
             Main_$this.pushAttribute(14, UI_$this.v7);
             Main_$this.pushAttribute(5, UI_$this.v8);
             Main_$this.pushAttribute(12, UI_$this.v9);
-            let size1$$$ = Layout_$this.l12 - Layout_$this.l11;
+            let size1$$ = Layout_$this.l12 - Layout_$this.l11;
             let posDiff1$ = Layout_$this.l11;
             let pos1$$ = pos1$ + posDiff1$;
-            _paint(Layout_$this.a4, pos0$, pos1$$, size0$$, size1$$$);
+            _paint(Layout_$this.a4, pos0$, pos1$$, size0$, size1$$);
             Main_$this.popAttribute(12);
             Main_$this.popAttribute(5);
             Main_$this.popAttribute(14);
@@ -3290,26 +3023,26 @@ this.NumTacosWidget = function(_HandlerFn_) {
           }
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
           let childSize0 = Layout_$this.l8;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v10[0];
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v10[0];
+          let size0$ = childSize0;
           let childSize1 = Layout_$this.l12;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v10[1];
-          let size1$$ = childSize1;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v10[1];
+          let size1$ = childSize1;
+          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
           if (flag) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             if ((3 & (1 << event)) !== 0) {
-              let size1$$$ = Layout_$this.l12 - Layout_$this.l11;
+              let size1$$ = Layout_$this.l12 - Layout_$this.l11;
               let posDiff1$ = Layout_$this.l11;
-              flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$$;
+              flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
               if (flag) {
                 pos1 = pos1 - posDiff1$;
-                flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$$, size1$$$);
+                flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$, size1$$);
                 if (!flag) {
                 }
               }
@@ -3320,27 +3053,27 @@ this.NumTacosWidget = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        let size1$$ = Layout_$this.u9;
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+        let size1$ = Layout_$this.u9;
         {
           let childSize0 = Layout_$this.u6;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v3;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v3;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.l10 - Layout_$this.u9;
           let posDiff1 = Layout_$this.u9;
           let childSize1 = Layout_$this.u10;
-          posDiff1 += (size1$$ - childSize1) * UI_$this.v3;
-          size1$$ = childSize1;
+          posDiff1 += (size1$ - childSize1) * UI_$this.v3;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l11 - Layout_$this.l10;
+          let size1$ = Layout_$this.l11 - Layout_$this.l10;
           let posDiff1 = Layout_$this.l10;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l12 - Layout_$this.l11;
+          let size1$ = Layout_$this.l12 - Layout_$this.l11;
           let posDiff1 = Layout_$this.l11;
           let pos1$ = pos1 + posDiff1;
         }
@@ -3351,7 +3084,7 @@ this.NumTacosWidget = function(_HandlerFn_) {
       this.a3 = new QEDExplicitArray(UI_$this.v4, UI_$this.v4);
       Main_$this.pushAttribute(6, UI_$this.v6);
       Main_$this.pushAttribute(5, UI_$this.v8);
-      this.a4 = new Main_$this.LayoutArray_(UI_$this.v5, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+      this.a4 = new Main_$this.LayoutArray_(UI_$this.v5, UI_$this.v5.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
       Main_$this.popAttribute(5);
       Main_$this.popAttribute(6);
       this.u5 = this.a1[0];
@@ -3359,17 +3092,16 @@ this.NumTacosWidget = function(_HandlerFn_) {
       this.l6 = Main_$this.max(this.u5, this.u6);
       this.u7 = this.a3[0];
       this.l7 = Main_$this.max(this.l6, this.u7);
-      this.u8 = this.a4.size0;
+      this.u8 = this.a4.size[0];
       this.l8 = Main_$this.max(this.l7, this.u8);
       this.u9 = this.a1[1];
       this.u10 = this.a2[1];
       this.l10 = this.u9 + this.u10;
       this.u11 = this.a3[1];
       this.l11 = this.l10 + this.u11;
-      this.u12 = this.a4.size1;
+      this.u12 = this.a4.size[1];
       this.l12 = this.l11 + this.u12;
-      this.size0 = this.l8;
-      this.size1 = this.l12;
+      this.size = new QEDExplicitArray(this.l8, this.l12);
     }
     this.v1 = 50;
     this.v2 = "How many tacos do you want?";
@@ -3395,7 +3127,7 @@ this.NumTacosWidget = function(_HandlerFn_) {
     this.numTacosButtonArray = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
       let index = pos[0];
       return (new NumTacosWidget$this.NumButton(index + 1, _HandlerFn_));
-    }), Main_$this.Qui_, (function Lambda_(_ret) {
+    }), new QEDExplicitArray(1, 0), Main_$this.Qui_, (function Lambda_(_ret) {
       {
         Main_$this.post_((function lambda_() {
           _HandlerFn_(_ret._ret);
@@ -3411,70 +3143,70 @@ this.RoomNumberWidget = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
-          let size1$$ = Layout_$this.u18;
+          let size1$ = Layout_$this.u18;
           {
-            let size1$$ = Layout_$this.l25 - Layout_$this.u18;
+            let size1$ = Layout_$this.l25 - Layout_$this.u18;
             let posDiff1 = Layout_$this.u18;
             let pos1$ = pos1 + posDiff1;
             {
               let exp0 = new QEDExplicitArray(UI_$this.v16, UI_$this.v25);
               exp0[1] = exp0[1] + exp0[0];
-              let extraSpace0 = size0$ - Layout_$this.l15;
+              let extraSpace0 = size0 - Layout_$this.l15;
               if (exp0[1] > 1)
                 extraSpace0 = extraSpace0 / exp0[1];
               {
-                let size0$$ = Layout_$this.u13;
-                size0$$ = size0$$ + extraSpace0 * UI_$this.v16;
+                let size0$ = Layout_$this.u13;
+                size0$ = size0$ + extraSpace0 * UI_$this.v16;
                 {
                   let childSize0 = Layout_$this.l12;
-                  let posDiff0 = (size0$$ - childSize0) * UI_$this.v13[0];
-                  let size0$$$ = childSize0;
+                  let posDiff0 = (size0$ - childSize0) * UI_$this.v13[0];
+                  let size0$$ = childSize0;
                   let childSize1 = Layout_$this.l21;
-                  let posDiff1$ = (size1$$ - childSize1) * UI_$this.v13[1];
-                  let size1$$$ = childSize1;
+                  let posDiff1$ = (size1$ - childSize1) * UI_$this.v13[1];
+                  let size1$$ = childSize1;
                   let pos0$ = pos0 + posDiff0;
                   let pos1$$ = pos1$ + posDiff1$;
                   {
                     let childSize0$ = Layout_$this.u10;
-                    let posDiff0$ = (size0$$$ - childSize0$) * UI_$this.v3;
-                    let size0$$$$ = childSize0$;
-                    let size1$$$$ = Layout_$this.u19;
+                    let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v3;
+                    let size0$$$ = childSize0$;
+                    let size1$$$ = Layout_$this.u19;
                     let childSize1$ = Layout_$this.u19;
-                    let posDiff1$$ = (size1$$$$ - childSize1$) * UI_$this.v3;
-                    size1$$$$ = childSize1$;
+                    let posDiff1$$ = (size1$$$ - childSize1$) * UI_$this.v3;
+                    size1$$$ = childSize1$;
                     let pos0$$ = pos0$ + posDiff0$;
                     let pos1$$$ = pos1$$ + posDiff1$$;
-                    Main_$this.displayText(UI_$this.v2, pos0$$, pos1$$$, size0$$$$, size1$$$$);
+                    Main_$this.displayText(UI_$this.v2, pos0$$, pos1$$$, size0$$$, size1$$$);
                   }
                   {
                     Main_$this.pushAttribute(12, UI_$this.v10);
                     Main_$this.pushAttribute(14, UI_$this.v11);
                     let childSize0$ = Layout_$this.u12;
-                    let posDiff0$ = (size0$$$ - childSize0$) * UI_$this.v12;
-                    let size0$$$$ = childSize0$;
-                    let size1$$$$ = Layout_$this.l21 - Layout_$this.u19;
+                    let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v12;
+                    let size0$$$ = childSize0$;
+                    let size1$$$ = Layout_$this.l21 - Layout_$this.u19;
                     let posDiff1$$ = Layout_$this.u19;
                     let childSize1$ = Layout_$this.u21;
-                    posDiff1$$ += (size1$$$$ - childSize1$) * UI_$this.v12;
-                    size1$$$$ = childSize1$;
+                    posDiff1$$ += (size1$$$ - childSize1$) * UI_$this.v12;
+                    size1$$$ = childSize1$;
                     let pos0$$ = pos0$ + posDiff0$;
                     let pos1$$$ = pos1$$ + posDiff1$$;
-                    UI_$this.v8(pos0$$, pos1$$$, size0$$$$, size1$$$$);
+                    UI_$this.v8(pos0$$, pos1$$$, size0$$$, size1$$$);
                     Main_$this.saveContext();
                     {
                       Main_$this.pushAttribute(5, UI_$this.v5);
                       Main_$this.pushAttribute(12, UI_$this.v6);
                       let childSize0$$ = Layout_$this.u11;
-                      let posDiff0$$ = (size0$$$$ - childSize0$$) * UI_$this.v7;
-                      let size0$$$$$ = childSize0$$;
+                      let posDiff0$$ = (size0$$$ - childSize0$$) * UI_$this.v7;
+                      let size0$$$$ = childSize0$$;
                       let childSize1$$ = Layout_$this.u20;
-                      let posDiff1$$$ = (size1$$$$ - childSize1$$) * UI_$this.v7;
-                      let size1$$$$$ = childSize1$$;
+                      let posDiff1$$$ = (size1$$$ - childSize1$$) * UI_$this.v7;
+                      let size1$$$$ = childSize1$$;
                       let pos0$$$ = pos0$$ + posDiff0$$;
                       let pos1$$$$ = pos1$$$ + posDiff1$$$;
-                      Main_$this.displayText(UI_$this.v4, pos0$$$, pos1$$$$, size0$$$$$, size1$$$$$);
+                      Main_$this.displayText(UI_$this.v4, pos0$$$, pos1$$$$, size0$$$$, size1$$$$);
                       Main_$this.popAttribute(12);
                       Main_$this.popAttribute(5);
                     }
@@ -3485,9 +3217,9 @@ this.RoomNumberWidget = function(_HandlerFn_) {
                 }
               }
               {
-                let size0$$ = Layout_$this.l15 - Layout_$this.u13;
+                let size0$ = Layout_$this.l15 - Layout_$this.u13;
                 let posDiff0 = Layout_$this.u13;
-                size0$$ = size0$$ + extraSpace0 * UI_$this.v25;
+                size0$ = size0$ + extraSpace0 * UI_$this.v25;
                 posDiff0 += exp0[0] * extraSpace0;
                 let pos0$ = pos0 + posDiff0;
                 {
@@ -3496,14 +3228,14 @@ this.RoomNumberWidget = function(_HandlerFn_) {
                   Main_$this.pushAttribute(14, UI_$this.v20);
                   Main_$this.pushAttribute(12, UI_$this.v21);
                   let childSize0 = Layout_$this.u14;
-                  let posDiff0$ = (size0$$ - childSize0) * UI_$this.v22;
-                  let size0$$$ = childSize0;
+                  let posDiff0$ = (size0$ - childSize0) * UI_$this.v22;
+                  let size0$$ = childSize0;
                   let childSize1 = Layout_$this.u23;
-                  let posDiff1$ = (size1$$ - childSize1) * UI_$this.v22;
-                  let size1$$$ = childSize1;
+                  let posDiff1$ = (size1$ - childSize1) * UI_$this.v22;
+                  let size1$$ = childSize1;
                   let pos0$$ = pos0$ + posDiff0$;
                   let pos1$$ = pos1$ + posDiff1$;
-                  _paint(Layout_$this.a6, pos0$$, pos1$$, size0$$$, size1$$$);
+                  _paint(Layout_$this.a6, pos0$$, pos1$$, size0$$, size1$$);
                   Main_$this.popAttribute(12);
                   Main_$this.popAttribute(14);
                   Main_$this.popAttribute(6);
@@ -3517,76 +3249,76 @@ this.RoomNumberWidget = function(_HandlerFn_) {
           Main_$this.pushAttribute(5, UI_$this.v27);
           Main_$this.pushAttribute(12, UI_$this.v28);
           let childSize0 = Layout_$this.u17;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v29;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v29;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v30;
           let childSize1 = Layout_$this.u26;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v29;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v29;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v30;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          _paint(Layout_$this.a8, pos0$, pos1$, size0$$, size1$$);
+          _paint(Layout_$this.a8, pos0$, pos1$, size0$, size1$);
           Main_$this.popAttribute(12);
           Main_$this.popAttribute(5);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
           let childSize0 = Layout_$this.u17;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v29;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v29;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v30;
           let childSize1 = Layout_$this.u26;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v29;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v29;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v30;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
           if (flag) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
-            flag = _onEvent(Layout_$this.a8, event, pos0, pos1, size0$$, size1$$);
+            flag = _onEvent(Layout_$this.a8, event, pos0, pos1, size0$, size1$);
             if (!flag) {
             }
           }
         }
         if (!flag) {
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
             if (flag) {
               if ((3 & (1 << event)) !== 0) {
-                let size1$$ = Layout_$this.l25 - Layout_$this.u18;
+                let size1$ = Layout_$this.l25 - Layout_$this.u18;
                 let posDiff1 = Layout_$this.u18;
-                flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+                flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
                 if (flag) {
                   pos1 = pos1 - posDiff1;
                   {
                     let exp0 = new QEDExplicitArray(UI_$this.v16, UI_$this.v25);
                     exp0[1] = exp0[1] + exp0[0];
-                    let extraSpace0 = size0$ - Layout_$this.l15;
+                    let extraSpace0 = size0 - Layout_$this.l15;
                     if (exp0[1] > 1)
                       extraSpace0 = extraSpace0 / exp0[1];
                     if ((3 & (1 << event)) !== 0) {
-                      let size0$$ = Layout_$this.l15 - Layout_$this.u13;
+                      let size0$ = Layout_$this.l15 - Layout_$this.u13;
                       let posDiff0 = Layout_$this.u13;
-                      size0$$ = size0$$ + extraSpace0 * UI_$this.v25;
+                      size0$ = size0$ + extraSpace0 * UI_$this.v25;
                       posDiff0 += exp0[0] * extraSpace0;
-                      flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= 0 && pos1 < size1$$;
+                      flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= 0 && pos1 < size1$;
                       if (flag) {
                         pos0 = pos0 - posDiff0;
                         if ((3 & (1 << event)) !== 0) {
                           let childSize0 = Layout_$this.u14;
-                          let posDiff0$ = (size0$$ - childSize0) * UI_$this.v22;
-                          let size0$$$ = childSize0;
+                          let posDiff0$ = (size0$ - childSize0) * UI_$this.v22;
+                          let size0$$ = childSize0;
                           let childSize1 = Layout_$this.u23;
-                          let posDiff1$ = (size1$$ - childSize1) * UI_$this.v22;
-                          let size1$$$ = childSize1;
-                          flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$$;
+                          let posDiff1$ = (size1$ - childSize1) * UI_$this.v22;
+                          let size1$$ = childSize1;
+                          flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
                           if (flag) {
                             pos0 = pos0 - posDiff0$;
                             pos1 = pos1 - posDiff1$;
-                            flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$$, size1$$$);
+                            flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$, size1$$);
                             if (!flag) {
                             }
                           }
@@ -3605,59 +3337,59 @@ this.RoomNumberWidget = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        let size1$$ = Layout_$this.u18;
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+        let size1$ = Layout_$this.u18;
         {
-          let size1$$ = Layout_$this.l25 - Layout_$this.u18;
+          let size1$ = Layout_$this.l25 - Layout_$this.u18;
           let posDiff1 = Layout_$this.u18;
           let pos1$ = pos1 + posDiff1;
           {
             let exp0 = new QEDExplicitArray(UI_$this.v16, UI_$this.v25);
             exp0[1] = exp0[1] + exp0[0];
-            let extraSpace0 = size0$ - Layout_$this.l15;
+            let extraSpace0 = size0 - Layout_$this.l15;
             if (exp0[1] > 1)
               extraSpace0 = extraSpace0 / exp0[1];
             {
-              let size0$$ = Layout_$this.u13;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v16;
+              let size0$ = Layout_$this.u13;
+              size0$ = size0$ + extraSpace0 * UI_$this.v16;
               {
                 let childSize0 = Layout_$this.l12;
-                let posDiff0 = (size0$$ - childSize0) * UI_$this.v13[0];
-                let size0$$$ = childSize0;
+                let posDiff0 = (size0$ - childSize0) * UI_$this.v13[0];
+                let size0$$ = childSize0;
                 let childSize1 = Layout_$this.l21;
-                let posDiff1$ = (size1$$ - childSize1) * UI_$this.v13[1];
-                let size1$$$ = childSize1;
+                let posDiff1$ = (size1$ - childSize1) * UI_$this.v13[1];
+                let size1$$ = childSize1;
                 let pos0$ = pos0 + posDiff0;
                 let pos1$$ = pos1$ + posDiff1$;
                 {
                   let childSize0$ = Layout_$this.u10;
-                  let posDiff0$ = (size0$$$ - childSize0$) * UI_$this.v3;
-                  let size0$$$$ = childSize0$;
-                  let size1$$$$ = Layout_$this.u19;
+                  let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v3;
+                  let size0$$$ = childSize0$;
+                  let size1$$$ = Layout_$this.u19;
                   let childSize1$ = Layout_$this.u19;
-                  let posDiff1$$ = (size1$$$$ - childSize1$) * UI_$this.v3;
-                  size1$$$$ = childSize1$;
+                  let posDiff1$$ = (size1$$$ - childSize1$) * UI_$this.v3;
+                  size1$$$ = childSize1$;
                   let pos0$$ = pos0$ + posDiff0$;
                   let pos1$$$ = pos1$$ + posDiff1$$;
                 }
                 {
                   let childSize0$ = Layout_$this.u12;
-                  let posDiff0$ = (size0$$$ - childSize0$) * UI_$this.v12;
-                  let size0$$$$ = childSize0$;
-                  let size1$$$$ = Layout_$this.l21 - Layout_$this.u19;
+                  let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v12;
+                  let size0$$$ = childSize0$;
+                  let size1$$$ = Layout_$this.l21 - Layout_$this.u19;
                   let posDiff1$$ = Layout_$this.u19;
                   let childSize1$ = Layout_$this.u21;
-                  posDiff1$$ += (size1$$$$ - childSize1$) * UI_$this.v12;
-                  size1$$$$ = childSize1$;
+                  posDiff1$$ += (size1$$$ - childSize1$) * UI_$this.v12;
+                  size1$$$ = childSize1$;
                   let pos0$$ = pos0$ + posDiff0$;
                   let pos1$$$ = pos1$$ + posDiff1$$;
                   {
                     let childSize0$$ = Layout_$this.u11;
-                    let posDiff0$$ = (size0$$$$ - childSize0$$) * UI_$this.v7;
-                    let size0$$$$$ = childSize0$$;
+                    let posDiff0$$ = (size0$$$ - childSize0$$) * UI_$this.v7;
+                    let size0$$$$ = childSize0$$;
                     let childSize1$$ = Layout_$this.u20;
-                    let posDiff1$$$ = (size1$$$$ - childSize1$$) * UI_$this.v7;
-                    let size1$$$$$ = childSize1$$;
+                    let posDiff1$$$ = (size1$$$ - childSize1$$) * UI_$this.v7;
+                    let size1$$$$ = childSize1$$;
                     let pos0$$$ = pos0$$ + posDiff0$$;
                     let pos1$$$$ = pos1$$$ + posDiff1$$$;
                   }
@@ -3665,18 +3397,18 @@ this.RoomNumberWidget = function(_HandlerFn_) {
               }
             }
             {
-              let size0$$ = Layout_$this.l15 - Layout_$this.u13;
+              let size0$ = Layout_$this.l15 - Layout_$this.u13;
               let posDiff0 = Layout_$this.u13;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v25;
+              size0$ = size0$ + extraSpace0 * UI_$this.v25;
               posDiff0 += exp0[0] * extraSpace0;
               let pos0$ = pos0 + posDiff0;
               {
                 let childSize0 = Layout_$this.u14;
-                let posDiff0$ = (size0$$ - childSize0) * UI_$this.v22;
-                let size0$$$ = childSize0;
+                let posDiff0$ = (size0$ - childSize0) * UI_$this.v22;
+                let size0$$ = childSize0;
                 let childSize1 = Layout_$this.u23;
-                let posDiff1$ = (size1$$ - childSize1) * UI_$this.v22;
-                let size1$$$ = childSize1;
+                let posDiff1$ = (size1$ - childSize1) * UI_$this.v22;
+                let size1$$ = childSize1;
                 let pos0$$ = pos0$ + posDiff0$;
                 let pos1$$ = pos1$ + posDiff1$;
               }
@@ -3707,11 +3439,11 @@ this.RoomNumberWidget = function(_HandlerFn_) {
       this.u12 = this.a4[0];
       this.l12 = Main_$this.max(this.u10, this.u12);
       this.u13 = this.a5[0];
-      this.u14 = this.a6.size0;
+      this.u14 = this.a6.size[0];
       this.u15 = this.a7[0];
       this.l15 = this.u13 + this.u15;
       this.l16 = Main_$this.max(this.u9, this.l15);
-      this.u17 = this.a8.size0;
+      this.u17 = this.a8.size[0];
       this.l17 = Main_$this.max(this.l16, this.u17);
       this.u18 = this.a1[1];
       this.u19 = this.a2[1];
@@ -3719,14 +3451,13 @@ this.RoomNumberWidget = function(_HandlerFn_) {
       this.u21 = this.a4[1];
       this.l21 = this.u19 + this.u21;
       this.u22 = this.a5[1];
-      this.u23 = this.a6.size1;
+      this.u23 = this.a6.size[1];
       this.u24 = this.a7[1];
       this.l24 = Main_$this.max(this.u22, this.u24);
       this.l25 = this.u18 + this.l24;
-      this.u26 = this.a8.size1;
+      this.u26 = this.a8.size[1];
       this.l26 = Main_$this.max(this.l25, this.u26);
-      this.size0 = this.l17;
-      this.size1 = this.l26;
+      this.size = new QEDExplicitArray(this.l17, this.l26);
     }
     this.v1 = 25;
     this.v2 = "Type your room number";
@@ -3789,36 +3520,36 @@ this.GuestNameWidget = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
-          let size1$$ = Layout_$this.u13;
+          let size1$ = Layout_$this.u13;
           {
             Main_$this.pushAttribute(12, UI_$this.v8);
             Main_$this.pushAttribute(14, UI_$this.v9);
             let childSize0 = Layout_$this.u9;
-            let posDiff0 = (size0$ - childSize0) * UI_$this.v10;
-            let size0$$ = childSize0;
-            let size1$$ = Layout_$this.l15 - Layout_$this.u13;
+            let posDiff0 = (size0 - childSize0) * UI_$this.v10;
+            let size0$ = childSize0;
+            let size1$ = Layout_$this.l15 - Layout_$this.u13;
             let posDiff1 = Layout_$this.u13;
             let childSize1 = Layout_$this.u15;
-            posDiff1 += (size1$$ - childSize1) * UI_$this.v10;
-            size1$$ = childSize1;
+            posDiff1 += (size1$ - childSize1) * UI_$this.v10;
+            size1$ = childSize1;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
-            UI_$this.v6(pos0$, pos1$, size0$$, size1$$);
+            UI_$this.v6(pos0$, pos1$, size0$, size1$);
             Main_$this.saveContext();
             {
               Main_$this.pushAttribute(5, UI_$this.v3);
               Main_$this.pushAttribute(12, UI_$this.v4);
               let childSize0$ = Layout_$this.u8;
-              let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v5;
-              let size0$$$ = childSize0$;
+              let posDiff0$ = (size0$ - childSize0$) * UI_$this.v5;
+              let size0$$ = childSize0$;
               let childSize1$ = Layout_$this.u14;
-              let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v5;
-              let size1$$$ = childSize1$;
+              let posDiff1$ = (size1$ - childSize1$) * UI_$this.v5;
+              let size1$$ = childSize1$;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$$ = pos1$ + posDiff1$;
-              Main_$this.displayText(UI_$this.v2, pos0$$, pos1$$, size0$$$, size1$$$);
+              Main_$this.displayText(UI_$this.v2, pos0$$, pos1$$, size0$$, size1$$);
               Main_$this.popAttribute(12);
               Main_$this.popAttribute(5);
             }
@@ -3827,7 +3558,7 @@ this.GuestNameWidget = function(_HandlerFn_) {
             Main_$this.popAttribute(12);
           }
           {
-            let size1$$ = Layout_$this.l16 - Layout_$this.l15;
+            let size1$ = Layout_$this.l16 - Layout_$this.l15;
             let posDiff1 = Layout_$this.l15;
             let pos1$ = pos1 + posDiff1;
           }
@@ -3836,10 +3567,10 @@ this.GuestNameWidget = function(_HandlerFn_) {
             Main_$this.pushAttribute(6, UI_$this.v14);
             Main_$this.pushAttribute(14, UI_$this.v15);
             Main_$this.pushAttribute(12, UI_$this.v16);
-            let size1$$ = Layout_$this.l17 - Layout_$this.l16;
+            let size1$ = Layout_$this.l17 - Layout_$this.l16;
             let posDiff1 = Layout_$this.l16;
             let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a5, pos0, pos1$, size0$, size1$$);
+            _paint(Layout_$this.a5, pos0, pos1$, size0, size1$);
             Main_$this.popAttribute(12);
             Main_$this.popAttribute(14);
             Main_$this.popAttribute(6);
@@ -3850,51 +3581,51 @@ this.GuestNameWidget = function(_HandlerFn_) {
           Main_$this.pushAttribute(5, UI_$this.v18);
           Main_$this.pushAttribute(12, UI_$this.v19);
           let childSize0 = Layout_$this.u12;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v20;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v20;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v21;
           let childSize1 = Layout_$this.u18;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v20;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v20;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v21;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          _paint(Layout_$this.a6, pos0$, pos1$, size0$$, size1$$);
+          _paint(Layout_$this.a6, pos0$, pos1$, size0$, size1$);
           Main_$this.popAttribute(12);
           Main_$this.popAttribute(5);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
           let childSize0 = Layout_$this.u12;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v20;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v20;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v21;
           let childSize1 = Layout_$this.u18;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v20;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v20;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v21;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
           if (flag) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
-            flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$, size1$$);
+            flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$, size1$);
             if (!flag) {
             }
           }
         }
         if (!flag) {
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
             if (flag) {
               if ((3 & (1 << event)) !== 0) {
-                let size1$$ = Layout_$this.l17 - Layout_$this.l16;
+                let size1$ = Layout_$this.l17 - Layout_$this.l16;
                 let posDiff1 = Layout_$this.l16;
-                flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+                flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
                 if (flag) {
                   pos1 = pos1 - posDiff1;
-                  flag = _onEvent(Layout_$this.a5, event, pos0, pos1, size0$, size1$$);
+                  flag = _onEvent(Layout_$this.a5, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
                 }
@@ -3906,37 +3637,37 @@ this.GuestNameWidget = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
-        let size1$$ = Layout_$this.u13;
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
+        let size1$ = Layout_$this.u13;
         {
           let childSize0 = Layout_$this.u9;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v10;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.l15 - Layout_$this.u13;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v10;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.l15 - Layout_$this.u13;
           let posDiff1 = Layout_$this.u13;
           let childSize1 = Layout_$this.u15;
-          posDiff1 += (size1$$ - childSize1) * UI_$this.v10;
-          size1$$ = childSize1;
+          posDiff1 += (size1$ - childSize1) * UI_$this.v10;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
           {
             let childSize0$ = Layout_$this.u8;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v5;
-            let size0$$$ = childSize0$;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v5;
+            let size0$$ = childSize0$;
             let childSize1$ = Layout_$this.u14;
-            let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v5;
-            let size1$$$ = childSize1$;
+            let posDiff1$ = (size1$ - childSize1$) * UI_$this.v5;
+            let size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
           }
         }
         {
-          let size1$$ = Layout_$this.l16 - Layout_$this.l15;
+          let size1$ = Layout_$this.l16 - Layout_$this.l15;
           let posDiff1 = Layout_$this.l15;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l17 - Layout_$this.l16;
+          let size1$ = Layout_$this.l17 - Layout_$this.l16;
           let posDiff1 = Layout_$this.l16;
           let pos1$ = pos1 + posDiff1;
         }
@@ -3962,9 +3693,9 @@ this.GuestNameWidget = function(_HandlerFn_) {
       this.l9 = Main_$this.max(this.u7, this.u9);
       this.u10 = this.a4[0];
       this.l10 = Main_$this.max(this.l9, this.u10);
-      this.u11 = this.a5.size0;
+      this.u11 = this.a5.size[0];
       this.l11 = Main_$this.max(this.l10, this.u11);
-      this.u12 = this.a6.size0;
+      this.u12 = this.a6.size[0];
       this.l12 = Main_$this.max(this.l11, this.u12);
       this.u13 = this.a1[1];
       this.u14 = this.a2[1];
@@ -3972,12 +3703,11 @@ this.GuestNameWidget = function(_HandlerFn_) {
       this.l15 = this.u13 + this.u15;
       this.u16 = this.a4[1];
       this.l16 = this.l15 + this.u16;
-      this.u17 = this.a5.size1;
+      this.u17 = this.a5.size[1];
       this.l17 = this.l16 + this.u17;
-      this.u18 = this.a6.size1;
+      this.u18 = this.a6.size[1];
       this.l18 = Main_$this.max(this.l17, this.u18);
-      this.size0 = this.l12;
-      this.size1 = this.l18;
+      this.size = new QEDExplicitArray(this.l12, this.l18);
     }
     this.v1 = 25;
     this.v2 = GuestNameWidget$this.zipCode.length ? GuestNameWidget$this.zipCode : "Enter the guest's family name";
@@ -4030,21 +3760,20 @@ this.Widget = function(_HandlerFn_) {
   this.UI_ = function() {
     const UI_$this = this;
     this.Layout_ = function() {
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = Main_$this.getTextSize(UI_$this.v1);
       this.u2 = this.a1[0];
       this.u3 = this.a1[1];
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = "";
   }
@@ -4075,129 +3804,129 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           Main_$this.pushAttribute(5, UI_$this.v23);
           Main_$this.pushAttribute(12, UI_$this.v24);
           let childSize0 = Layout_$this.l22;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v22;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v22;
+          let size0$ = childSize0;
           let childSize1 = Layout_$this.l34;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v22;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v22;
+          let size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
           {
-            let size0$$$ = Layout_$this.l16;
+            let size0$$ = Layout_$this.l16;
             {
               Main_$this.pushAttribute(12, UI_$this.v3);
-              UI_$this.v1(pos0$, pos1$, size0$$$, size1$$);
+              UI_$this.v1(pos0$, pos1$, size0$$, size1$);
               Main_$this.popAttribute(12);
             }
             {
               {
-                let size1$$$ = Layout_$this.u24;
-                Main_$this.displayText(UI_$this.v4, pos0$, pos1$, size0$$$, size1$$$);
+                let size1$$ = Layout_$this.u24;
+                Main_$this.displayText(UI_$this.v4, pos0$, pos1$, size0$$, size1$$);
               }
               {
-                let size1$$$ = Layout_$this.l25 - Layout_$this.u24;
+                let size1$$ = Layout_$this.l25 - Layout_$this.u24;
                 let posDiff1$ = Layout_$this.u24;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v5, pos0$, pos1$$, size0$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v5, pos0$, pos1$$, size0$$, size1$$);
               }
               {
-                let size1$$$ = Layout_$this.l26 - Layout_$this.l25;
+                let size1$$ = Layout_$this.l26 - Layout_$this.l25;
                 let posDiff1$ = Layout_$this.l25;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v6, pos0$, pos1$$, size0$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v6, pos0$, pos1$$, size0$$, size1$$);
               }
               {
-                let size1$$$ = Layout_$this.l27 - Layout_$this.l26;
+                let size1$$ = Layout_$this.l27 - Layout_$this.l26;
                 let posDiff1$ = Layout_$this.l26;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v7, pos0$, pos1$$, size0$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v7, pos0$, pos1$$, size0$$, size1$$);
               }
               {
-                let size1$$$ = Layout_$this.l28 - Layout_$this.l27;
+                let size1$$ = Layout_$this.l28 - Layout_$this.l27;
                 let posDiff1$ = Layout_$this.l27;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v8, pos0$, pos1$$, size0$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v8, pos0$, pos1$$, size0$$, size1$$);
               }
             }
           }
           {
-            let size0$$$ = Layout_$this.l22 - Layout_$this.l16;
+            let size0$$ = Layout_$this.l22 - Layout_$this.l16;
             let posDiff0$ = Layout_$this.l16;
             let pos0$$ = pos0$ + posDiff0$;
             {
               Main_$this.pushAttribute(12, UI_$this.v11);
-              UI_$this.v9(pos0$$, pos1$, size0$$$, size1$$);
+              UI_$this.v9(pos0$$, pos1$, size0$$, size1$);
               Main_$this.popAttribute(12);
             }
             {
               {
                 let childSize0$ = Layout_$this.u17;
-                let posDiff0$$ = (size0$$$ - childSize0$) * UI_$this.v13;
-                let size0$$$$ = childSize0$;
-                let size1$$$ = Layout_$this.u29;
+                let posDiff0$$ = (size0$$ - childSize0$) * UI_$this.v13;
+                let size0$$$ = childSize0$;
+                let size1$$ = Layout_$this.u29;
                 let childSize1$ = Layout_$this.u29;
-                let posDiff1$ = (size1$$$ - childSize1$) * UI_$this.v13;
-                size1$$$ = childSize1$;
+                let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v13;
+                size1$$ = childSize1$;
                 let pos0$$$ = pos0$$ + posDiff0$$;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v12, pos0$$$, pos1$$, size0$$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v12, pos0$$$, pos1$$, size0$$$, size1$$);
               }
               {
                 let childSize0$ = Layout_$this.u18;
-                let posDiff0$$ = (size0$$$ - childSize0$) * UI_$this.v15;
-                let size0$$$$ = childSize0$;
-                let size1$$$ = Layout_$this.l30 - Layout_$this.u29;
+                let posDiff0$$ = (size0$$ - childSize0$) * UI_$this.v15;
+                let size0$$$ = childSize0$;
+                let size1$$ = Layout_$this.l30 - Layout_$this.u29;
                 let posDiff1$ = Layout_$this.u29;
                 let childSize1$ = Layout_$this.u30;
-                posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v15;
-                size1$$$ = childSize1$;
+                posDiff1$ += (size1$$ - childSize1$) * UI_$this.v15;
+                size1$$ = childSize1$;
                 let pos0$$$ = pos0$$ + posDiff0$$;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v14, pos0$$$, pos1$$, size0$$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v14, pos0$$$, pos1$$, size0$$$, size1$$);
               }
               {
                 let childSize0$ = Layout_$this.u19;
-                let posDiff0$$ = (size0$$$ - childSize0$) * UI_$this.v17;
-                let size0$$$$ = childSize0$;
-                let size1$$$ = Layout_$this.l31 - Layout_$this.l30;
+                let posDiff0$$ = (size0$$ - childSize0$) * UI_$this.v17;
+                let size0$$$ = childSize0$;
+                let size1$$ = Layout_$this.l31 - Layout_$this.l30;
                 let posDiff1$ = Layout_$this.l30;
                 let childSize1$ = Layout_$this.u31;
-                posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v17;
-                size1$$$ = childSize1$;
+                posDiff1$ += (size1$$ - childSize1$) * UI_$this.v17;
+                size1$$ = childSize1$;
                 let pos0$$$ = pos0$$ + posDiff0$$;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v16, pos0$$$, pos1$$, size0$$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v16, pos0$$$, pos1$$, size0$$$, size1$$);
               }
               {
                 let childSize0$ = Layout_$this.u20;
-                let posDiff0$$ = (size0$$$ - childSize0$) * UI_$this.v19;
-                let size0$$$$ = childSize0$;
-                let size1$$$ = Layout_$this.l32 - Layout_$this.l31;
+                let posDiff0$$ = (size0$$ - childSize0$) * UI_$this.v19;
+                let size0$$$ = childSize0$;
+                let size1$$ = Layout_$this.l32 - Layout_$this.l31;
                 let posDiff1$ = Layout_$this.l31;
                 let childSize1$ = Layout_$this.u32;
-                posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v19;
-                size1$$$ = childSize1$;
+                posDiff1$ += (size1$$ - childSize1$) * UI_$this.v19;
+                size1$$ = childSize1$;
                 let pos0$$$ = pos0$$ + posDiff0$$;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v18, pos0$$$, pos1$$, size0$$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v18, pos0$$$, pos1$$, size0$$$, size1$$);
               }
               {
                 let childSize0$ = Layout_$this.u21;
-                let posDiff0$$ = (size0$$$ - childSize0$) * UI_$this.v21;
-                let size0$$$$ = childSize0$;
-                let size1$$$ = Layout_$this.l33 - Layout_$this.l32;
+                let posDiff0$$ = (size0$$ - childSize0$) * UI_$this.v21;
+                let size0$$$ = childSize0$;
+                let size1$$ = Layout_$this.l33 - Layout_$this.l32;
                 let posDiff1$ = Layout_$this.l32;
                 let childSize1$ = Layout_$this.u33;
-                posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v21;
-                size1$$$ = childSize1$;
+                posDiff1$ += (size1$$ - childSize1$) * UI_$this.v21;
+                size1$$ = childSize1$;
                 let pos0$$$ = pos0$$ + posDiff0$$;
                 let pos1$$ = pos1$ + posDiff1$;
-                Main_$this.displayText(UI_$this.v20, pos0$$$, pos1$$, size0$$$$, size1$$$);
+                Main_$this.displayText(UI_$this.v20, pos0$$$, pos1$$, size0$$$, size1$$);
               }
             }
           }
@@ -4208,36 +3937,36 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
           Main_$this.pushAttribute(5, UI_$this.v26);
           Main_$this.pushAttribute(12, UI_$this.v27);
           let childSize0 = Layout_$this.u23;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v28;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v28;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v29[0];
           let childSize1 = Layout_$this.u35;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v28;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v28;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v29[1];
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          _paint(Layout_$this.a11, pos0$, pos1$, size0$$, size1$$);
+          _paint(Layout_$this.a11, pos0$, pos1$, size0$, size1$);
           Main_$this.popAttribute(12);
           Main_$this.popAttribute(5);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
           let childSize0 = Layout_$this.u23;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v28;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v28;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v29[0];
           let childSize1 = Layout_$this.u35;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v28;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v28;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v29[1];
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
           if (flag) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
-            flag = _onEvent(Layout_$this.a11, event, pos0, pos1, size0$$, size1$$);
+            flag = _onEvent(Layout_$this.a11, event, pos0, pos1, size0$, size1$);
             if (!flag) {
             }
           }
@@ -4246,37 +3975,37 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         {
-          let size0$$ = Layout_$this.l16;
+          let size0$ = Layout_$this.l16;
           {
           }
           {
-            let size1$$ = Layout_$this.u24;
+            let size1$ = Layout_$this.u24;
             {
-              let size1$$ = Layout_$this.l25 - Layout_$this.u24;
+              let size1$ = Layout_$this.l25 - Layout_$this.u24;
               let posDiff1 = Layout_$this.u24;
               let pos1$ = pos1 + posDiff1;
             }
             {
-              let size1$$ = Layout_$this.l26 - Layout_$this.l25;
+              let size1$ = Layout_$this.l26 - Layout_$this.l25;
               let posDiff1 = Layout_$this.l25;
               let pos1$ = pos1 + posDiff1;
             }
             {
-              let size1$$ = Layout_$this.l27 - Layout_$this.l26;
+              let size1$ = Layout_$this.l27 - Layout_$this.l26;
               let posDiff1 = Layout_$this.l26;
               let pos1$ = pos1 + posDiff1;
             }
             {
-              let size1$$ = Layout_$this.l28 - Layout_$this.l27;
+              let size1$ = Layout_$this.l28 - Layout_$this.l27;
               let posDiff1 = Layout_$this.l27;
               let pos1$ = pos1 + posDiff1;
             }
           }
         }
         {
-          let size0$$ = Layout_$this.l22 - Layout_$this.l16;
+          let size0$ = Layout_$this.l22 - Layout_$this.l16;
           let posDiff0 = Layout_$this.l16;
           let pos0$ = pos0 + posDiff0;
           {
@@ -4284,60 +4013,60 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
           {
             {
               let childSize0 = Layout_$this.u17;
-              let posDiff0$ = (size0$$ - childSize0) * UI_$this.v13;
-              let size0$$$ = childSize0;
-              let size1$$ = Layout_$this.u29;
+              let posDiff0$ = (size0$ - childSize0) * UI_$this.v13;
+              let size0$$ = childSize0;
+              let size1$ = Layout_$this.u29;
               let childSize1 = Layout_$this.u29;
-              let posDiff1 = (size1$$ - childSize1) * UI_$this.v13;
-              size1$$ = childSize1;
+              let posDiff1 = (size1$ - childSize1) * UI_$this.v13;
+              size1$ = childSize1;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$ = pos1 + posDiff1;
             }
             {
               let childSize0 = Layout_$this.u18;
-              let posDiff0$ = (size0$$ - childSize0) * UI_$this.v15;
-              let size0$$$ = childSize0;
-              let size1$$ = Layout_$this.l30 - Layout_$this.u29;
+              let posDiff0$ = (size0$ - childSize0) * UI_$this.v15;
+              let size0$$ = childSize0;
+              let size1$ = Layout_$this.l30 - Layout_$this.u29;
               let posDiff1 = Layout_$this.u29;
               let childSize1 = Layout_$this.u30;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v15;
-              size1$$ = childSize1;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v15;
+              size1$ = childSize1;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$ = pos1 + posDiff1;
             }
             {
               let childSize0 = Layout_$this.u19;
-              let posDiff0$ = (size0$$ - childSize0) * UI_$this.v17;
-              let size0$$$ = childSize0;
-              let size1$$ = Layout_$this.l31 - Layout_$this.l30;
+              let posDiff0$ = (size0$ - childSize0) * UI_$this.v17;
+              let size0$$ = childSize0;
+              let size1$ = Layout_$this.l31 - Layout_$this.l30;
               let posDiff1 = Layout_$this.l30;
               let childSize1 = Layout_$this.u31;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v17;
-              size1$$ = childSize1;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v17;
+              size1$ = childSize1;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$ = pos1 + posDiff1;
             }
             {
               let childSize0 = Layout_$this.u20;
-              let posDiff0$ = (size0$$ - childSize0) * UI_$this.v19;
-              let size0$$$ = childSize0;
-              let size1$$ = Layout_$this.l32 - Layout_$this.l31;
+              let posDiff0$ = (size0$ - childSize0) * UI_$this.v19;
+              let size0$$ = childSize0;
+              let size1$ = Layout_$this.l32 - Layout_$this.l31;
               let posDiff1 = Layout_$this.l31;
               let childSize1 = Layout_$this.u32;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v19;
-              size1$$ = childSize1;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v19;
+              size1$ = childSize1;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$ = pos1 + posDiff1;
             }
             {
               let childSize0 = Layout_$this.u21;
-              let posDiff0$ = (size0$$ - childSize0) * UI_$this.v21;
-              let size0$$$ = childSize0;
-              let size1$$ = Layout_$this.l33 - Layout_$this.l32;
+              let posDiff0$ = (size0$ - childSize0) * UI_$this.v21;
+              let size0$$ = childSize0;
+              let size1$ = Layout_$this.l33 - Layout_$this.l32;
               let posDiff1 = Layout_$this.l32;
               let childSize1 = Layout_$this.u33;
-              posDiff1 += (size1$$ - childSize1) * UI_$this.v21;
-              size1$$ = childSize1;
+              posDiff1 += (size1$ - childSize1) * UI_$this.v21;
+              size1$ = childSize1;
               let pos0$$ = pos0$ + posDiff0$;
               let pos1$ = pos1 + posDiff1;
             }
@@ -4379,7 +4108,7 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
       this.u21 = this.a10[0];
       this.l21 = Main_$this.max(this.l20, this.u21);
       this.l22 = this.l16 + this.l21;
-      this.u23 = this.a11.size0;
+      this.u23 = this.a11.size[0];
       this.l23 = Main_$this.max(this.l22, this.u23);
       this.u24 = this.a1[1];
       this.u25 = this.a2[1];
@@ -4400,10 +4129,9 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
       this.u33 = this.a10[1];
       this.l33 = this.l32 + this.u33;
       this.l34 = Main_$this.max(this.l28, this.l33);
-      this.u35 = this.a11.size1;
+      this.u35 = this.a11.size[1];
       this.l35 = Main_$this.max(this.l34, this.u35);
-      this.size0 = this.l23;
-      this.size1 = this.l35;
+      this.size = new QEDExplicitArray(this.l23, this.l35);
     }
     this.v1 = Main_$this.rect;
     this.v2 = ((100) / 100);
@@ -4461,17 +4189,17 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
+        this.paint = function(pos0, pos1, size0, size1) {
           {
           }
-          _paint(Layout_$this.a2, pos0, pos1, size0$, size1$);
+          _paint(Layout_$this.a2, pos0, pos1, size0, size1);
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
             if (flag) {
-              flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$, size1$);
+              flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1);
               if (!flag) {
                 if (event === 0) {
                   flag = true;
@@ -4488,19 +4216,18 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
           }
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
         this.a1 = new QEDExplicitArray(UI_$this.v1[0], UI_$this.v1[1]);
         this.a2 = _layout(UI_$this.v3);
         this.u3 = this.a1[0];
-        this.u4 = this.a2.size0;
+        this.u4 = this.a2.size[0];
         this.l4 = Main_$this.max(this.u3, this.u4);
         this.u5 = this.a1[1];
-        this.u6 = this.a2.size1;
+        this.u6 = this.a2.size[1];
         this.l6 = Main_$this.max(this.u5, this.u6);
-        this.size0 = this.l4;
-        this.size1 = this.l6;
+        this.size = new QEDExplicitArray(this.l4, this.l6);
       }
       this.v1 = new QEDExplicitArray(800, 400);
       this.v2 = new QEDExplicitArray(0, ((100) / 100));
@@ -4527,29 +4254,28 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       const UI_$this = this;
       this.Layout_ = function() {
         const Layout_$this = this;
-        this.paint = function(pos0, pos1, size0$, size1$) {
-          _paint(Layout_$this.a1, pos0, pos1, size0$, size1$);
+        this.paint = function(pos0, pos1, size0, size1) {
+          _paint(Layout_$this.a1, pos0, pos1, size0, size1);
         }
-        this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+        this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
             if (flag) {
-              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
+              flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
               if (!flag) {
               }
             }
           }
           return (flag);
         }
-        this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+        this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
           return (new QEDExplicitArray(0, 0, 0, 0));
         }
         this.a1 = _layout(UI_$this.v1);
-        this.u2 = this.a1.size0;
-        this.u3 = this.a1.size1;
-        this.size0 = this.u2;
-        this.size1 = this.u3;
+        this.u2 = this.a1.size[0];
+        this.u3 = this.a1.size[1];
+        this.size = new QEDExplicitArray(this.u2, this.u3);
       }
       this.v1 = TabLabel$this.button;
       _setUI(this.v1);
@@ -4566,25 +4292,24 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       this.UI_ = function() {
         const UI_$this = this;
         this.Layout_ = function() {
-          this.paint = function(pos0, pos1, size0$, size1$) {
+          this.paint = function(pos0, pos1, size0, size1) {
             {
               Main_$this.pushAttribute$_(13, UI_$this.v2);
-              Main_$this.displayText(UI_$this.v1, pos0, pos1, size0$, size1$);
+              Main_$this.displayText(UI_$this.v1, pos0, pos1, size0, size1);
               Main_$this.popAttribute(13);
             }
           }
-          this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+          this.onEvent = function(event, pos0, pos1, size0, size1) {
             let flag = false;
             return (flag);
           }
-          this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+          this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
             return (new QEDExplicitArray(0, 0, 0, 0));
           }
           this.a1 = Main_$this.getTextSize(UI_$this.v1);
           this.u2 = this.a1[0];
           this.u3 = this.a1[1];
-          this.size0 = this.u2;
-          this.size1 = this.u3;
+          this.size = new QEDExplicitArray(this.u2, this.u3);
         }
         this.v1 = TabLabel$this.text;
         this.v2 = TabLabel$this.pane > GetTransactionEntry$this.maxIndex ? ((50) / 100) : L_$this.pressed[0] ? ((35) / 100) : ((100) / 100);
@@ -4594,18 +4319,18 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
         L_$this.ui_ = new L_$this.UI_();
       }
     }), (function Lambda_() {
-      new (function W279$_(i277$_) {
-        this.i277$_ = i277$_;
+      new (function W255$_(i253$_) {
+        this.i253$_ = i253$_;
         if (TabLabel$this.pane <= GetTransactionEntry$this.maxIndex) {
           {
             Main_$this.post_(_HandlerFn_);
             return;
           }
-          i277$_();
+          i253$_();
         }
         else
-          i277$_();
-      })((function c278$_() {
+          i253$_();
+      })((function c254$_() {
       }));
     }));
   }
@@ -4635,78 +4360,78 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           Main_$this.pushAttribute(12, UI_$this.v4);
           let childSize0 = Layout_$this.u4;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v5;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v5;
+          let size0$ = childSize0;
           posDiff0 += UI_$this.v2[0];
           let childSize1 = Layout_$this.u8;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v5;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v5;
+          let size1$ = childSize1;
           posDiff1 += UI_$this.v2[1];
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          UI_$this.v1(pos0$, pos1$, size0$$, size1$$);
+          UI_$this.v1(pos0$, pos1$, size0$, size1$);
           Main_$this.popAttribute(12);
         }
         {
           let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
           exp1[1] = exp1[1] + exp1[0];
-          let extraSpace1 = size1$ - Layout_$this.l10;
+          let extraSpace1 = size1 - Layout_$this.l10;
           if (exp1[1] > 1)
             extraSpace1 = extraSpace1 / exp1[1];
           {
             Main_$this.pushAttribute(12, UI_$this.v8);
             Main_$this.pushAttribute(5, UI_$this.v9);
-            let size1$$ = Layout_$this.u9;
-            size1$$ = size1$$ + extraSpace1 * UI_$this.v7[1];
-            _paint(Layout_$this.a2, pos0, pos1, size0$, size1$$);
+            let size1$ = Layout_$this.u9;
+            size1$ = size1$ + extraSpace1 * UI_$this.v7[1];
+            _paint(Layout_$this.a2, pos0, pos1, size0, size1$);
             Main_$this.popAttribute(5);
             Main_$this.popAttribute(12);
           }
           {
-            let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+            let size1$ = Layout_$this.l10 - Layout_$this.u9;
             let posDiff1 = Layout_$this.u9;
-            size1$$ = size1$$ + extraSpace1 * UI_$this.v12;
+            size1$ = size1$ + extraSpace1 * UI_$this.v12;
             posDiff1 += exp1[0] * extraSpace1;
             let pos1$ = pos1 + posDiff1;
-            _paint(Layout_$this.a3, pos0, pos1$, size0$, size1$$);
+            _paint(Layout_$this.a3, pos0, pos1$, size0, size1$);
           }
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
             {
               let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
               exp1[1] = exp1[1] + exp1[0];
-              let extraSpace1 = size1$ - Layout_$this.l10;
+              let extraSpace1 = size1 - Layout_$this.l10;
               if (exp1[1] > 1)
                 extraSpace1 = extraSpace1 / exp1[1];
               if ((3 & (1 << event)) !== 0) {
-                let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+                let size1$ = Layout_$this.l10 - Layout_$this.u9;
                 let posDiff1 = Layout_$this.u9;
-                size1$$ = size1$$ + extraSpace1 * UI_$this.v12;
+                size1$ = size1$ + extraSpace1 * UI_$this.v12;
                 posDiff1 += exp1[0] * extraSpace1;
-                flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+                flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
                 if (flag) {
                   pos1 = pos1 - posDiff1;
-                  flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$$);
+                  flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
                 }
               }
               if (!flag) {
                 if ((3 & (1 << event)) !== 0) {
-                  let size1$$ = Layout_$this.u9;
-                  size1$$ = size1$$ + extraSpace1 * UI_$this.v7[1];
-                  flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
+                  let size1$ = Layout_$this.u9;
+                  size1$ = size1$ + extraSpace1 * UI_$this.v7[1];
+                  flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
                   if (flag) {
-                    flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$, size1$$);
+                    flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1$);
                     if (!flag) {
                     }
                   }
@@ -4719,28 +4444,28 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         {
           let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
           exp1[1] = exp1[1] + exp1[0];
-          let extraSpace1 = size1$ - Layout_$this.l10;
+          let extraSpace1 = size1 - Layout_$this.l10;
           if (exp1[1] > 1)
             extraSpace1 = extraSpace1 / exp1[1];
           {
-            let size1$$ = Layout_$this.u9;
-            size1$$ = size1$$ + extraSpace1 * UI_$this.v7[1];
+            let size1$ = Layout_$this.u9;
+            size1$ = size1$ + extraSpace1 * UI_$this.v7[1];
             if (path[level] === UI_$this.v10) {
               level++;
               if (level === path.size() && dLevel === index.size())
-                return (new QEDExplicitArray(pos0, pos1, size0$, size1$$));
+                return (new QEDExplicitArray(pos0, pos1, size0, size1$));
               else
-                return (_getBoundsRect(Layout_$this.a2, path, index, pos0, pos1, size0$, size1$$, level, dLevel));
+                return (_getBoundsRect(Layout_$this.a2, path, index, pos0, pos1, size0, size1$, level, dLevel));
             }
           }
           {
-            let size1$$ = Layout_$this.l10 - Layout_$this.u9;
+            let size1$ = Layout_$this.l10 - Layout_$this.u9;
             let posDiff1 = Layout_$this.u9;
-            size1$$ = size1$$ + extraSpace1 * UI_$this.v12;
+            size1$ = size1$ + extraSpace1 * UI_$this.v12;
             posDiff1 += exp1[0] * extraSpace1;
             let pos1$ = pos1 + posDiff1;
           }
@@ -4749,21 +4474,20 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       }
       this.a1 = new QEDExplicitArray(UI_$this.v3[0], UI_$this.v3[1]);
       Main_$this.pushAttribute(5, UI_$this.v9);
-      this.a2 = new Main_$this.LayoutArray_(UI_$this.v6, Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
+      this.a2 = new Main_$this.LayoutArray_(UI_$this.v6, UI_$this.v6.getDirs(0), Main_$this.calcLayoutObj, Main_$this.getSizeObj, Main_$this.paintLayoutObj, Main_$this.onLayoutEventObj, Main_$this.getElementRectObj);
       Main_$this.popAttribute(5);
       this.a3 = _layout(UI_$this.v11);
       this.u4 = this.a1[0];
-      this.u5 = this.a2.size0;
-      this.u6 = this.a3.size0;
+      this.u5 = this.a2.size[0];
+      this.u6 = this.a3.size[0];
       this.l6 = Main_$this.max(this.u5, this.u6);
       this.l7 = Main_$this.max(this.u4, this.l6);
       this.u8 = this.a1[1];
-      this.u9 = this.a2.size1;
-      this.u10 = this.a3.size1;
+      this.u9 = this.a2.size[1];
+      this.u10 = this.a3.size[1];
       this.l10 = this.u9 + this.u10;
       this.l11 = Main_$this.max(this.u8, this.l10);
-      this.size0 = this.l7;
-      this.size1 = this.l11;
+      this.size = new QEDExplicitArray(this.l7, this.l11);
     }
     this.v1 = Main_$this.displaySlider;
     this.v2 = new QEDExplicitArray(GetTransactionEntry$this.bounds[0], -1);
@@ -4844,7 +4568,7 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
     this.titles = new Main_$this.QEDArray(new QEDExplicitArray(_d0), (function l(pos, _HandlerFn_) {
       let pane = pos[0];
       return ((new GetTransactionEntry$this.TabLabel(pane, _HandlerFn_)));
-    }), Main_$this.Qui_, (function Lambda_(_ret) {
+    }), new QEDExplicitArray(1, 0), Main_$this.Qui_, (function Lambda_(_ret) {
       GetTransactionEntry$this.blocking__Call = new GetTransactionEntry$this.SetPane(_ret.index, (function Lambda_$() {
         GetTransactionEntry$this.blocking__Call = null;
       }));
@@ -4864,82 +4588,112 @@ this.OrderTacos = function(transactionEntry, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           Main_$this.pushAttribute(12, UI_$this.v6);
           Main_$this.pushAttribute$_(13, UI_$this.v7);
           let childSize0 = Layout_$this.l6;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v8;
+          let size0$ = childSize0;
           let childSize1 = Layout_$this.l9;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v8;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v8;
+          let size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
           {
             let childSize0$ = Layout_$this.u4;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v2;
-            let size0$$$ = childSize0$;
-            let size1$$$ = Layout_$this.u7;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v2;
+            let size0$$ = childSize0$;
+            let size1$$ = Layout_$this.u7;
             let childSize1$ = Layout_$this.u7;
-            let posDiff1$ = (size1$$$ - childSize1$) * UI_$this.v2;
-            size1$$$ = childSize1$;
+            let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v2;
+            size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            _paint(Layout_$this.a1, pos0$$, pos1$$, size0$$$, size1$$$);
+            _paint(Layout_$this.a1, pos0$$, pos1$$, size0$$, size1$$);
           }
           {
-            let size1$$$ = Layout_$this.l8 - Layout_$this.u7;
+            let size1$$ = Layout_$this.l8 - Layout_$this.u7;
             let posDiff1$ = Layout_$this.u7;
             let pos1$$ = pos1$ + posDiff1$;
           }
           {
             let childSize0$ = Layout_$this.u6;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v5;
-            let size0$$$ = childSize0$;
-            let size1$$$ = Layout_$this.l9 - Layout_$this.l8;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v5;
+            let size0$$ = childSize0$;
+            let size1$$ = Layout_$this.l9 - Layout_$this.l8;
             let posDiff1$ = Layout_$this.l8;
             let childSize1$ = Layout_$this.u9;
-            posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v5;
-            size1$$$ = childSize1$;
+            posDiff1$ += (size1$$ - childSize1$) * UI_$this.v5;
+            size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            Main_$this.displayText(UI_$this.v4, pos0$$, pos1$$, size0$$$, size1$$$);
+            Main_$this.displayText(UI_$this.v4, pos0$$, pos1$$, size0$$, size1$$);
           }
           Main_$this.popAttribute(13);
           Main_$this.popAttribute(12);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
+        if ((3 & (1 << event)) !== 0) {
+          let childSize0 = Layout_$this.l6;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v8;
+          let size0$ = childSize0;
+          let childSize1 = Layout_$this.l9;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v8;
+          let size1$ = childSize1;
+          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
+          if (flag) {
+            pos0 = pos0 - posDiff0;
+            pos1 = pos1 - posDiff1;
+            if ((3 & (1 << event)) !== 0) {
+              let childSize0$ = Layout_$this.u4;
+              let posDiff0$ = (size0$ - childSize0$) * UI_$this.v2;
+              let size0$$ = childSize0$;
+              let size1$$ = Layout_$this.u7;
+              let childSize1$ = Layout_$this.u7;
+              let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v2;
+              size1$$ = childSize1$;
+              flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
+              if (flag) {
+                pos0 = pos0 - posDiff0$;
+                pos1 = pos1 - posDiff1$;
+                flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$$, size1$$);
+                if (!flag) {
+                }
+              }
+            }
+          }
+        }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         {
           let childSize0 = Layout_$this.u4;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v2;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.u7;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v2;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.u7;
           let childSize1 = Layout_$this.u7;
-          let posDiff1 = (size1$$ - childSize1) * UI_$this.v2;
-          size1$$ = childSize1;
+          let posDiff1 = (size1$ - childSize1) * UI_$this.v2;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l8 - Layout_$this.u7;
+          let size1$ = Layout_$this.l8 - Layout_$this.u7;
           let posDiff1 = Layout_$this.u7;
           let pos1$ = pos1 + posDiff1;
         }
         {
           let childSize0 = Layout_$this.u6;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v5;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.l9 - Layout_$this.l8;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v5;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.l9 - Layout_$this.l8;
           let posDiff1 = Layout_$this.l8;
           let childSize1 = Layout_$this.u9;
-          posDiff1 += (size1$$ - childSize1) * UI_$this.v5;
-          size1$$ = childSize1;
+          posDiff1 += (size1$ - childSize1) * UI_$this.v5;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
@@ -4948,18 +4702,17 @@ this.OrderTacos = function(transactionEntry, _HandlerFn_) {
       this.a1 = _layout(UI_$this.v1);
       this.a2 = new QEDExplicitArray(UI_$this.v3, UI_$this.v3);
       this.a3 = Main_$this.getTextSize(UI_$this.v4);
-      this.u4 = this.a1.size0;
+      this.u4 = this.a1.size[0];
       this.u5 = this.a2[0];
       this.l5 = Main_$this.max(this.u4, this.u5);
       this.u6 = this.a3[0];
       this.l6 = Main_$this.max(this.l5, this.u6);
-      this.u7 = this.a1.size1;
+      this.u7 = this.a1.size[1];
       this.u8 = this.a2[1];
       this.l8 = this.u7 + this.u8;
       this.u9 = this.a3[1];
       this.l9 = this.l8 + this.u9;
-      this.size0 = this.l6;
-      this.size1 = this.l9;
+      this.size = new QEDExplicitArray(this.l6, this.l9);
     }
     this.v1 = OrderTacos$this.spinner;
     this.v2 = ((50) / 100);
@@ -4996,82 +4749,82 @@ this.DisplaySuccess = function(total, _HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           Main_$this.pushAttribute(12, UI_$this.v6);
           Main_$this.pushAttribute$_(13, UI_$this.v7);
           let childSize0 = Layout_$this.l6;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v8;
-          let size0$$ = childSize0;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v8;
+          let size0$ = childSize0;
           let childSize1 = Layout_$this.l9;
-          let posDiff1 = (size1$ - childSize1) * UI_$this.v8;
-          let size1$$ = childSize1;
+          let posDiff1 = (size1 - childSize1) * UI_$this.v8;
+          let size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
           {
             let childSize0$ = Layout_$this.u4;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v2;
-            let size0$$$ = childSize0$;
-            let size1$$$ = Layout_$this.u7;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v2;
+            let size0$$ = childSize0$;
+            let size1$$ = Layout_$this.u7;
             let childSize1$ = Layout_$this.u7;
-            let posDiff1$ = (size1$$$ - childSize1$) * UI_$this.v2;
-            size1$$$ = childSize1$;
+            let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v2;
+            size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            Main_$this.displayText(UI_$this.v1, pos0$$, pos1$$, size0$$$, size1$$$);
+            Main_$this.displayText(UI_$this.v1, pos0$$, pos1$$, size0$$, size1$$);
           }
           {
-            let size1$$$ = Layout_$this.l8 - Layout_$this.u7;
+            let size1$$ = Layout_$this.l8 - Layout_$this.u7;
             let posDiff1$ = Layout_$this.u7;
             let pos1$$ = pos1$ + posDiff1$;
           }
           {
             let childSize0$ = Layout_$this.u6;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v5;
-            let size0$$$ = childSize0$;
-            let size1$$$ = Layout_$this.l9 - Layout_$this.l8;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v5;
+            let size0$$ = childSize0$;
+            let size1$$ = Layout_$this.l9 - Layout_$this.l8;
             let posDiff1$ = Layout_$this.l8;
             let childSize1$ = Layout_$this.u9;
-            posDiff1$ += (size1$$$ - childSize1$) * UI_$this.v5;
-            size1$$$ = childSize1$;
+            posDiff1$ += (size1$$ - childSize1$) * UI_$this.v5;
+            size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            Main_$this.displayText(UI_$this.v4, pos0$$, pos1$$, size0$$$, size1$$$);
+            Main_$this.displayText(UI_$this.v4, pos0$$, pos1$$, size0$$, size1$$);
           }
           Main_$this.popAttribute(13);
           Main_$this.popAttribute(12);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         {
           let childSize0 = Layout_$this.u4;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v2;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.u7;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v2;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.u7;
           let childSize1 = Layout_$this.u7;
-          let posDiff1 = (size1$$ - childSize1) * UI_$this.v2;
-          size1$$ = childSize1;
+          let posDiff1 = (size1$ - childSize1) * UI_$this.v2;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
         {
-          let size1$$ = Layout_$this.l8 - Layout_$this.u7;
+          let size1$ = Layout_$this.l8 - Layout_$this.u7;
           let posDiff1 = Layout_$this.u7;
           let pos1$ = pos1 + posDiff1;
         }
         {
           let childSize0 = Layout_$this.u6;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v5;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.l9 - Layout_$this.l8;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v5;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.l9 - Layout_$this.l8;
           let posDiff1 = Layout_$this.l8;
           let childSize1 = Layout_$this.u9;
-          posDiff1 += (size1$$ - childSize1) * UI_$this.v5;
-          size1$$ = childSize1;
+          posDiff1 += (size1$ - childSize1) * UI_$this.v5;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
         }
@@ -5090,8 +4843,7 @@ this.DisplaySuccess = function(total, _HandlerFn_) {
       this.l8 = this.u7 + this.u8;
       this.u9 = this.a3[1];
       this.l9 = this.l8 + this.u9;
-      this.size0 = this.l6;
-      this.size1 = this.l9;
+      this.size = new QEDExplicitArray(this.l6, this.l9);
     }
     this.v1 = "A total of " + DisplaySuccess$this.total + " has been added to your hotel invoice.";
     this.v2 = ((50) / 100);
@@ -5121,94 +4873,94 @@ this.MainScreen = function(_HandlerFn_) {
     const UI_$this = this;
     this.Layout_ = function() {
       const Layout_$this = this;
-      this.paint = function(pos0, pos1, size0$, size1$) {
+      this.paint = function(pos0, pos1, size0, size1) {
         {
           Main_$this.pushAttribute(12, UI_$this.v16);
           {
             let exp0 = new QEDExplicitArray(UI_$this.v13);
-            let extraSpace0 = size0$ - Layout_$this.l15;
+            let extraSpace0 = size0 - Layout_$this.l15;
             if (exp0[0] > 1)
               extraSpace0 = extraSpace0 / exp0[0];
             let exp1 = new QEDExplicitArray(UI_$this.v13);
-            let extraSpace1 = size1$ - Layout_$this.l23;
+            let extraSpace1 = size1 - Layout_$this.l23;
             if (exp1[0] > 1)
               extraSpace1 = extraSpace1 / exp1[0];
             {
-              let size0$$ = Layout_$this.u8;
-              let size1$$ = Layout_$this.u16;
+              let size0$ = Layout_$this.u8;
+              let size1$ = Layout_$this.u16;
             }
             {
               Main_$this.pushAttribute(14, UI_$this.v14);
-              let size0$$ = Layout_$this.l14 - Layout_$this.u8;
+              let size0$ = Layout_$this.l14 - Layout_$this.u8;
               let posDiff0 = Layout_$this.u8;
-              size0$$ = size0$$ + extraSpace0 * UI_$this.v13;
-              let size1$$ = Layout_$this.l22 - Layout_$this.u16;
+              size0$ = size0$ + extraSpace0 * UI_$this.v13;
+              let size1$ = Layout_$this.l22 - Layout_$this.u16;
               let posDiff1 = Layout_$this.u16;
-              size1$$ = size1$$ + extraSpace1 * UI_$this.v13;
+              size1$ = size1$ + extraSpace1 * UI_$this.v13;
               let pos0$ = pos0 + posDiff0;
               let pos1$ = pos1 + posDiff1;
               {
                 let exp0$ = new QEDExplicitArray(UI_$this.v8, UI_$this.v12);
                 exp0$[1] = exp0$[1] + exp0$[0];
-                let extraSpace0$ = size0$$ - Layout_$this.l13;
+                let extraSpace0$ = size0$ - Layout_$this.l13;
                 if (exp0$[1] > 1)
                   extraSpace0$ = extraSpace0$ / exp0$[1];
                 {
                   Main_$this.pushAttribute(5, UI_$this.v7);
-                  let size0$$$ = Layout_$this.l11;
-                  size0$$$ = size0$$$ + extraSpace0$ * UI_$this.v8;
+                  let size0$$ = Layout_$this.l11;
+                  size0$$ = size0$$ + extraSpace0$ * UI_$this.v8;
                   {
                     let exp1$ = new QEDExplicitArray(UI_$this.v3, UI_$this.v6);
                     exp1$[1] = exp1$[1] + exp1$[0];
-                    let extraSpace1$ = size1$$ - Layout_$this.l19;
+                    let extraSpace1$ = size1$ - Layout_$this.l19;
                     if (exp1$[1] > 1)
                       extraSpace1$ = extraSpace1$ / exp1$[1];
                     {
-                      let size1$$$ = Layout_$this.u17;
-                      size1$$$ = size1$$$ + extraSpace1$ * UI_$this.v3;
-                      _paint(Layout_$this.a2, pos0$, pos1$, size0$$$, size1$$$);
+                      let size1$$ = Layout_$this.u17;
+                      size1$$ = size1$$ + extraSpace1$ * UI_$this.v3;
+                      _paint(Layout_$this.a2, pos0$, pos1$, size0$$, size1$$);
                     }
                     {
-                      let size1$$$ = Layout_$this.l18 - Layout_$this.u17;
+                      let size1$$ = Layout_$this.l18 - Layout_$this.u17;
                       let posDiff1$ = Layout_$this.u17;
                       posDiff1$ += exp1$[0] * extraSpace1$;
                       let pos1$$ = pos1$ + posDiff1$;
                     }
                     {
-                      let size1$$$ = Layout_$this.l19 - Layout_$this.l18;
+                      let size1$$ = Layout_$this.l19 - Layout_$this.l18;
                       let posDiff1$ = Layout_$this.l18;
-                      size1$$$ = size1$$$ + extraSpace1$ * UI_$this.v6;
+                      size1$$ = size1$$ + extraSpace1$ * UI_$this.v6;
                       posDiff1$ += exp1$[0] * extraSpace1$;
                       let pos1$$ = pos1$ + posDiff1$;
-                      _paint(Layout_$this.a4, pos0$, pos1$$, size0$$$, size1$$$);
+                      _paint(Layout_$this.a4, pos0$, pos1$$, size0$$, size1$$);
                     }
                   }
                   Main_$this.popAttribute(5);
                 }
                 {
-                  let size0$$$ = Layout_$this.l12 - Layout_$this.l11;
+                  let size0$$ = Layout_$this.l12 - Layout_$this.l11;
                   let posDiff0$ = Layout_$this.l11;
                   posDiff0$ += exp0$[0] * extraSpace0$;
                   let pos0$$ = pos0$ + posDiff0$;
                 }
                 {
                   Main_$this.pushAttribute(5, UI_$this.v11);
-                  let size0$$$ = Layout_$this.l13 - Layout_$this.l12;
+                  let size0$$ = Layout_$this.l13 - Layout_$this.l12;
                   let posDiff0$ = Layout_$this.l12;
-                  size0$$$ = size0$$$ + extraSpace0$ * UI_$this.v12;
+                  size0$$ = size0$$ + extraSpace0$ * UI_$this.v12;
                   posDiff0$ += exp0$[0] * extraSpace0$;
                   let pos0$$ = pos0$ + posDiff0$;
-                  _paint(Layout_$this.a6, pos0$$, pos1$, size0$$$, size1$$);
+                  _paint(Layout_$this.a6, pos0$$, pos1$, size0$$, size1$);
                   Main_$this.popAttribute(5);
                 }
               }
               Main_$this.popAttribute(14);
             }
             {
-              let size0$$ = Layout_$this.l15 - Layout_$this.l14;
+              let size0$ = Layout_$this.l15 - Layout_$this.l14;
               let posDiff0 = Layout_$this.l14;
               posDiff0 += exp0[0] * extraSpace0;
-              let size1$$ = Layout_$this.l23 - Layout_$this.l22;
+              let size1$ = Layout_$this.l23 - Layout_$this.l22;
               let posDiff1 = Layout_$this.l22;
               posDiff1 += exp1[0] * extraSpace1;
               let pos0$ = pos0 + posDiff0;
@@ -5218,82 +4970,82 @@ this.MainScreen = function(_HandlerFn_) {
           Main_$this.popAttribute(12);
         }
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
             {
               let exp0 = new QEDExplicitArray(UI_$this.v13);
-              let extraSpace0 = size0$ - Layout_$this.l15;
+              let extraSpace0 = size0 - Layout_$this.l15;
               if (exp0[0] > 1)
                 extraSpace0 = extraSpace0 / exp0[0];
               let exp1 = new QEDExplicitArray(UI_$this.v13);
-              let extraSpace1 = size1$ - Layout_$this.l23;
+              let extraSpace1 = size1 - Layout_$this.l23;
               if (exp1[0] > 1)
                 extraSpace1 = extraSpace1 / exp1[0];
               if ((3 & (1 << event)) !== 0) {
-                let size0$$ = Layout_$this.l14 - Layout_$this.u8;
+                let size0$ = Layout_$this.l14 - Layout_$this.u8;
                 let posDiff0 = Layout_$this.u8;
-                size0$$ = size0$$ + extraSpace0 * UI_$this.v13;
-                let size1$$ = Layout_$this.l22 - Layout_$this.u16;
+                size0$ = size0$ + extraSpace0 * UI_$this.v13;
+                let size1$ = Layout_$this.l22 - Layout_$this.u16;
                 let posDiff1 = Layout_$this.u16;
-                size1$$ = size1$$ + extraSpace1 * UI_$this.v13;
-                flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+                size1$ = size1$ + extraSpace1 * UI_$this.v13;
+                flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
                 if (flag) {
                   pos0 = pos0 - posDiff0;
                   pos1 = pos1 - posDiff1;
                   {
                     let exp0$ = new QEDExplicitArray(UI_$this.v8, UI_$this.v12);
                     exp0$[1] = exp0$[1] + exp0$[0];
-                    let extraSpace0$ = size0$$ - Layout_$this.l13;
+                    let extraSpace0$ = size0$ - Layout_$this.l13;
                     if (exp0$[1] > 1)
                       extraSpace0$ = extraSpace0$ / exp0$[1];
                     if ((3 & (1 << event)) !== 0) {
-                      let size0$$$ = Layout_$this.l13 - Layout_$this.l12;
+                      let size0$$ = Layout_$this.l13 - Layout_$this.l12;
                       let posDiff0$ = Layout_$this.l12;
-                      size0$$$ = size0$$$ + extraSpace0$ * UI_$this.v12;
+                      size0$$ = size0$$ + extraSpace0$ * UI_$this.v12;
                       posDiff0$ += exp0$[0] * extraSpace0$;
-                      flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$$ && pos1 >= 0 && pos1 < size1$$;
+                      flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= 0 && pos1 < size1$;
                       if (flag) {
                         pos0 = pos0 - posDiff0$;
-                        flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$$, size1$$);
+                        flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$, size1$);
                         if (!flag) {
                         }
                       }
                     }
                     if (!flag) {
                       if ((3 & (1 << event)) !== 0) {
-                        let size0$$$ = Layout_$this.l11;
-                        size0$$$ = size0$$$ + extraSpace0$ * UI_$this.v8;
-                        flag = pos0 >= 0 && pos0 < size0$$$ && pos1 >= 0 && pos1 < size1$$;
+                        let size0$$ = Layout_$this.l11;
+                        size0$$ = size0$$ + extraSpace0$ * UI_$this.v8;
+                        flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= 0 && pos1 < size1$;
                         if (flag) {
                           {
                             let exp1$ = new QEDExplicitArray(UI_$this.v3, UI_$this.v6);
                             exp1$[1] = exp1$[1] + exp1$[0];
-                            let extraSpace1$ = size1$$ - Layout_$this.l19;
+                            let extraSpace1$ = size1$ - Layout_$this.l19;
                             if (exp1$[1] > 1)
                               extraSpace1$ = extraSpace1$ / exp1$[1];
                             if ((3 & (1 << event)) !== 0) {
-                              let size1$$$ = Layout_$this.l19 - Layout_$this.l18;
+                              let size1$$ = Layout_$this.l19 - Layout_$this.l18;
                               let posDiff1$ = Layout_$this.l18;
-                              size1$$$ = size1$$$ + extraSpace1$ * UI_$this.v6;
+                              size1$$ = size1$$ + extraSpace1$ * UI_$this.v6;
                               posDiff1$ += exp1$[0] * extraSpace1$;
-                              flag = pos0 >= 0 && pos0 < size0$$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$$;
+                              flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
                               if (flag) {
                                 pos1 = pos1 - posDiff1$;
-                                flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$$$, size1$$$);
+                                flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$$, size1$$);
                                 if (!flag) {
                                 }
                               }
                             }
                             if (!flag) {
                               if ((3 & (1 << event)) !== 0) {
-                                let size1$$$ = Layout_$this.u17;
-                                size1$$$ = size1$$$ + extraSpace1$ * UI_$this.v3;
-                                flag = pos0 >= 0 && pos0 < size0$$$ && pos1 >= 0 && pos1 < size1$$$;
+                                let size1$$ = Layout_$this.u17;
+                                size1$$ = size1$$ + extraSpace1$ * UI_$this.v3;
+                                flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= 0 && pos1 < size1$$;
                                 if (flag) {
-                                  flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$$$, size1$$$);
+                                  flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$$, size1$$);
                                   if (!flag) {
                                   }
                                 }
@@ -5313,83 +5065,83 @@ this.MainScreen = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         {
           let exp0 = new QEDExplicitArray(UI_$this.v13);
-          let extraSpace0 = size0$ - Layout_$this.l15;
+          let extraSpace0 = size0 - Layout_$this.l15;
           if (exp0[0] > 1)
             extraSpace0 = extraSpace0 / exp0[0];
           let exp1 = new QEDExplicitArray(UI_$this.v13);
-          let extraSpace1 = size1$ - Layout_$this.l23;
+          let extraSpace1 = size1 - Layout_$this.l23;
           if (exp1[0] > 1)
             extraSpace1 = extraSpace1 / exp1[0];
           {
-            let size0$$ = Layout_$this.u8;
-            let size1$$ = Layout_$this.u16;
+            let size0$ = Layout_$this.u8;
+            let size1$ = Layout_$this.u16;
           }
           {
-            let size0$$ = Layout_$this.l14 - Layout_$this.u8;
+            let size0$ = Layout_$this.l14 - Layout_$this.u8;
             let posDiff0 = Layout_$this.u8;
-            size0$$ = size0$$ + extraSpace0 * UI_$this.v13;
-            let size1$$ = Layout_$this.l22 - Layout_$this.u16;
+            size0$ = size0$ + extraSpace0 * UI_$this.v13;
+            let size1$ = Layout_$this.l22 - Layout_$this.u16;
             let posDiff1 = Layout_$this.u16;
-            size1$$ = size1$$ + extraSpace1 * UI_$this.v13;
+            size1$ = size1$ + extraSpace1 * UI_$this.v13;
             let pos0$ = pos0 + posDiff0;
             let pos1$ = pos1 + posDiff1;
             {
               let exp0$ = new QEDExplicitArray(UI_$this.v8, UI_$this.v12);
               exp0$[1] = exp0$[1] + exp0$[0];
-              let extraSpace0$ = size0$$ - Layout_$this.l13;
+              let extraSpace0$ = size0$ - Layout_$this.l13;
               if (exp0$[1] > 1)
                 extraSpace0$ = extraSpace0$ / exp0$[1];
               {
-                let size0$$$ = Layout_$this.l11;
-                size0$$$ = size0$$$ + extraSpace0$ * UI_$this.v8;
+                let size0$$ = Layout_$this.l11;
+                size0$$ = size0$$ + extraSpace0$ * UI_$this.v8;
                 {
                   let exp1$ = new QEDExplicitArray(UI_$this.v3, UI_$this.v6);
                   exp1$[1] = exp1$[1] + exp1$[0];
-                  let extraSpace1$ = size1$$ - Layout_$this.l19;
+                  let extraSpace1$ = size1$ - Layout_$this.l19;
                   if (exp1$[1] > 1)
                     extraSpace1$ = extraSpace1$ / exp1$[1];
                   {
-                    let size1$$$ = Layout_$this.u17;
-                    size1$$$ = size1$$$ + extraSpace1$ * UI_$this.v3;
+                    let size1$$ = Layout_$this.u17;
+                    size1$$ = size1$$ + extraSpace1$ * UI_$this.v3;
                   }
                   {
-                    let size1$$$ = Layout_$this.l18 - Layout_$this.u17;
+                    let size1$$ = Layout_$this.l18 - Layout_$this.u17;
                     let posDiff1$ = Layout_$this.u17;
                     posDiff1$ += exp1$[0] * extraSpace1$;
                     let pos1$$ = pos1$ + posDiff1$;
                   }
                   {
-                    let size1$$$ = Layout_$this.l19 - Layout_$this.l18;
+                    let size1$$ = Layout_$this.l19 - Layout_$this.l18;
                     let posDiff1$ = Layout_$this.l18;
-                    size1$$$ = size1$$$ + extraSpace1$ * UI_$this.v6;
+                    size1$$ = size1$$ + extraSpace1$ * UI_$this.v6;
                     posDiff1$ += exp1$[0] * extraSpace1$;
                     let pos1$$ = pos1$ + posDiff1$;
                   }
                 }
               }
               {
-                let size0$$$ = Layout_$this.l12 - Layout_$this.l11;
+                let size0$$ = Layout_$this.l12 - Layout_$this.l11;
                 let posDiff0$ = Layout_$this.l11;
                 posDiff0$ += exp0$[0] * extraSpace0$;
                 let pos0$$ = pos0$ + posDiff0$;
               }
               {
-                let size0$$$ = Layout_$this.l13 - Layout_$this.l12;
+                let size0$$ = Layout_$this.l13 - Layout_$this.l12;
                 let posDiff0$ = Layout_$this.l12;
-                size0$$$ = size0$$$ + extraSpace0$ * UI_$this.v12;
+                size0$$ = size0$$ + extraSpace0$ * UI_$this.v12;
                 posDiff0$ += exp0$[0] * extraSpace0$;
                 let pos0$$ = pos0$ + posDiff0$;
               }
             }
           }
           {
-            let size0$$ = Layout_$this.l15 - Layout_$this.l14;
+            let size0$ = Layout_$this.l15 - Layout_$this.l14;
             let posDiff0 = Layout_$this.l14;
             posDiff0 += exp0[0] * extraSpace0;
-            let size1$$ = Layout_$this.l23 - Layout_$this.l22;
+            let size1$ = Layout_$this.l23 - Layout_$this.l22;
             let posDiff1 = Layout_$this.l22;
             posDiff1 += exp1[0] * extraSpace1;
             let pos0$ = pos0 + posDiff0;
@@ -5410,33 +5162,32 @@ this.MainScreen = function(_HandlerFn_) {
       Main_$this.popAttribute(5);
       this.a7 = new QEDExplicitArray(UI_$this.v15, UI_$this.v15);
       this.u8 = this.a1[0];
-      this.u9 = this.a2.size0;
+      this.u9 = this.a2.size[0];
       this.u10 = this.a3[0];
       this.l10 = Main_$this.max(this.u9, this.u10);
-      this.u11 = this.a4.size0;
+      this.u11 = this.a4.size[0];
       this.l11 = Main_$this.max(this.l10, this.u11);
       this.u12 = this.a5[0];
       this.l12 = this.l11 + this.u12;
-      this.u13 = this.a6.size0;
+      this.u13 = this.a6.size[0];
       this.l13 = this.l12 + this.u13;
       this.l14 = this.u8 + this.l13;
       this.u15 = this.a7[0];
       this.l15 = this.l14 + this.u15;
       this.u16 = this.a1[1];
-      this.u17 = this.a2.size1;
+      this.u17 = this.a2.size[1];
       this.u18 = this.a3[1];
       this.l18 = this.u17 + this.u18;
-      this.u19 = this.a4.size1;
+      this.u19 = this.a4.size[1];
       this.l19 = this.l18 + this.u19;
       this.u20 = this.a5[1];
       this.l20 = Main_$this.max(this.l19, this.u20);
-      this.u21 = this.a6.size1;
+      this.u21 = this.a6.size[1];
       this.l21 = Main_$this.max(this.l20, this.u21);
       this.l22 = this.u16 + this.l21;
       this.u23 = this.a7[1];
       this.l23 = this.l22 + this.u23;
-      this.size0 = this.l15;
-      this.size1 = this.l23;
+      this.size = new QEDExplicitArray(this.l15, this.l23);
     }
     this.v1 = 15;
     this.v2 = MainScreen$this.roomServiceButton;
@@ -5495,13 +5246,13 @@ this.Application = function(_HandlerFn_) {
   this.UI_ = function() {
     const UI_$this = this;
     this.Layout_ = function() {
-      this.paint = function(pos0, pos1, size0$, size1$) {
-        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0$, size1$);
+      this.paint = function(pos0, pos1, size0, size1) {
+        Main_$this.displayText(UI_$this.v1, pos0, pos1, size0, size1);
       }
-      this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+      this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
           if (flag) {
             if (event === 0) {
               flag = true;
@@ -5515,14 +5266,13 @@ this.Application = function(_HandlerFn_) {
         }
         return (flag);
       }
-      this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+      this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
         return (new QEDExplicitArray(0, 0, 0, 0));
       }
       this.a1 = Main_$this.getTextSize(UI_$this.v1);
       this.u2 = this.a1[0];
       this.u3 = this.a1[1];
-      this.size0 = this.u2;
-      this.size1 = this.u3;
+      this.size = new QEDExplicitArray(this.u2, this.u3);
     }
     this.v1 = "";
     this.v2 = ((100) / 100);
@@ -5538,44 +5288,44 @@ this.Application = function(_HandlerFn_) {
     Application$this.ui_ = new Application$this.UI_();
   }
   this.blocking__Call = null;
-  (function while360$_() {
+  (function while347$_() {
     if (true) {
       Application$this.blocking__Call = new Main_$this.MainScreen((function Lambda_(_ret) {
         Application$this.blocking__Call = null;
         let choice = _ret;
-        new (function W370$_(i361$_) {
-          this.i361$_ = i361$_;
+        new (function W357$_(i348$_) {
+          this.i348$_ = i348$_;
           if (choice === 1) {
             let entry = new Main_$this.TransactionEntry((function Lambda_$() {
             }));
             Application$this.blocking__Call = new Main_$this.GetTransactionEntry(entry, (function Lambda_$(_ret$) {
               Application$this.blocking__Call = null;
-              new (function W367$_(i362$_) {
-                this.i362$_ = i362$_;
+              new (function W354$_(i349$_) {
+                this.i349$_ = i349$_;
                 if (_ret$) {
                   Application$this.blocking__Call = new Main_$this.OrderTacos(entry, (function Lambda_$$(_ret$$) {
                     Application$this.blocking__Call = null;
-                    new (function W365$_(i363$_) {
-                      this.i363$_ = i363$_;
+                    new (function W352$_(i350$_) {
+                      this.i350$_ = i350$_;
                       if (_ret$$)
                         Application$this.blocking__Call = new Main_$this.DisplaySuccess(entry.getTotal(), (function Lambda_$$$() {
                           Application$this.blocking__Call = null;
-                          i363$_();
+                          i350$_();
                         }));
                       else {
                         {
                         }
-                        i363$_();
+                        i350$_();
                       }
-                    })((function c364$_() {
-                      i362$_();
+                    })((function c351$_() {
+                      i349$_();
                     }));
                   }));
                 }
                 else
-                  i362$_();
-              })((function c366$_() {
-                i361$_();
+                  i349$_();
+              })((function c353$_() {
+                i348$_();
               }));
             }));
           }
@@ -5584,10 +5334,10 @@ this.Application = function(_HandlerFn_) {
             }
             else {
             }
-            i361$_();
+            i348$_();
           }
-        })((function c369$_() {
-          while360$_();
+        })((function c356$_() {
+          while347$_();
         }));
       }));
     }
@@ -5597,33 +5347,33 @@ this.UI_ = function() {
   const UI_$this = this;
   this.Layout_ = function() {
     const Layout_$this = this;
-    this.paint = function(pos0, pos1, size0$, size1$) {
+    this.paint = function(pos0, pos1, size0, size1) {
       {
         {
           Main_$this.pushAttribute(12, UI_$this.v16);
           let childSize0 = Layout_$this.u10;
-          let posDiff0 = (size0$ - childSize0) * UI_$this.v17;
-          let size0$$ = childSize0;
-          let size1$$ = Layout_$this.u17;
+          let posDiff0 = (size0 - childSize0) * UI_$this.v17;
+          let size0$ = childSize0;
+          let size1$ = Layout_$this.u17;
           let childSize1 = Layout_$this.u17;
-          let posDiff1 = (size1$$ - childSize1) * UI_$this.v17;
-          size1$$ = childSize1;
+          let posDiff1 = (size1$ - childSize1) * UI_$this.v17;
+          size1$ = childSize1;
           let pos0$ = pos0 + posDiff0;
           let pos1$ = pos1 + posDiff1;
-          UI_$this.v14(pos0$, pos1$, size0$$, size1$$);
+          UI_$this.v14(pos0$, pos1$, size0$, size1$);
           Main_$this.saveContext();
           {
             Main_$this.pushAttribute(5, UI_$this.v2);
             Main_$this.pushAttribute(12, UI_$this.v3);
             let childSize0$ = Layout_$this.u7;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v4[0];
-            let size0$$$ = childSize0$;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v4[0];
+            let size0$$ = childSize0$;
             let childSize1$ = Layout_$this.u14;
-            let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v4[1];
-            let size1$$$ = childSize1$;
+            let posDiff1$ = (size1$ - childSize1$) * UI_$this.v4[1];
+            let size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            Main_$this.displayText(UI_$this.v1, pos0$$, pos1$$, size0$$$, size1$$$);
+            Main_$this.displayText(UI_$this.v1, pos0$$, pos1$$, size0$$, size1$$);
             Main_$this.popAttribute(12);
             Main_$this.popAttribute(5);
           }
@@ -5631,65 +5381,65 @@ this.UI_ = function() {
             Main_$this.pushAttribute(5, UI_$this.v6);
             Main_$this.pushAttribute(12, UI_$this.v7);
             let childSize0$ = Layout_$this.u8;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v8;
-            let size0$$$ = childSize0$;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v8;
+            let size0$$ = childSize0$;
             let childSize1$ = Layout_$this.u15;
-            let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v8;
-            let size1$$$ = childSize1$;
+            let posDiff1$ = (size1$ - childSize1$) * UI_$this.v8;
+            let size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            Main_$this.displayText(UI_$this.v5, pos0$$, pos1$$, size0$$$, size1$$$);
+            Main_$this.displayText(UI_$this.v5, pos0$$, pos1$$, size0$$, size1$$);
             Main_$this.popAttribute(12);
             Main_$this.popAttribute(5);
           }
           {
             Main_$this.pushAttribute(12, UI_$this.v11);
             let childSize0$ = Layout_$this.u9;
-            let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v12[0];
-            let size0$$$ = childSize0$;
+            let posDiff0$ = (size0$ - childSize0$) * UI_$this.v12[0];
+            let size0$$ = childSize0$;
             let childSize1$ = Layout_$this.u16;
-            let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v12[1];
-            let size1$$$ = childSize1$;
+            let posDiff1$ = (size1$ - childSize1$) * UI_$this.v12[1];
+            let size1$$ = childSize1$;
             let pos0$$ = pos0$ + posDiff0$;
             let pos1$$ = pos1$ + posDiff1$;
-            _paint(Layout_$this.a3, pos0$$, pos1$$, size0$$$, size1$$$);
+            _paint(Layout_$this.a3, pos0$$, pos1$$, size0$$, size1$$);
             Main_$this.popAttribute(12);
           }
           Main_$this.restoreContext();
           Main_$this.popAttribute(12);
         }
         {
-          let size1$$ = Layout_$this.l20 - Layout_$this.u17;
+          let size1$ = Layout_$this.l20 - Layout_$this.u17;
           let posDiff1 = Layout_$this.u17;
           let pos1$ = pos1 + posDiff1;
           {
             Main_$this.pushAttribute(12, UI_$this.v20);
-            UI_$this.v18(pos0, pos1$, size0$, size1$$);
+            UI_$this.v18(pos0, pos1$, size0, size1$);
             Main_$this.popAttribute(12);
           }
           {
             Main_$this.pushAttribute(12, UI_$this.v24);
-            _paint(Layout_$this.a6, pos0, pos1$, size0$, size1$$);
+            _paint(Layout_$this.a6, pos0, pos1$, size0, size1$);
             Main_$this.popAttribute(12);
           }
         }
       }
     }
-    this.onEvent = function(event, pos0, pos1, size0$, size1$) {
+    this.onEvent = function(event, pos0, pos1, size0, size1) {
       let flag = false;
       if ((3 & (1 << event)) !== 0) {
-        flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
+        flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
         if (flag) {
           if ((3 & (1 << event)) !== 0) {
-            let size1$$ = Layout_$this.l20 - Layout_$this.u17;
+            let size1$ = Layout_$this.l20 - Layout_$this.u17;
             let posDiff1 = Layout_$this.u17;
-            flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+            flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
             if (flag) {
               pos1 = pos1 - posDiff1;
               if ((3 & (1 << event)) !== 0) {
-                flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$$;
+                flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
                 if (flag) {
-                  flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$, size1$$);
+                  flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
                 }
@@ -5701,28 +5451,28 @@ this.UI_ = function() {
           if (!flag) {
             if ((3 & (1 << event)) !== 0) {
               let childSize0 = Layout_$this.u10;
-              let posDiff0 = (size0$ - childSize0) * UI_$this.v17;
-              let size0$$ = childSize0;
-              let size1$$ = Layout_$this.u17;
+              let posDiff0 = (size0 - childSize0) * UI_$this.v17;
+              let size0$ = childSize0;
+              let size1$ = Layout_$this.u17;
               let childSize1 = Layout_$this.u17;
-              let posDiff1 = (size1$$ - childSize1) * UI_$this.v17;
-              size1$$ = childSize1;
-              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$$;
+              let posDiff1 = (size1$ - childSize1) * UI_$this.v17;
+              size1$ = childSize1;
+              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
               if (flag) {
                 pos0 = pos0 - posDiff0;
                 pos1 = pos1 - posDiff1;
                 if ((3 & (1 << event)) !== 0) {
                   let childSize0$ = Layout_$this.u9;
-                  let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v12[0];
-                  let size0$$$ = childSize0$;
+                  let posDiff0$ = (size0$ - childSize0$) * UI_$this.v12[0];
+                  let size0$$ = childSize0$;
                   let childSize1$ = Layout_$this.u16;
-                  let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v12[1];
-                  let size1$$$ = childSize1$;
-                  flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$$;
+                  let posDiff1$ = (size1$ - childSize1$) * UI_$this.v12[1];
+                  let size1$$ = childSize1$;
+                  flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
                   if (flag) {
                     pos0 = pos0 - posDiff0$;
                     pos1 = pos1 - posDiff1$;
-                    flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$$$, size1$$$);
+                    flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$$, size1$$);
                     if (!flag) {
                     }
                   }
@@ -5738,50 +5488,50 @@ this.UI_ = function() {
       }
       return (flag);
     }
-    this.getBoundsRect = function(path, index, pos0, pos1, size0$, size1$, level, dLevel) {
+    this.getBoundsRect = function(path, index, pos0, pos1, size0, size1, level, dLevel) {
       {
         let childSize0 = Layout_$this.u10;
-        let posDiff0 = (size0$ - childSize0) * UI_$this.v17;
-        let size0$$ = childSize0;
-        let size1$$ = Layout_$this.u17;
+        let posDiff0 = (size0 - childSize0) * UI_$this.v17;
+        let size0$ = childSize0;
+        let size1$ = Layout_$this.u17;
         let childSize1 = Layout_$this.u17;
-        let posDiff1 = (size1$$ - childSize1) * UI_$this.v17;
-        size1$$ = childSize1;
+        let posDiff1 = (size1$ - childSize1) * UI_$this.v17;
+        size1$ = childSize1;
         let pos0$ = pos0 + posDiff0;
         let pos1$ = pos1 + posDiff1;
         {
           let childSize0$ = Layout_$this.u7;
-          let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v4[0];
-          let size0$$$ = childSize0$;
+          let posDiff0$ = (size0$ - childSize0$) * UI_$this.v4[0];
+          let size0$$ = childSize0$;
           let childSize1$ = Layout_$this.u14;
-          let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v4[1];
-          let size1$$$ = childSize1$;
+          let posDiff1$ = (size1$ - childSize1$) * UI_$this.v4[1];
+          let size1$$ = childSize1$;
           let pos0$$ = pos0$ + posDiff0$;
           let pos1$$ = pos1$ + posDiff1$;
         }
         {
           let childSize0$ = Layout_$this.u8;
-          let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v8;
-          let size0$$$ = childSize0$;
+          let posDiff0$ = (size0$ - childSize0$) * UI_$this.v8;
+          let size0$$ = childSize0$;
           let childSize1$ = Layout_$this.u15;
-          let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v8;
-          let size1$$$ = childSize1$;
+          let posDiff1$ = (size1$ - childSize1$) * UI_$this.v8;
+          let size1$$ = childSize1$;
           let pos0$$ = pos0$ + posDiff0$;
           let pos1$$ = pos1$ + posDiff1$;
         }
         {
           let childSize0$ = Layout_$this.u9;
-          let posDiff0$ = (size0$$ - childSize0$) * UI_$this.v12[0];
-          let size0$$$ = childSize0$;
+          let posDiff0$ = (size0$ - childSize0$) * UI_$this.v12[0];
+          let size0$$ = childSize0$;
           let childSize1$ = Layout_$this.u16;
-          let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v12[1];
-          let size1$$$ = childSize1$;
+          let posDiff1$ = (size1$ - childSize1$) * UI_$this.v12[1];
+          let size1$$ = childSize1$;
           let pos0$$ = pos0$ + posDiff0$;
           let pos1$$ = pos1$ + posDiff1$;
         }
       }
       {
-        let size1$$ = Layout_$this.l20 - Layout_$this.u17;
+        let size1$ = Layout_$this.l20 - Layout_$this.u17;
         let posDiff1 = Layout_$this.u17;
         let pos1$ = pos1 + posDiff1;
         {
@@ -5789,9 +5539,9 @@ this.UI_ = function() {
         if (path[level] === UI_$this.v22) {
           level++;
           if (level === path.size() && dLevel === index.size())
-            return (new QEDExplicitArray(pos0, pos1$, size0$, size1$$));
+            return (new QEDExplicitArray(pos0, pos1$, size0, size1$));
           else
-            return (_getBoundsRect(Layout_$this.a6, path, index, pos0, pos1$, size0$, size1$$, level, dLevel));
+            return (_getBoundsRect(Layout_$this.a6, path, index, pos0, pos1$, size0, size1$, level, dLevel));
         }
       }
       return (new QEDExplicitArray(0, 0, 0, 0));
@@ -5809,25 +5559,24 @@ this.UI_ = function() {
     this.u7 = this.a1[0];
     this.u8 = this.a2[0];
     this.l8 = Main_$this.max(this.u7, this.u8);
-    this.u9 = this.a3.size0;
+    this.u9 = this.a3.size[0];
     this.l9 = Main_$this.max(this.l8, this.u9);
     this.u10 = this.a4[0];
     this.u11 = this.a5[0];
-    this.u12 = this.a6.size0;
+    this.u12 = this.a6.size[0];
     this.l12 = Main_$this.max(this.u11, this.u12);
     this.l13 = Main_$this.max(this.u10, this.l12);
     this.u14 = this.a1[1];
     this.u15 = this.a2[1];
     this.l15 = Main_$this.max(this.u14, this.u15);
-    this.u16 = this.a3.size1;
+    this.u16 = this.a3.size[1];
     this.l16 = Main_$this.max(this.l15, this.u16);
     this.u17 = this.a4[1];
     this.u18 = this.a5[1];
-    this.u19 = this.a6.size1;
+    this.u19 = this.a6.size[1];
     this.l19 = Main_$this.max(this.u18, this.u19);
     this.l20 = this.u17 + this.l19;
-    this.size0 = this.l13;
-    this.size1 = this.l20;
+    this.size = new QEDExplicitArray(this.l13, this.l20);
   }
   this.v1 = Main_$this.getTimestamp();
   this.v2 = 30;
@@ -5919,6 +5668,19 @@ this.QEDExplicitArray = /*#__PURE__*/function(_Array) {
     return _this;
   }
   _createClass(QEDExplicitArray, [{
+    key: "getNumDirs",
+    value: function getNumDirs() {
+      return (1);
+    }
+  }]);
+  _createClass(QEDExplicitArray, [{
+    key: "getDirs",
+    value: function getDirs(childDir) {
+      return [childDir & 1, (childDir & 2) ? 1 : 0];
+      return (this.length);
+    }
+  }]);
+  _createClass(QEDExplicitArray, [{
     key: "size",
     value: function size() {
       return (this.length);
@@ -5938,12 +5700,12 @@ this.blocking__Call = null;
 Main_$this.executeEvents_();
 canvas.addEventListener("pointerdown", function(ev) {
   var rect = canvas.getBoundingClientRect();
-  _onEvent(Main_$this.ui_.layout_, 0, ev.clientX - rect.left, ev.clientY - rect.top, Main_$this.ui_.layout_.size0, Main_$this.ui_.layout_.size1);
+  _onEvent(Main_$this.ui_.layout_, 0, ev.clientX - rect.left, ev.clientY - rect.top, Main_$this.ui_.layout_.size[0], Main_$this.ui_.layout_.size[1]);
   Main_$this.executeEvents_();
   });
 canvas.addEventListener("pointerup", function(ev) {
   var rect = canvas.getBoundingClientRect();
-  _onEvent(Main_$this.ui_.layout_, 1, ev.clientX - rect.left, ev.clientY - rect.top, Main_$this.ui_.layout_.size0, Main_$this.ui_.layout_.size1);
+  _onEvent(Main_$this.ui_.layout_, 1, ev.clientX - rect.left, ev.clientY - rect.top, Main_$this.ui_.layout_.size[0], Main_$this.ui_.layout_.size[1]);
   Main_$this.executeEvents_();
 });
 canvas.onselectstart = function () { return false; }
