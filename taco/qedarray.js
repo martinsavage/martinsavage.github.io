@@ -369,8 +369,7 @@ this.GenericButton = function(ContentFn, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
               if (event === 0) {
@@ -382,6 +381,7 @@ this.GenericButton = function(ContentFn, _HandlerFn_) {
                 Main_$this.post_(UI_$this.v3);
               }
             }
+            return (flag);
           }
         }
         return (flag);
@@ -431,11 +431,11 @@ this.LinkButton = function(text, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         return (flag);
@@ -510,11 +510,11 @@ this.RectButton = function(ContentFn, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         return (flag);
@@ -605,11 +605,11 @@ this.TextButton = function(text, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         return (flag);
@@ -1633,11 +1633,11 @@ this.ObjectOverTextButton = function(drawObject, text, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         return (flag);
@@ -1810,11 +1810,11 @@ this.ObjectBeforeTextButton = function(drawObject, text, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         return (flag);
@@ -1994,11 +1994,11 @@ this.KeyButton = function(text, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         if (!flag) {
@@ -2056,11 +2056,11 @@ this.LargerButton = function(text, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1);
             if (!flag) {
             }
+            return (flag);
           }
         }
         if (!flag) {
@@ -2130,13 +2130,13 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
             let childSize1 = Layout_$this.u3;
             let posDiff1 = (size1 - childSize1) * UI_$this.v2;
             let size1$ = childSize1;
-            flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-            if (flag) {
+            if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
               pos0 = pos0 - posDiff0;
               pos1 = pos1 - posDiff1;
               flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
               if (!flag) {
               }
+              return (flag);
             }
           }
           return (flag);
@@ -2206,8 +2206,7 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             if ((3 & (1 << event)) !== 0) {
               let childSize0 = Layout_$this.u6;
               let posDiff0 = (size0 - childSize0) * UI_$this.v4;
@@ -2217,26 +2216,27 @@ this.NumericKeyboardWidget = function(_HandlerFn_) {
               let childSize1 = Layout_$this.u9;
               posDiff1 += (size1$ - childSize1) * UI_$this.v4;
               size1$ = childSize1;
-              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-              if (flag) {
+              if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                 pos0 = pos0 - posDiff0;
                 pos1 = pos1 - posDiff1;
                 flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$);
                 if (!flag) {
                 }
+                return (flag);
               }
             }
             if (!flag) {
               if ((3 & (1 << event)) !== 0) {
                 let size1$ = Layout_$this.u7;
-                flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
-                if (flag) {
+                if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$) {
                   flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
+                  return (flag);
                 }
               }
             }
+            return (flag);
           }
         }
         return (flag);
@@ -2371,13 +2371,13 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
             let childSize1 = Layout_$this.u3;
             let posDiff1 = (size1 - childSize1) * UI_$this.v2;
             let size1$ = childSize1;
-            flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-            if (flag) {
+            if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
               pos0 = pos0 - posDiff0;
               pos1 = pos1 - posDiff1;
               flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
               if (!flag) {
               }
+              return (flag);
             }
           }
           return (flag);
@@ -2476,8 +2476,7 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             if ((3 & (1 << event)) !== 0) {
               let childSize0 = Layout_$this.u6;
               let posDiff0 = (size0 - childSize0) * UI_$this.v4;
@@ -2487,26 +2486,27 @@ this.AlphaKeyboardWidget = function(_HandlerFn_) {
               let childSize1 = Layout_$this.u9;
               posDiff1 += (size1$ - childSize1) * UI_$this.v4;
               size1$ = childSize1;
-              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-              if (flag) {
+              if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                 pos0 = pos0 - posDiff0;
                 pos1 = pos1 - posDiff1;
                 flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$, size1$);
                 if (!flag) {
                 }
+                return (flag);
               }
             }
             if (!flag) {
               if ((3 & (1 << event)) !== 0) {
                 let size1$ = Layout_$this.u7;
-                flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
-                if (flag) {
+                if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$) {
                   flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
+                  return (flag);
                 }
               }
             }
+            return (flag);
           }
         }
         return (flag);
@@ -2697,18 +2697,18 @@ this.SpinnerWidget = function(_HandlerFn_) {
           let childSize1 = Layout_$this.u6;
           let posDiff1 = (size1 - childSize1) * UI_$this.v3;
           let size1$ = childSize1;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-          if (flag) {
+          if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             if ((3 & (1 << event)) !== 0) {
-              flag = pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$;
-              if (flag) {
+              if (pos0 >= 0 && pos0 < size0$ && pos1 >= 0 && pos1 < size1$) {
                 flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$, size1$);
                 if (!flag) {
                 }
+                return (flag);
               }
             }
+            return (flag);
           }
         }
         return (flag);
@@ -2785,11 +2785,11 @@ this.NumTacosWidget = function(_HandlerFn_) {
         this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-            if (flag) {
+            if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
               flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
               if (!flag) {
               }
+              return (flag);
             }
           }
           return (flag);
@@ -3032,23 +3032,23 @@ this.NumTacosWidget = function(_HandlerFn_) {
           let childSize1 = Layout_$this.l12;
           let posDiff1 = (size1 - childSize1) * UI_$this.v10[1];
           let size1$ = childSize1;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-          if (flag) {
+          if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             if ((3 & (1 << event)) !== 0) {
               let size1$$ = Layout_$this.l12 - Layout_$this.l11;
               let posDiff1$ = Layout_$this.l11;
-              flag = pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
-              if (flag) {
+              if (pos0 >= 0 && pos0 < size0$ && pos1 >= posDiff1$ && pos1 < size1$$ + posDiff1$) {
                 pos1 = pos1 - posDiff1$;
                 flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$, size1$$);
                 if (!flag) {
                 }
+                return (flag);
               }
             }
             if (!flag) {
             }
+            return (flag);
           }
         }
         return (flag);
@@ -3274,24 +3274,22 @@ this.RoomNumberWidget = function(_HandlerFn_) {
           let posDiff1 = (size1 - childSize1) * UI_$this.v29;
           let size1$ = childSize1;
           posDiff1 += UI_$this.v30;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-          if (flag) {
+          if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             flag = _onEvent(Layout_$this.a8, event, pos0, pos1, size0$, size1$);
             if (!flag) {
             }
+            return (flag);
           }
         }
         if (!flag) {
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-            if (flag) {
+            if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
               if ((3 & (1 << event)) !== 0) {
                 let size1$ = Layout_$this.l25 - Layout_$this.u18;
                 let posDiff1 = Layout_$this.u18;
-                flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-                if (flag) {
+                if (pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                   pos1 = pos1 - posDiff1;
                   {
                     let exp0 = new QEDExplicitArray(UI_$this.v16, UI_$this.v25);
@@ -3304,8 +3302,7 @@ this.RoomNumberWidget = function(_HandlerFn_) {
                       let posDiff0 = Layout_$this.u13;
                       size0$ = size0$ + extraSpace0 * UI_$this.v25;
                       posDiff0 += exp0[0] * extraSpace0;
-                      flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= 0 && pos1 < size1$;
-                      if (flag) {
+                      if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= 0 && pos1 < size1$) {
                         pos0 = pos0 - posDiff0;
                         if ((3 & (1 << event)) !== 0) {
                           let childSize0 = Layout_$this.u14;
@@ -3314,24 +3311,27 @@ this.RoomNumberWidget = function(_HandlerFn_) {
                           let childSize1 = Layout_$this.u23;
                           let posDiff1$ = (size1$ - childSize1) * UI_$this.v22;
                           let size1$$ = childSize1;
-                          flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
-                          if (flag) {
+                          if (pos0 >= posDiff0$ && pos0 < size0$$ + posDiff0$ && pos1 >= posDiff1$ && pos1 < size1$$ + posDiff1$) {
                             pos0 = pos0 - posDiff0$;
                             pos1 = pos1 - posDiff1$;
                             flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$, size1$$);
                             if (!flag) {
                             }
+                            return (flag);
                           }
                         }
+                        return (flag);
                       }
                     }
                     if (!flag) {
                     }
                   }
+                  return (flag);
                 }
               }
               if (!flag) {
               }
+              return (flag);
             }
           }
         }
@@ -3606,32 +3606,32 @@ this.GuestNameWidget = function(_HandlerFn_) {
           let posDiff1 = (size1 - childSize1) * UI_$this.v20;
           let size1$ = childSize1;
           posDiff1 += UI_$this.v21;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-          if (flag) {
+          if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$, size1$);
             if (!flag) {
             }
+            return (flag);
           }
         }
         if (!flag) {
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-            if (flag) {
+            if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
               if ((3 & (1 << event)) !== 0) {
                 let size1$ = Layout_$this.l17 - Layout_$this.l16;
                 let posDiff1 = Layout_$this.l16;
-                flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-                if (flag) {
+                if (pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                   pos1 = pos1 - posDiff1;
                   flag = _onEvent(Layout_$this.a5, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
+                  return (flag);
                 }
               }
               if (!flag) {
               }
+              return (flag);
             }
           }
         }
@@ -3962,13 +3962,13 @@ this.SummaryWidget = function(entry, _HandlerFn_) {
           let posDiff1 = (size1 - childSize1) * UI_$this.v28;
           let size1$ = childSize1;
           posDiff1 += UI_$this.v29[1];
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-          if (flag) {
+          if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             flag = _onEvent(Layout_$this.a11, event, pos0, pos1, size0$, size1$);
             if (!flag) {
             }
+            return (flag);
           }
         }
         if (!flag) {
@@ -4197,8 +4197,7 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
         this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-            if (flag) {
+            if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
               flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1);
               if (!flag) {
                 if (event === 0) {
@@ -4210,6 +4209,7 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
                   Main_$this.post_(UI_$this.v6);
                 }
               }
+              return (flag);
             }
           }
           if (!flag) {
@@ -4260,11 +4260,11 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
         this.onEvent = function(event, pos0, pos1, size0, size1) {
           let flag = false;
           if ((3 & (1 << event)) !== 0) {
-            flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-            if (flag) {
+            if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
               flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0, size1);
               if (!flag) {
               }
+              return (flag);
             }
           }
           return (flag);
@@ -4404,8 +4404,7 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             {
               let exp1 = new QEDExplicitArray(UI_$this.v7[1], UI_$this.v12);
               exp1[1] = exp1[1] + exp1[0];
@@ -4417,27 +4416,28 @@ this.GetTransactionEntry = function(entry, _HandlerFn_) {
                 let posDiff1 = Layout_$this.u9;
                 size1$ = size1$ + extraSpace1 * UI_$this.v12;
                 posDiff1 += exp1[0] * extraSpace1;
-                flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-                if (flag) {
+                if (pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                   pos1 = pos1 - posDiff1;
                   flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
+                  return (flag);
                 }
               }
               if (!flag) {
                 if ((3 & (1 << event)) !== 0) {
                   let size1$ = Layout_$this.u9;
                   size1$ = size1$ + extraSpace1 * UI_$this.v7[1];
-                  flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
-                  if (flag) {
+                  if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$) {
                     flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0, size1$);
                     if (!flag) {
                     }
+                    return (flag);
                   }
                 }
               }
             }
+            return (flag);
           }
         }
         if (!flag) {
@@ -4643,8 +4643,7 @@ this.OrderTacos = function(transactionEntry, _HandlerFn_) {
           let childSize1 = Layout_$this.l9;
           let posDiff1 = (size1 - childSize1) * UI_$this.v8;
           let size1$ = childSize1;
-          flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-          if (flag) {
+          if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
             pos0 = pos0 - posDiff0;
             pos1 = pos1 - posDiff1;
             if ((3 & (1 << event)) !== 0) {
@@ -4655,15 +4654,16 @@ this.OrderTacos = function(transactionEntry, _HandlerFn_) {
               let childSize1$ = Layout_$this.u7;
               let posDiff1$ = (size1$$ - childSize1$) * UI_$this.v2;
               size1$$ = childSize1$;
-              flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
-              if (flag) {
+              if (pos0 >= posDiff0$ && pos0 < size0$$ + posDiff0$ && pos1 >= posDiff1$ && pos1 < size1$$ + posDiff1$) {
                 pos0 = pos0 - posDiff0$;
                 pos1 = pos1 - posDiff1$;
                 flag = _onEvent(Layout_$this.a1, event, pos0, pos1, size0$$, size1$$);
                 if (!flag) {
                 }
+                return (flag);
               }
             }
+            return (flag);
           }
         }
         return (flag);
@@ -4973,8 +4973,7 @@ this.MainScreen = function(_HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             {
               let exp0 = new QEDExplicitArray(UI_$this.v13);
               let extraSpace0 = size0 - Layout_$this.l15;
@@ -4991,8 +4990,7 @@ this.MainScreen = function(_HandlerFn_) {
                 let size1$ = Layout_$this.l22 - Layout_$this.u16;
                 let posDiff1 = Layout_$this.u16;
                 size1$ = size1$ + extraSpace1 * UI_$this.v13;
-                flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-                if (flag) {
+                if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                   pos0 = pos0 - posDiff0;
                   pos1 = pos1 - posDiff1;
                   {
@@ -5006,20 +5004,19 @@ this.MainScreen = function(_HandlerFn_) {
                       let posDiff0$ = Layout_$this.l12;
                       size0$$ = size0$$ + extraSpace0$ * UI_$this.v12;
                       posDiff0$ += exp0$[0] * extraSpace0$;
-                      flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= 0 && pos1 < size1$;
-                      if (flag) {
+                      if (pos0 >= posDiff0$ && pos0 < size0$$ + posDiff0$ && pos1 >= 0 && pos1 < size1$) {
                         pos0 = pos0 - posDiff0$;
                         flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0$$, size1$);
                         if (!flag) {
                         }
+                        return (flag);
                       }
                     }
                     if (!flag) {
                       if ((3 & (1 << event)) !== 0) {
                         let size0$$ = Layout_$this.l11;
                         size0$$ = size0$$ + extraSpace0$ * UI_$this.v8;
-                        flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= 0 && pos1 < size1$;
-                        if (flag) {
+                        if (pos0 >= 0 && pos0 < size0$$ && pos1 >= 0 && pos1 < size1$) {
                           {
                             let exp1$ = new QEDExplicitArray(UI_$this.v3, UI_$this.v6);
                             exp1$[1] = exp1$[1] + exp1$[0];
@@ -5031,36 +5028,39 @@ this.MainScreen = function(_HandlerFn_) {
                               let posDiff1$ = Layout_$this.l18;
                               size1$$ = size1$$ + extraSpace1$ * UI_$this.v6;
                               posDiff1$ += exp1$[0] * extraSpace1$;
-                              flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
-                              if (flag) {
+                              if (pos0 >= 0 && pos0 < size0$$ && pos1 >= posDiff1$ && pos1 < size1$$ + posDiff1$) {
                                 pos1 = pos1 - posDiff1$;
                                 flag = _onEvent(Layout_$this.a4, event, pos0, pos1, size0$$, size1$$);
                                 if (!flag) {
                                 }
+                                return (flag);
                               }
                             }
                             if (!flag) {
                               if ((3 & (1 << event)) !== 0) {
                                 let size1$$ = Layout_$this.u17;
                                 size1$$ = size1$$ + extraSpace1$ * UI_$this.v3;
-                                flag = pos0 >= 0 && pos0 < size0$$ && pos1 >= 0 && pos1 < size1$$;
-                                if (flag) {
+                                if (pos0 >= 0 && pos0 < size0$$ && pos1 >= 0 && pos1 < size1$$) {
                                   flag = _onEvent(Layout_$this.a2, event, pos0, pos1, size0$$, size1$$);
                                   if (!flag) {
                                   }
+                                  return (flag);
                                 }
                               }
                             }
                           }
+                          return (flag);
                         }
                       }
                     }
                   }
+                  return (flag);
                 }
               }
               if (!flag) {
               }
             }
+            return (flag);
           }
         }
         return (flag);
@@ -5252,8 +5252,7 @@ this.Application = function(_HandlerFn_) {
       this.onEvent = function(event, pos0, pos1, size0, size1) {
         let flag = false;
         if ((3 & (1 << event)) !== 0) {
-          flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-          if (flag) {
+          if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
             if (event === 0) {
               flag = true;
               Main_$this.post_(UI_$this.v3);
@@ -5262,6 +5261,7 @@ this.Application = function(_HandlerFn_) {
               flag = true;
               Main_$this.post_(UI_$this.v4);
             }
+            return (flag);
           }
         }
         return (flag);
@@ -5428,24 +5428,23 @@ this.UI_ = function() {
     this.onEvent = function(event, pos0, pos1, size0, size1) {
       let flag = false;
       if ((3 & (1 << event)) !== 0) {
-        flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1;
-        if (flag) {
+        if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1) {
           if ((3 & (1 << event)) !== 0) {
             let size1$ = Layout_$this.l20 - Layout_$this.u17;
             let posDiff1 = Layout_$this.u17;
-            flag = pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-            if (flag) {
+            if (pos0 >= 0 && pos0 < size0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
               pos1 = pos1 - posDiff1;
               if ((3 & (1 << event)) !== 0) {
-                flag = pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$;
-                if (flag) {
+                if (pos0 >= 0 && pos0 < size0 && pos1 >= 0 && pos1 < size1$) {
                   flag = _onEvent(Layout_$this.a6, event, pos0, pos1, size0, size1$);
                   if (!flag) {
                   }
+                  return (flag);
                 }
               }
               if (!flag) {
               }
+              return (flag);
             }
           }
           if (!flag) {
@@ -5457,8 +5456,7 @@ this.UI_ = function() {
               let childSize1 = Layout_$this.u17;
               let posDiff1 = (size1$ - childSize1) * UI_$this.v17;
               size1$ = childSize1;
-              flag = pos0 >= posDiff0 && pos0 < posDiff0 + size0$ && pos1 >= posDiff1 && pos1 < posDiff1 + size1$;
-              if (flag) {
+              if (pos0 >= posDiff0 && pos0 < size0$ + posDiff0 && pos1 >= posDiff1 && pos1 < size1$ + posDiff1) {
                 pos0 = pos0 - posDiff0;
                 pos1 = pos1 - posDiff1;
                 if ((3 & (1 << event)) !== 0) {
@@ -5468,22 +5466,24 @@ this.UI_ = function() {
                   let childSize1$ = Layout_$this.u16;
                   let posDiff1$ = (size1$ - childSize1$) * UI_$this.v12[1];
                   let size1$$ = childSize1$;
-                  flag = pos0 >= posDiff0$ && pos0 < posDiff0$ + size0$$ && pos1 >= posDiff1$ && pos1 < posDiff1$ + size1$$;
-                  if (flag) {
+                  if (pos0 >= posDiff0$ && pos0 < size0$$ + posDiff0$ && pos1 >= posDiff1$ && pos1 < size1$$ + posDiff1$) {
                     pos0 = pos0 - posDiff0$;
                     pos1 = pos1 - posDiff1$;
                     flag = _onEvent(Layout_$this.a3, event, pos0, pos1, size0$$, size1$$);
                     if (!flag) {
                     }
+                    return (flag);
                   }
                 }
                 if (!flag) {
                 }
                 if (!flag) {
                 }
+                return (flag);
               }
             }
           }
+          return (flag);
         }
       }
       return (flag);
