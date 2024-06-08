@@ -92,16 +92,23 @@ String KeyButton(String text) {
   <out: button; fontSize: (getAttribute(5) as int * (/$text.length$/ as int > 1 ? 0.5 : 1)) as int;>
 }
 
+String LargerButton(String text) {
+  var button = new TextButton("   " + text + "   ") -> return text
+
+  <size: [0, getAttribute(5) as int * 2.5 as int]; expand: 100%;>
+  <out: button;>
+}
+
 String NumericKeyboardWidget() {
   String typedText = ""
   String[] numKeyboardRows = ["789", "456", "123"];
   String Row(int row) {
     var buttons = index:_ /$NumericKeyboardWidget$this.numKeyboardRows[Row$this.row].length$/ new
-      KeyButton(/$NumericKeyboardWidget$this.numKeyboardRows[Row$this.row].charAt(index)$/ as String) -> return _ret
+      KeyButton(/$NumericKeyboardWidget$this.numKeyboardRows[Row$this.row].charAt(index)$/ as String) -> return /$_ret._ret$/
 
     <out: buttons; align: 50%;>
   }
-  var rows = i:|numKeyboardRows.size() new Row(i) ->  {typedText += _ret; return typedText}
+  var rows = i:|numKeyboardRows.size() new Row(i) ->  {typedText += /$_ret._ret$/; return typedText}
   var lastRow = [
     new KeyButton("Clear") -> {typedText = ""; return typedText},
     new KeyButton("0") -> {typedText += "0"; return typedText},
@@ -120,11 +127,11 @@ String AlphaKeyboardWidget() {
   String[] alphaKeyboardRows = ["1234567890", "QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
   String Row(int row) {
     var buttons = index:_ /$AlphaKeyboardWidget$this.alphaKeyboardRows[Row$this.row].length$/ new
-      KeyButton(/$AlphaKeyboardWidget$this.alphaKeyboardRows[Row$this.row].charAt(index)$/ as String) -> return _ret
+      KeyButton(/$AlphaKeyboardWidget$this.alphaKeyboardRows[Row$this.row].charAt(index)$/ as String) -> return /$_ret._ret$/
 
     <out: buttons; align: 50%;>
   }
-  var rows = i:|alphaKeyboardRows.size() new Row(i) ->  {typedText += _ret; return typedText}
+  var rows = i:|alphaKeyboardRows.size() new Row(i) ->  {typedText += /$_ret._ret$/; return typedText}
   void SpaceFunc() {<size: [200, 1];>}
   var lastRow = [
     new KeyButton("Clear") -> {typedText = ""; return typedText},
@@ -158,13 +165,6 @@ void SpinnerWidget() {
   <size: 100; align: 50%
     <out: circles;>
   >
-}
-
-String LargerButton(String text) {
-  var button = new TextButton("   " + text + "   ") -> return text
-
-  <size: [0, getAttribute(5) as int * 2.5 as int]; expand: 100%;>
-  <out: button;>
 }
 
 String getTimestamp() {
@@ -201,7 +201,7 @@ int NumTacosWidget() {
     <out: button;>
   }
 
-  NumButton*[] numTacosButtonArray = index :_ 4 new NumButton(index + 1) -> return _ret
+  NumButton*[] numTacosButtonArray = index :_ 4 new NumButton(index + 1) -> return /$_ret._ret$/
 
   <| align: [50%, 0]
     <size: 50;>
@@ -291,7 +291,7 @@ void SummaryWidget(TransactionEntry *entry) {
       >
     >
   >
-  <out: nextButton; fontSize: 25; color: 0x98c694; align: 100%; pos: -25;>
+  <out: nextButton; fontSize: 25; color: 0x98c694; align: 100%; pos: [-25, -25];>
 }
 
 bool GetTransactionEntry(TransactionEntry *entry) {
@@ -323,12 +323,13 @@ bool GetTransactionEntry(TransactionEntry *entry) {
     <out: button;>
   }
 
-  TabLabel*[] titles = pane:_ panes.size() (new TabLabel(pane)) -> SetPane(/$_index$/)
+  TabLabel*[] titles = pane:_ panes.size() (new TabLabel(pane)) -> SetPane(/$_ret.index$/ as int)
 
   Timer(1)   // trigger refresh for slider to get the right bounds
   SetPane(0) // initialize pane with well-dimensioned slider
 
   void NextPane() {
+  /$const NextPane$this = this$/
     SetPane(paneIndex + 1)
     return;
   }
