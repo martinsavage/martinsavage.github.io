@@ -1,9 +1,4 @@
 "use strict";
-const canvas = document.getElementById("canvas");
-let postHandler = null;
-let attributeStacks = [];
-const ctx = canvas.getContext("2d");
-function toColor(color) {return "#" + color.toString(16).padStart(6, '0');}
 const Main_$this = this;
 this.voidHandler_ = function() {
 }
@@ -80,6 +75,9 @@ this._refresh = function(obj, x, y, width, height) {
 //  console.log("" + refreshCount++ + "- Refresh Level: " + level);
 
   if (level) {
+    ctx.globalAlpha = 1.0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     if (level >= 2)
       obj.qedModel.windows = Main_$this._refreshViews(obj);
 
@@ -117,8 +115,6 @@ this.executeEvents_ = function() {
       handler();
     }
 
-  ctx.globalAlpha = 1.0;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   _refresh(Main_$this, 0, 0, canvas.width, canvas.height);
 }
 this.qedEqual = function(value1, value2) {
@@ -331,10 +327,14 @@ this.GenericButton = function(ContentFn) {
   this._refreshModel_ = function() {
     if (!GenericButton$this.qedModel) {
       let u1 = new Main_$this.Directive_(0, 0, 0, new QEDExplicitArray(new Main_$this.Attr_(0, null), new Main_$this.Attr_(-1, (function W1$_() {
-        GenericButton$this.pressed[0] = true;
+        {
+          GenericButton$this.pressed[0] = true;
+          _captureFocus();
+        }
       })), new Main_$this.Attr_(-2, (function W2$_() {
         {
           GenericButton$this.pressed[0] = false;
+          _releaseFocus();
           {
             Main_$this.post_(GenericButton$this, null);
             return;
@@ -1522,15 +1522,13 @@ this.Widget_ = function(directive) {
             let window = Widget_$this.outWidget[0];
             flag = window.onEvent(event, location, newSize);
           }
-      {
-        let index = 0;
-        while(!flag && index < Widget_$this.directive.atts.size()) {
-          let att = Widget_$this.directive.atts[index];
-          if (att.code < 0 && event === -att.code - 1) {
-            Main_$this.post__$(att.value);
-            flag = true;
-          }
-          index++;
+      if (!flag) {
+        let eventIndex = Widget_$this.getEventIndex(event);
+        if (eventIndex !== -1) {
+          let focus = Main_$this.potentialFocus;
+          focus.adjust(Widget_$this, location, size);
+          Main_$this.post__$(Widget_$this.directive.atts[eventIndex].value);
+          flag = true;
         }
       }
     }
@@ -1575,6 +1573,18 @@ this.Widget_ = function(directive) {
       }
     }
     return (new QEDExplicitArray());
+  }
+  this.getEventIndex = function(event) {
+    {
+      let index = 0;
+      while(index < Widget_$this.directive.atts.size()) {
+        let code = Widget_$this.directive.atts[index].code;
+        if (code < 0 && event === -code - 1)
+          return (index);
+        index++;
+      }
+    }
+    return (-1);
   }
   this.align = function(pos, size1) {
     let alignAttr = Widget_$this.directive.findAttr(8);
@@ -1701,6 +1711,38 @@ this.Widget_ = function(directive) {
       ndx--;
     }
   }
+}
+this.QEDFocus_ = function(widget, rect$) {
+  this.widget = widget;
+  this.rect$ = rect$;
+  const QEDFocus_$this = this;
+  this.adjust = function(w, location, size) {
+    QEDFocus_$this.widget = w;
+    QEDFocus_$this.rect$[0] -= location[0];
+    QEDFocus_$this.rect$[1] -= location[1];
+    QEDFocus_$this.rect$[2] = size[0];
+    QEDFocus_$this.rect$[3] = size[1];
+  }
+}
+this._captureFocus = function() {
+  Main_$this.qedFocus = new QEDExplicitArray(Main_$this.potentialFocus);
+}
+this._releaseFocus = function() {
+  Main_$this.qedFocus = new QEDExplicitArray();
+}
+this.onGlobalEvent = function(event, location) {
+  if (Main_$this.qedFocus.size()) {
+    let eventIndex = Main_$this.qedFocus[0].widget.getEventIndex(event);
+    if (eventIndex !== -1) {
+      Main_$this.post__$(Main_$this.qedFocus[0].widget.directive.atts[eventIndex].value);
+    }
+  }
+  else {
+    Main_$this.potentialFocus = new Main_$this.QEDFocus_(null, new QEDExplicitArray(location[0], location[1], 0, 0));
+    Main_$this.qedModel.windows[0].onEvent(event, location, [Main_$this.qedModel.windows[0].size[0], Main_$this.qedModel.windows[0].size[1]]);
+  }
+  if (postHandler)
+    Main_$this.executeEvents_();
 }
 this.getDirVar = function(dir, value) {
   return value instanceof Array ? value[dir] : value;
@@ -2267,12 +2309,12 @@ this.SpinnerWidget = function() {
       return (_bindHandler(new SpinnerWidget$this.Circle(index), _HandlerFn_));
     }), new QEDExplicitArray(0, 0), Main_$this.Qui_));
   }();
-  (function while116$_() {
+  (function while121$_() {
     if (!SpinnerWidget$this.stopped) {
       SpinnerWidget$this.blocking__Call = _bindHandler(new Main_$this.Animation(), (function Lambda_(_ret) {
         SpinnerWidget$this.blocking__Call = null;
         SpinnerWidget$this.angle = _ret / 2000 * 2 * 3.141593;
-        while116$_();
+        while121$_();
       }));
     }
     else
@@ -2787,18 +2829,18 @@ this.GetTransactionEntry = function(entry) {
       }
       this.qedModel = null;
     })), (function Lambda_() {
-      new (function W135$_(i133$_) {
-        this.i133$_ = i133$_;
+      new (function W140$_(i138$_) {
+        this.i138$_ = i138$_;
         if (TabLabel$this.pane <= GetTransactionEntry$this.maxIndex) {
           {
             Main_$this.post_(TabLabel$this, null);
             return;
           }
-          i133$_();
+          i138$_();
         }
         else
-          i133$_();
-      })((function c134$_() {
+          i138$_();
+      })((function c139$_() {
       }));
     }));
     this.qedModel = null;
@@ -3100,43 +3142,43 @@ this.Application = function() {
     return _level;
   }
   this.blocking__Call = null;
-  (function while141$_() {
+  (function while146$_() {
     if (true) {
       Application$this.blocking__Call = _bindHandler(new Main_$this.MainScreen(), (function Lambda_(_ret) {
         Application$this.blocking__Call = null;
         let choice = _ret;
-        new (function W151$_(i142$_) {
-          this.i142$_ = i142$_;
+        new (function W156$_(i147$_) {
+          this.i147$_ = i147$_;
           if (choice === 1) {
             let entry = new Main_$this.TransactionEntry();
             Application$this.blocking__Call = _bindHandler(new Main_$this.GetTransactionEntry(entry), (function Lambda_$(_ret$) {
               Application$this.blocking__Call = null;
-              new (function W148$_(i143$_) {
-                this.i143$_ = i143$_;
+              new (function W153$_(i148$_) {
+                this.i148$_ = i148$_;
                 if (_ret$) {
                   Application$this.blocking__Call = _bindHandler(new Main_$this.OrderTacos(entry), (function Lambda_$$(_ret$$) {
                     Application$this.blocking__Call = null;
-                    new (function W146$_(i144$_) {
-                      this.i144$_ = i144$_;
+                    new (function W151$_(i149$_) {
+                      this.i149$_ = i149$_;
                       if (_ret$$)
                         Application$this.blocking__Call = _bindHandler(new Main_$this.DisplaySuccess(entry.getTotal()), (function Lambda_$$$() {
                           Application$this.blocking__Call = null;
-                          i144$_();
+                          i149$_();
                         }));
                       else {
                         {
                         }
-                        i144$_();
+                        i149$_();
                       }
-                    })((function c145$_() {
-                      i143$_();
+                    })((function c150$_() {
+                      i148$_();
                     }));
                   }));
                 }
                 else
-                  i143$_();
-              })((function c147$_() {
-                i142$_();
+                  i148$_();
+              })((function c152$_() {
+                i147$_();
               }));
             }));
           }
@@ -3145,10 +3187,10 @@ this.Application = function() {
             }
             else {
             }
-            i142$_();
+            i147$_();
           }
-        })((function c150$_() {
-          while141$_();
+        })((function c155$_() {
+          while146$_();
         }));
       }));
     }
@@ -3207,6 +3249,25 @@ this._refreshModel_ = function() {
   let _level = u1.getChangeLevel();
   return _level;
 }
+const canvas = document.getElementById("canvas");
+let postHandler = null;
+let attributeStacks = [];
+const ctx = canvas.getContext("2d");
+function toColor(color) {return "#" + color.toString(16).padStart(6, '0');}
+this.blocking__Call = null;
+canvas.addEventListener("pointerdown", function(ev) {
+  var rect = canvas.getBoundingClientRect();
+  Main_$this.onGlobalEvent(0, [ev.clientX - rect.left, ev.clientY - rect.top]);
+});
+canvas.addEventListener("pointerup", function(ev) {
+  var rect = canvas.getBoundingClientRect();
+  Main_$this.onGlobalEvent(1, [ev.clientX - rect.left, ev.clientY - rect.top]);
+});
+canvas.addEventListener("pointerout", function(ev) {
+  var rect = canvas.getBoundingClientRect();
+  Main_$this.onGlobalEvent(1, [ev.clientX - rect.left, ev.clientY - rect.top]);
+});
+canvas.onselectstart = function () { return false; };
 if (!String.prototype.padStart) {
     String.prototype.padStart = function padStart(targetLength, padString) {
     targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
@@ -3256,6 +3317,7 @@ this.COLOR_YELLOW = 16776960;
 this.COLOR_BLUE = 255;
 this.COLOR_BLACK = 0;
 this.COLOR_WHITE = 16777215;
+this.refreshCount = 1;
 Object.setPrototypeOf(this.QEDBaseArray_.prototype, Array.prototype);
 Object.setPrototypeOf(this.SQEDArray.prototype, Array.prototype);
 Object.setPrototypeOf(this.QEDArray.prototype, Array.prototype);
@@ -3301,6 +3363,8 @@ this.QEDExplicitArray = /*#__PURE__*/function(_Array) {
   }]);
   return QEDExplicitArray;
 }( /*#__PURE__*/_wrapNativeSuper(Array));
+this.potentialFocus = null;
+this.qedFocus = new QEDExplicitArray();
 this.exitHandler = new QEDExplicitArray();
 this.emptyWidget = new this.Widget();
 this.exit = _bindHandler(new this.TextButton("Exit"), (function Lambda_(_ret) {
@@ -3308,16 +3372,4 @@ this.exit = _bindHandler(new this.TextButton("Exit"), (function Lambda_(_ret) {
 }));
 this.application = new this.Application();
 this.qedModel = null;
-this.blocking__Call = null;
 Main_$this.executeEvents_();
-canvas.addEventListener("pointerdown", function(ev) {
-  var rect = canvas.getBoundingClientRect();
-  Main_$this.qedModel.windows[0].onEvent(0, [ev.clientX - rect.left, ev.clientY - rect.top], [Main_$this.qedModel.windows[0].size[0], Main_$this.qedModel.windows[0].size[1]]);
-  Main_$this.executeEvents_();
-  });
-canvas.addEventListener("pointerup", function(ev) {
-  var rect = canvas.getBoundingClientRect();
-  Main_$this.qedModel.windows[0].onEvent(1, [ev.clientX - rect.left, ev.clientY - rect.top], [Main_$this.qedModel.windows[0].size[0], Main_$this.qedModel.windows[0].size[1]]);
-  Main_$this.executeEvents_();
-});
-canvas.onselectstart = function () { return false; }
