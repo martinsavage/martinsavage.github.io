@@ -3263,10 +3263,10 @@ canvas.addEventListener("pointerup", function(ev) {
   var rect = canvas.getBoundingClientRect();
   Main_$this.onGlobalEvent(1, [ev.clientX - rect.left, ev.clientY - rect.top]);
 });
-/*canvas.addEventListener("pointerout", function(ev) {
+canvas.addEventListener("pointercancel", function(ev) {
   var rect = canvas.getBoundingClientRect();
   Main_$this.onGlobalEvent(1, [ev.clientX - rect.left, ev.clientY - rect.top]);
-});*/
+});
 canvas.onselectstart = function () { return false; };
 if (!String.prototype.padStart) {
     String.prototype.padStart = function padStart(targetLength, padString) {
