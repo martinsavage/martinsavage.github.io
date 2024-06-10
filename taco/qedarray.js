@@ -104,10 +104,7 @@ this.executeEvents_ = function() {
       postHandler = null;
 
       if (obj._HandlerFn_)
-        if (ret)
-          obj._HandlerFn_(ret);
-        else
-          obj._HandlerFn_();
+        obj._HandlerFn_(ret);
     } else {
       const handler = postHandler;
     
