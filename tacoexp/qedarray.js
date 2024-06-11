@@ -1412,6 +1412,8 @@ this.Widget_ = function(directive) {
     return (subWidgets$);
   }
   this.paint = function(pos0, pos1, size0, size1) {
+    if (!Widget_$this.directive.getChangeLevel())
+      return;
     {
       let ndx = 0;
       while(ndx < Widget_$this.directive.atts.size()) {
@@ -2318,12 +2320,12 @@ this.SpinnerWidget = function() {
       return (_bindHandler(new SpinnerWidget$this.Circle(index), _HandlerFn_));
     }), new QEDExplicitArray(0, 0), Main_$this.Qui_));
   }();
-  (function while121$_() {
+  (function while122$_() {
     if (!SpinnerWidget$this.stopped) {
       SpinnerWidget$this.blocking__Call = _bindHandler(new Main_$this.Animation(), (function Lambda_(_ret) {
         SpinnerWidget$this.blocking__Call = null;
         SpinnerWidget$this.angle = _ret / 2000 * 2 * 3.141593;
-        while121$_();
+        while122$_();
       }));
     }
     else
@@ -2838,18 +2840,18 @@ this.GetTransactionEntry = function(entry) {
       }
       this.qedModel = null;
     })), (function Lambda_() {
-      new (function W140$_(i138$_) {
-        this.i138$_ = i138$_;
+      new (function W141$_(i139$_) {
+        this.i139$_ = i139$_;
         if (TabLabel$this.pane <= GetTransactionEntry$this.maxIndex) {
           {
             Main_$this.post_(TabLabel$this, null);
             return;
           }
-          i138$_();
+          i139$_();
         }
         else
-          i138$_();
-      })((function c139$_() {
+          i139$_();
+      })((function c140$_() {
       }));
     }));
     this.qedModel = null;
@@ -3151,43 +3153,43 @@ this.Application = function() {
     return _level;
   }
   this.blocking__Call = null;
-  (function while146$_() {
+  (function while147$_() {
     if (true) {
       Application$this.blocking__Call = _bindHandler(new Main_$this.MainScreen(), (function Lambda_(_ret) {
         Application$this.blocking__Call = null;
         let choice = _ret;
-        new (function W156$_(i147$_) {
-          this.i147$_ = i147$_;
+        new (function W157$_(i148$_) {
+          this.i148$_ = i148$_;
           if (choice === 1) {
             let entry = new Main_$this.TransactionEntry();
             Application$this.blocking__Call = _bindHandler(new Main_$this.GetTransactionEntry(entry), (function Lambda_$(_ret$) {
               Application$this.blocking__Call = null;
-              new (function W153$_(i148$_) {
-                this.i148$_ = i148$_;
+              new (function W154$_(i149$_) {
+                this.i149$_ = i149$_;
                 if (_ret$) {
                   Application$this.blocking__Call = _bindHandler(new Main_$this.OrderTacos(entry), (function Lambda_$$(_ret$$) {
                     Application$this.blocking__Call = null;
-                    new (function W151$_(i149$_) {
-                      this.i149$_ = i149$_;
+                    new (function W152$_(i150$_) {
+                      this.i150$_ = i150$_;
                       if (_ret$$)
                         Application$this.blocking__Call = _bindHandler(new Main_$this.DisplaySuccess(entry.getTotal()), (function Lambda_$$$() {
                           Application$this.blocking__Call = null;
-                          i149$_();
+                          i150$_();
                         }));
                       else {
                         {
                         }
-                        i149$_();
+                        i150$_();
                       }
-                    })((function c150$_() {
-                      i148$_();
+                    })((function c151$_() {
+                      i149$_();
                     }));
                   }));
                 }
                 else
-                  i148$_();
-              })((function c152$_() {
-                i147$_();
+                  i149$_();
+              })((function c153$_() {
+                i148$_();
               }));
             }));
           }
@@ -3196,10 +3198,10 @@ this.Application = function() {
             }
             else {
             }
-            i147$_();
+            i148$_();
           }
-        })((function c155$_() {
-          while146$_();
+        })((function c156$_() {
+          while147$_();
         }));
       }));
     }
