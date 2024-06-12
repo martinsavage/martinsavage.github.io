@@ -58,7 +58,7 @@ void showTwoTacos(int x, int y, int width, int height) {displayTacos(x, y, width
 
 // Generic widgets
 
-void ObjectOverTextButton(drawFn drawObject, String text) {
+void ObjectOverTextButton(drawFn *drawObject, String text) {
   var button = new RectButton((void L_() {
     <| align: 50%
       <out: drawObject; size: [240, 160]; align: 50%; color: COLOR_WHITE; pos: [0, -40];>
@@ -71,7 +71,7 @@ void ObjectOverTextButton(drawFn drawObject, String text) {
   <out: button;>
 }
 
-void ObjectBeforeTextButton(drawFn drawObject, String text) {
+void ObjectBeforeTextButton(drawFn *drawObject, String text) {
   var button = new RectButton((void L_() {
     <_ align: [0, 50%]; color: COLOR_WHITE
       <size: 30;>
@@ -150,7 +150,7 @@ void SpinnerWidget() {
     >
   }
 
-  Circle *[]circles = index::numCircles new Circle(index)
+  Circle []circles = index::numCircles new Circle(index)
 
   while (!stopped)
     angle = Animation() / 2000 * 2 * 3.14159265
@@ -201,7 +201,7 @@ int NumTacosWidget() {
     <out: button;>
   }
 
-  NumButton*[] numTacosButtonArray = index :_ 4 new NumButton(index + 1) -> return _ret
+  NumButton[] numTacosButtonArray = index :_ 4 new NumButton(index + 1) -> return _ret
 
   <| align: [50%, 0]
     <size: 50;>
@@ -213,7 +213,7 @@ int NumTacosWidget() {
 
 String RoomNumberWidget() {
   String phoneNumber = ""
-  NumericKeyboardWidget *numericKeyboard = new NumericKeyboardWidget() -> (phoneNumber = _ret)
+  NumericKeyboardWidget numericKeyboard = new NumericKeyboardWidget() -> (phoneNumber = _ret)
   var nextButton = new LargerButton("Next") -> return phoneNumber
 
   <|
@@ -237,7 +237,7 @@ String RoomNumberWidget() {
 
 String GuestNameWidget() {
   String zipCode = ""
-  AlphaKeyboardWidget *alphaKeyboard = new AlphaKeyboardWidget() -> (zipCode = _ret)
+  AlphaKeyboardWidget alphaKeyboard = new AlphaKeyboardWidget() -> (zipCode = _ret)
   var nextButton = new LargerButton("Next") -> return zipCode
 
   <|
@@ -251,7 +251,7 @@ String GuestNameWidget() {
   <out: nextButton; fontSize: 25; color: 0x98c694; align: 100%; pos: -25;>
 }
 
-Yield *[] exitHandler = []
+Yield [] exitHandler = []
 var Widget() {<out: "";>}
 var emptyWidget = new Widget();
 
@@ -266,7 +266,7 @@ void TransactionEntry() {
   String getTotal() {return formatMoney(numTacos * tacoPrice)}
 }
 
-void SummaryWidget(TransactionEntry *entry) {
+void SummaryWidget(TransactionEntry entry) {
   var nextButton = new LargerButton("Confirm") -> return
 
   <_ align: 50%; fontSize: 30; color: COLOR_WHITE
@@ -294,21 +294,21 @@ void SummaryWidget(TransactionEntry *entry) {
   <out: nextButton; fontSize: 25; color: 0x98c694; align: 100%; pos: -25;>
 }
 
-bool GetTransactionEntry(TransactionEntry *entry) {
+bool GetTransactionEntry(TransactionEntry entry) {
   int oldIndex = 0
   int paneIndex = 0
   int maxIndex = paneIndex;
   int[] bounds = [0, 0, 0, 0]
-  Yield *triggerExit = new Yield() -> {exitHandler--; return false}
+  Yield triggerExit = new Yield() -> {exitHandler--; return false}
 
   exitHandler[0] = triggerExit;
 
-  void Pane(String title, Widget *widget) {
+  void Pane(String title, Widget widget) {
     <size: [800, 400]; expand: [0, 100%];>
     <out: widget; expand: 100%; onPress: 0; onRelease: 0;>
   }
 
-  Pane *[] panes = [
+  Pane [] panes = [
     new Pane("Count", (new NumTacosWidget() -> {entry.numTacos = _ret; NextPane()})),
     new Pane("Room", (new RoomNumberWidget() -> {entry.roomNumber = _ret; NextPane()})),
     new Pane("Guest", (new GuestNameWidget() -> {entry.guestName = _ret; NextPane()})),
@@ -323,7 +323,7 @@ bool GetTransactionEntry(TransactionEntry *entry) {
     <out: button;>
   }
 
-  TabLabel*[] titles = pane:_ panes.size() (new TabLabel(pane)) -> SetPane(/$_index$/)
+  TabLabel[] titles = pane:_ panes.size() (new TabLabel(pane)) -> SetPane(/$_index$/)
 
   Timer(1)   // trigger refresh for slider to get the right bounds
   SetPane(0) // initialize pane with well-dimensioned slider
@@ -349,8 +349,8 @@ bool GetTransactionEntry(TransactionEntry *entry) {
   >
 }
 
-bool OrderTacos(TransactionEntry *transactionEntry) {
-  SpinnerWidget *spinner = new SpinnerWidget()
+bool OrderTacos(TransactionEntry transactionEntry) {
+  SpinnerWidget spinner = new SpinnerWidget()
 
   Timer(5000) // fake time for the transaction to complete
   spinner.stopped = true
@@ -400,7 +400,7 @@ void Application() {
 
     // gotta implement the switch/case statement...
     if (choice == 1) {
-      TransactionEntry *entry = new TransactionEntry()
+      TransactionEntry entry = new TransactionEntry()
 
       if (GetTransactionEntry(entry)) {
         if (OrderTacos(entry))
@@ -420,7 +420,7 @@ void Application() {
   <out: ""; expand: 100%; onPress: 0; onRelease: 0;>
 }
 
-TextButton *exit = new TextButton("Exit") -> process(exitHandler[0])
+TextButton exit = new TextButton("Exit") -> process(exitHandler[0])
 var application = new Application()
 
 <|
