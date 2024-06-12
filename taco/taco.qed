@@ -150,7 +150,7 @@ void SpinnerWidget() {
     >
   }
 
-  Circle []circles = index::numCircles new Circle(index)
+  Circle[] circles = index::numCircles new Circle(index)
 
   while (!stopped)
     angle = Animation() / 2000 * 2 * 3.14159265
@@ -251,7 +251,7 @@ String GuestNameWidget() {
   <out: nextButton; fontSize: 25; color: 0x98c694; align: 100%; pos: -25;>
 }
 
-Yield [] exitHandler = []
+Yield[] exitHandler = []
 var Widget() {<out: "";>}
 var emptyWidget = new Widget();
 
@@ -308,7 +308,7 @@ bool GetTransactionEntry(TransactionEntry entry) {
     <out: widget; expand: 100%; onPress: 0; onRelease: 0;>
   }
 
-  Pane [] panes = [
+  Pane[] panes = [
     new Pane("Count", (new NumTacosWidget() -> {entry.numTacos = _ret; NextPane()})),
     new Pane("Room", (new RoomNumberWidget() -> {entry.roomNumber = _ret; NextPane()})),
     new Pane("Guest", (new GuestNameWidget() -> {entry.guestName = _ret; NextPane()})),
