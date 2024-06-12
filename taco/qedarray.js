@@ -3258,7 +3258,7 @@ this._refreshModel_ = function() {
   let _level = u1.getChangeLevel();
   return _level;
 }
-const canvas = document.getElementById("canvas");
+var canvas = document.getElementById("canvas");
 let postHandler = null;
 let attributeStacks = [];
 const ctx = canvas.getContext("2d");
