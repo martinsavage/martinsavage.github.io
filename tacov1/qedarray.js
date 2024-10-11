@@ -35,6 +35,7 @@ class QEDObject {
     return level;
   }
 }
+
 class QEDBasicArray extends Array {
   constructor() {
     super();
@@ -49,11 +50,13 @@ class QEDBasicArray extends Array {
     return level;
   }
 }
+
 var canvas = document.getElementById("canvas");
 let postHandler = null;
 let attributeStacks = [];
 let ctx = canvas.getContext("2d");
 const pointerSupported = !!window.PointerEvent
+
 canvas.addEventListener(pointerSupported ? "pointerdown" : "mouseDown", function(ev) {
   var rect = canvas.getBoundingClientRect();
   const mouseX = event.clientX - rect.left;
@@ -93,6 +96,7 @@ if (!String.prototype.padStart) {
     }
 }
 }
+
 let _currentRadius = 3.0;
 let _strokeFlag = false;
 let _fillFlag = true;
@@ -105,6 +109,7 @@ function _bindHandler(obj, handler) {
   obj._HandlerFn_ = handler;
   return obj;
 }
+
 function _qedCallback(obj, value) {
   if (obj._HandlerFn_) {
     obj._HandlerFn_(value);
@@ -176,10 +181,10 @@ function _refresh (obj, x, y, width, height) {
   let level = obj._refreshModels();
 //  console.log("" + refreshCount++ + "- Refresh Level: " + level);
 
-//  if (level) {
+  if (level) {
     ctx.globalAlpha = 1.0;
 
-//    if (level >= 2) {
+    if (level >= 2) {
       Main_$this.windows = _refreshViews(obj);
 
       if (Main_$this.windows.length) {
@@ -188,7 +193,7 @@ function _refresh (obj, x, y, width, height) {
       }
       else
         width = height = 0;
-//    }
+    }
 
     if (!Main_$this.autoInit) {
       Main_$this.autoResize = canvas.width == 0 && canvas.height == 0;
@@ -209,7 +214,7 @@ function _refresh (obj, x, y, width, height) {
 
     if (Main_$this.windows.length)
       Main_$this.windows[0].paint(x, y, canvas.width, canvas.height);
-//  }
+  }
 ;
 };
 this.getBounds = function (path, index) {
@@ -275,15 +280,23 @@ this.rotate = function (x, y, width, height, angle) {
   ctx.translate(x + width / 2, y + height / 2);
   ctx.rotate(angle);
 };
+this.qedDraw = function () {
+  if (_fillFlag)
+    ctx.fill();
+  if (_strokeFlag && _lineFlag)
+    ctx.stroke();
+};
 this.drawFn = function (x, y, width, height) {
 };
 this.oval = function (x, y, width, height) {
   ctx.beginPath();
   ctx.ellipse(x + width / 2, y + height / 2, width / 2, height / 2, 0, 0, 2*Math.PI);
+  Main_$this.qedDraw();
 };
 this.rect = function (x, y, width, height) {
   ctx.beginPath();
   ctx.rect(x, y, width, height);
+  Main_$this.qedDraw();
 };
 this.roundRect = function (x, y, width, height) {
   let radius = _currentRadius;/*
@@ -310,6 +323,7 @@ ctx.lineTo(x + radius, y + height);
 ctx.arcTo(x, y + height, x, y + height - radius, radius);
 ctx.lineTo(x, y + radius);
 ctx.arcTo(x, y, x + radius, y, radius);
+  Main_$this.qedDraw();
 };
 this.getAttribute = function (index) {
   return attributeStacks[index][attributeStacks[index].length - 1];
@@ -856,19 +870,19 @@ this.SQEDArray = class SQEDArray extends QEDBasicArray {
         this.pp = pp;
         this.level = level;
         const InsertLevel$this = this;
-        new (function W26$_ (i18$_) {
-          this.i18$_ = i18$_;
+        new (function W29$_ (i21$_) {
+          this.i21$_ = i21$_;
           if (InsertLevel$this.level < SQEDArray$this.dims.length - 1) {
             {
               pp[level] = 0;
-              (function while19$_ () {
+              (function while22$_ () {
                 if (pp[level] < pos[level]) {
                   InsertLevel$this.blocking__Call = _bindHandler(new SQEDArray$this.InsertLevel(array[pp[level]], InsertLevel$this.dims, InsertLevel$this.pos, InsertLevel$this.size, InsertLevel$this.newSize, InsertLevel$this.pp, InsertLevel$this.level + 1, InsertLevel$this.context__Call), (function Lambda_ () {
                     if (!InsertLevel$this._isActive())
                       return;
                     InsertLevel$this._qedEndCall();
                     pp[level]++;
-                    while19$_();
+                    while22$_();
                   }));
                 }
                 else {
@@ -881,7 +895,7 @@ this.SQEDArray = class SQEDArray extends QEDBasicArray {
                   }
                   {
                     pp[level] = pos[level];
-                    (function while21$_ () {
+                    (function while24$_ () {
                       if (pp[level] < pos[level] + InsertLevel$this.size[level]) {
                         array[pp[level]] = [];
                         InsertLevel$this.blocking__Call = _bindHandler(new SQEDArray$this.InsertLevel(array[pp[level]], new Array(InsertLevel$this.size.length).fill(0), new Array(InsertLevel$this.size.length).fill(0), InsertLevel$this.newSize, InsertLevel$this.newSize, InsertLevel$this.pp, InsertLevel$this.level + 1, InsertLevel$this.context__Call), (function Lambda_ () {
@@ -889,23 +903,23 @@ this.SQEDArray = class SQEDArray extends QEDBasicArray {
                             return;
                           InsertLevel$this._qedEndCall();
                           pp[level]++;
-                          while21$_();
+                          while24$_();
                         }));
                       }
                       else {
                         pp[level] = pos[level] + InsertLevel$this.size[level];
-                        (function while22$_ () {
+                        (function while25$_ () {
                           if (pp[level] < newSize[level]) {
                             InsertLevel$this.blocking__Call = _bindHandler(new SQEDArray$this.InsertLevel(array[pp[level]], InsertLevel$this.dims, InsertLevel$this.pos, InsertLevel$this.size, InsertLevel$this.newSize, InsertLevel$this.pp, InsertLevel$this.level + 1, InsertLevel$this.context__Call), (function Lambda_ () {
                               if (!InsertLevel$this._isActive())
                                 return;
                               InsertLevel$this._qedEndCall();
                               pp[level]++;
-                              while22$_();
+                              while25$_();
                             }));
                           }
                           else
-                            i18$_();
+                            i21$_();
                         })();
                       }
                     })();
@@ -924,7 +938,7 @@ this.SQEDArray = class SQEDArray extends QEDBasicArray {
             }
             {
               pp[level] = pos[level];
-              (function while24$_ () {
+              (function while27$_ () {
                 if (pp[level] < pos[level] + InsertLevel$this.size[level]) {
                   InsertLevel$this.blocking__Call = _bindHandler(new SQEDArray$this.Init(InsertLevel$this.pp, InsertLevel$this.context__Call), (function Lambda_ (_ret) {
                     if (!InsertLevel$this._isActive())
@@ -932,15 +946,15 @@ this.SQEDArray = class SQEDArray extends QEDBasicArray {
                     InsertLevel$this._qedEndCall();
                     array[pp[level]] = _ret;
                     pp[level]++;
-                    while24$_();
+                    while27$_();
                   }));
                 }
                 else
-                  i18$_();
+                  i21$_();
               })();
             }
           }
-        })((function c25$_ () {
+        })((function c28$_ () {
           {
             Main_$this.post_(InsertLevel$this, null);
             return;
@@ -1082,24 +1096,24 @@ this.VSQEDArray = class VSQEDArray extends QEDBasicArray {
         this.pp = pp;
         this.level = level;
         const InsertLevel$this = this;
-        new (function W36$_ (i30$_) {
-          this.i30$_ = i30$_;
+        new (function W39$_ (i33$_) {
+          this.i33$_ = i33$_;
           if (InsertLevel$this.level < VSQEDArray$this.dims.length - 1) {
             {
               pp[level] = 0;
-              (function while31$_ () {
+              (function while34$_ () {
                 if (pp[level] < pos[level]) {
                   InsertLevel$this.blocking__Call = _bindHandler(new VSQEDArray$this.InsertLevel(InsertLevel$this.dims, InsertLevel$this.pos, InsertLevel$this.size, InsertLevel$this.newSize, InsertLevel$this.pp, InsertLevel$this.level + 1, InsertLevel$this.context__Call), (function Lambda_ () {
                     if (!InsertLevel$this._isActive())
                       return;
                     InsertLevel$this._qedEndCall();
                     pp[level]++;
-                    while31$_();
+                    while34$_();
                   }));
                 }
                 else {
                   pp[level] = pos[level];
-                  (function while32$_ () {
+                  (function while35$_ () {
                     if (pp[level] < pos[level] + InsertLevel$this.size[level]) {
                       array[pp[level]] = [];
                       InsertLevel$this.blocking__Call = _bindHandler(new VSQEDArray$this.InsertLevel(new Array(InsertLevel$this.size.length).fill(0), new Array(InsertLevel$this.size.length).fill(0), InsertLevel$this.newSize, InsertLevel$this.newSize, InsertLevel$this.pp, InsertLevel$this.level + 1, InsertLevel$this.context__Call), (function Lambda_ () {
@@ -1107,23 +1121,23 @@ this.VSQEDArray = class VSQEDArray extends QEDBasicArray {
                           return;
                         InsertLevel$this._qedEndCall();
                         pp[level]++;
-                        while32$_();
+                        while35$_();
                       }));
                     }
                     else {
                       pp[level] = pos[level] + InsertLevel$this.size[level];
-                      (function while33$_ () {
+                      (function while36$_ () {
                         if (pp[level] < newSize[level]) {
                           InsertLevel$this.blocking__Call = _bindHandler(new VSQEDArray$this.InsertLevel(InsertLevel$this.dims, InsertLevel$this.pos, InsertLevel$this.size, InsertLevel$this.newSize, InsertLevel$this.pp, InsertLevel$this.level + 1, InsertLevel$this.context__Call), (function Lambda_ () {
                             if (!InsertLevel$this._isActive())
                               return;
                             InsertLevel$this._qedEndCall();
                             pp[level]++;
-                            while33$_();
+                            while36$_();
                           }));
                         }
                         else
-                          i30$_();
+                          i33$_();
                       })();
                     }
                   })();
@@ -1133,21 +1147,21 @@ this.VSQEDArray = class VSQEDArray extends QEDBasicArray {
           }
           else {
             pp[level] = pos[level];
-            (function while34$_ () {
+            (function while37$_ () {
               if (pp[level] < pos[level] + InsertLevel$this.size[level]) {
                 InsertLevel$this.blocking__Call = _bindHandler(new VSQEDArray$this.Init(InsertLevel$this.pp, InsertLevel$this.context__Call), (function Lambda_ () {
                   if (!InsertLevel$this._isActive())
                     return;
                   InsertLevel$this._qedEndCall();
                   pp[level]++;
-                  while34$_();
+                  while37$_();
                 }));
               }
               else
-                i30$_();
+                i33$_();
             })();
           }
-        })((function c35$_ () {
+        })((function c38$_ () {
           {
             Main_$this.post_(InsertLevel$this, null);
             return;
@@ -1729,6 +1743,8 @@ this.Widget_ = function (directive) {
     return (subWidgets);
   };
   this.paint = function (pos0, pos1, size0, size1) {
+    if (!Widget_$this.directive.changeLevel)
+      return;
     {
       let ndx = 0;
       while(ndx < Widget_$this.directive.atts.size()) {
@@ -1773,10 +1789,6 @@ this.Widget_ = function (directive) {
               let lineWidth = _lineFlag ? ctx.lineWidth : 0;
               let offset = lineWidth / 2;
               fn(pos0 + offset, pos1 + offset, size0 - lineWidth, size1 - lineWidth);
-              if (_fillFlag)
-                ctx.fill();
-              if (_strokeFlag && _lineFlag)
-                ctx.stroke();
             }
     if (subSize) {
       let extraSpace = Widget_$this.getExtraSpace(new Main_$this.QEDExplicitArray(size0, size1));
@@ -2298,6 +2310,7 @@ this.Main = class Main extends QEDObject {
     ctx.lineTo(x + width, y + radiusy);
   ctx.quadraticCurveTo(x + width, y, x + width + radius, y);
   ctx.lineTo(x - radius, y);
+      Main_$this.qedDraw();
     };
     this.displayTacos = function (x, y, width, height, count) {
       const scale = height / 80;
@@ -2809,14 +2822,14 @@ this.Main = class Main extends QEDObject {
             return (new SpinnerWidget$this.Circle(index, SpinnerWidget$this));
           }), 1, new Main_$this.QEDExplicitArray(0, 0), Main_$this.Qui_).insert(new Main_$this.QEDExplicitArray(0), new Main_$this.QEDExplicitArray(_d0)));
         })();
-        (function while150$_ () {
+        (function while151$_ () {
           if (true) {
             SpinnerWidget$this.blocking__Call = _bindHandler(new Main_$this.QedAnimation(SpinnerWidget$this.context__Call), (function Lambda_ (_ret) {
               if (!SpinnerWidget$this._isActive())
                 return;
               SpinnerWidget$this._qedEndCall();
               SpinnerWidget$this.angle = _ret / 2000 * 2 * 3.141593;
-              while150$_();
+              while151$_();
             }));
           }
           else
@@ -2997,7 +3010,7 @@ this.Main = class Main extends QEDObject {
           u6.setAtt(3, 20);
           u6.setAtt(4, ((50) / 100));
           let u8 = u6.children[0];
-          u8.setAtt(0, RoomNumberWidget$this.phoneNumber);
+          u8.setAtt(0, RoomNumberWidget$this.roomNumber);
           u8.setAtt(1, 30);
           u8.setAtt(2, "#58535C");
           u8.setAtt(3, ((50) / 100));
@@ -3033,17 +3046,17 @@ this.Main = class Main extends QEDObject {
           _level = Main_$this.max(_level, u1.getChangeLevel());
           return _level;
         };
-        this.phoneNumber = "";
+        this.roomNumber = "";
         this.numericKeyboard = _bindHandler(new Main$this.NumericKeyboardWidget(RoomNumberWidget$this), (function Lambda_ (_ret) {
           if (!RoomNumberWidget$this._isActive())
             return;
-          (RoomNumberWidget$this.phoneNumber = _ret)
+          (RoomNumberWidget$this.roomNumber = _ret)
         }));
         this.nextButton = _bindHandler(new Main_$this.QedTextButton("Next", RoomNumberWidget$this), (function Lambda_ (_ret) {
           if (!RoomNumberWidget$this._isActive())
             return;
           {
-            Main_$this.post_(RoomNumberWidget$this, RoomNumberWidget$this.phoneNumber);
+            Main_$this.post_(RoomNumberWidget$this, RoomNumberWidget$this.roomNumber);
             return;
           }
         }));
@@ -3679,51 +3692,51 @@ this.Main = class Main extends QEDObject {
           let _level = u1.getChangeLevel();
           return _level;
         };
-        (function while189$_ () {
+        (function while190$_ () {
           if (true) {
             Application$this.blocking__Call = _bindHandler(new Main$this.MainScreen(Application$this.context__Call), (function Lambda_ (_ret) {
               if (!Application$this._isActive())
                 return;
               Application$this._qedEndCall();
               let choice = _ret;
-              new (function W199$_ (i190$_) {
-                this.i190$_ = i190$_;
+              new (function W200$_ (i191$_) {
+                this.i191$_ = i191$_;
                 if (choice === 1) {
                   let entry = new Main$this.TransactionEntry(Application$this);
                   Application$this.blocking__Call = _bindHandler(new Main$this.GetTransactionEntry(entry, Application$this.context__Call), (function Lambda_ (_ret) {
                     if (!Application$this._isActive())
                       return;
                     Application$this._qedEndCall();
-                    new (function W196$_ (i191$_) {
-                      this.i191$_ = i191$_;
+                    new (function W197$_ (i192$_) {
+                      this.i192$_ = i192$_;
                       if (_ret) {
                         Application$this.blocking__Call = _bindHandler(new Main$this.OrderTacos(entry, Application$this.context__Call), (function Lambda_ (_ret) {
                           if (!Application$this._isActive())
                             return;
                           Application$this._qedEndCall();
-                          new (function W194$_ (i192$_) {
-                            this.i192$_ = i192$_;
+                          new (function W195$_ (i193$_) {
+                            this.i193$_ = i193$_;
                             if (_ret)
                               Application$this.blocking__Call = _bindHandler(new Main$this.DisplaySuccess(entry.getTotal(), Application$this.context__Call), (function Lambda_ () {
                                 if (!Application$this._isActive())
                                   return;
                                 Application$this._qedEndCall();
-                                i192$_();
+                                i193$_();
                               }));
                             else {
                               {
                               }
-                              i192$_();
+                              i193$_();
                             }
-                          })((function c193$_ () {
-                            i191$_();
+                          })((function c194$_ () {
+                            i192$_();
                           }));
                         }));
                       }
                       else
-                        i191$_();
-                    })((function c195$_ () {
-                      i190$_();
+                        i192$_();
+                    })((function c196$_ () {
+                      i191$_();
                     }));
                   }));
                 }
@@ -3732,10 +3745,10 @@ this.Main = class Main extends QEDObject {
                   }
                   else {
                   }
-                  i190$_();
+                  i191$_();
                 }
-              })((function c198$_ () {
-                while189$_();
+              })((function c199$_ () {
+                while190$_();
               }));
             }));
           }
