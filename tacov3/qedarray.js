@@ -109,6 +109,12 @@ initCtxs();
 
 function initCtxs() {
   canvasCtx = canvas.getContext("2d");
+
+  if (canvas.width != bgCanvas.width || canvas.height != bgCanvas.height) {
+    bgCanvas.width = canvas.width;
+    bgCanvas.height = canvas.height;
+  }
+
   bgCtx = bgCanvas.getContext("2d");
   origCtx = bgCtx;
   ctx = origCtx;
@@ -280,8 +286,8 @@ function _refresh (obj, x, y, width, height) {
     }
 
     if (Main_$this.autoResize && (canvas.width != width || canvas.height != height)) {
-      canvas.width = bgCanvas.width = width;
-      canvas.height = bgCanvas.height = height;
+      canvas.width = width;
+      canvas.height = height;
       initCtxs();
     }
 
