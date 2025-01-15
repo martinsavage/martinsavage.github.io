@@ -262,7 +262,7 @@ this.newQedRect = function (width, height) {
 function _refresh (obj, x, y, width, height) {
   let level = obj._refreshModels();
   let fastFlag = level <= RefreshLevel.RESIZE;
-  Main_$this.logFast("" + refreshCount++ + "- Refresh Level: " + level, true);
+//  Main_$this.logFast("" + refreshCount++ + "- Refresh Level: " + level, true);
 
   if (level != RefreshLevel.NONE) {
     canvasCtx.globalAlpha = bgCtx.globalAlpha = 1.0;
